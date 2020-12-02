@@ -18,8 +18,10 @@ define NUP_RULE
 $(1)-nup.pdf: $$(addsuffix -stamped.pdf,$$(filter $(1)_%,$$(TREES)))
 	pdfnup -o $$@ \
 		--no-landscape \
+		--frame true \
+		--scale 0.95 \
 		--paper a4paper \
-		--nup 5x4 \
+		--nup 5x5 \
 		$$^
 endef
 $(foreach v,$(SIZES),$(eval $(call NUP_RULE,$(v))))
@@ -35,6 +37,7 @@ clean:
 	$(RM) *-a4.pdf
 	$(RM) *-stamped.pdf
 	$(RM) *-nup.pdf
+	$(RM) *-all.pdf
 
 .PRECIOUS: %-a4.pdf
 .PRECIOUS: %-stamped.pdf
