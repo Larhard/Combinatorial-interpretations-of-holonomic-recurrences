@@ -95,7 +95,7 @@
 
 \begin{frame}{Rekurencje holonomiczne}
     \begin{mydefinition}
-        Ciąg \((a_n)_{n=0}^\infty\) jest holonomiczny wtedy i tylko wtedy, gdy istnieje dla niego rekurencja holonomiczna, tj.:
+        Ciąg \((a_n)_{n=0}^\infty\) jest P-rekurencyjny (holonomiczny) wtedy i tylko wtedy, gdy istnieje dla niego rekurencja holonomiczna, tj.:
         \[\exists_{r \in \mathbb{N}} \exists {p_0, \ldots, p_r : \text{ poly }}\forall_{n \in \mathbb{N}}:\]
         \[p_0(n) a_n + p_1(n) a_{n + 1} + \ldots + p_r(n) a_{n + r} = 0\]
     \end{mydefinition}
@@ -104,6 +104,16 @@
         \(a_n = \frac{5 n - 3}{3 n + 5}\) jest holonomiczny, gdyż zachodzi:
         \[(3n + 5) (5n + 2) a_n - (5n - 3)(3n + 8) a_{n + 1} = 0\]
     \end{myexample}
+\end{frame}
+
+\begin{frame}{Rekurencje holonomiczne (równoważnie)}
+    \begin{mydefinition}
+        Ciąg \((a_n)_{n=0}^\infty\) jest P-rekurencyjny (holonomiczny) wtedy i tylko wtedy, gdy istnieje dla niego funkcja tworząca:
+        \[p_0(z) C(z) + p_1(z) C'(z) + \ldots + p_r(z) C^{(r - 1)}(z) = b(z)\]
+        dla pewnych:\\
+        \(r \in \mathbb{N}\)\\
+        \(b, p_0, \ldots, p_r : \text{ poly }\)
+    \end{mydefinition}
 \end{frame}
 
 \begin{frame}{Rekurencje holonomiczne}
@@ -146,7 +156,7 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}{Drzewa bez zig-zagów}
+\begin{frame}{Drzewa bez zygzaków}
     \begin{columns}
         \column{.5\textwidth}
         \begin{mydefinition}
@@ -165,7 +175,7 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}{Drzewa termów lambda w notacji de Brujina}
+\begin{frame}{Drzewa termów lambda w notacji de Bruijna}
     \begin{columns}
         \column{.5\textwidth}
         \begin{mydefinition}
@@ -237,7 +247,7 @@
 
     \begin{myexample}
         \begin{center}
-            \includegraphics[width=.6\textwidth]{gen_002.png}
+            \includegraphics[width=.5\textwidth]{gen_002.png}
         \end{center}
     \end{myexample}
 \end{frame}
@@ -247,8 +257,13 @@
 \begin{frame}{Cele pracy}
     \begin{itemize}
         \item Zebranie technik interpretacji kombinatorycznych rekurencji holonomicznych
-        \item Próba interpretacji kombinatorycznej rekurencji holonomicznych dla drzew czarno-białych, drzew bez zig-zagów oraz drzew termów lambda
+        \item Próba interpretacji kombinatorycznej rekurencji holonomicznych dla drzew czarno-białych, drzew bez zygzaków oraz drzew termów lambda
     \end{itemize}
+\end{frame}
+
+\section*{}
+
+\begin{frame}{Pytania}
 \end{frame}
 
 \end{document}
