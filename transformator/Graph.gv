@@ -1,0 +1,15 @@
+graph {
+	0 [label="@" shape=plain]
+	1 [label=l shape=plain]
+	0 -- 1
+	2 [label=0 shape=plain]
+	1 -- 2
+	3 [label="" shape=none]
+	2 -- 3 [color=lightgreen]
+	4 [label="" shape=none]
+	2 -- 4 [color=lightgreen]
+	5 [label="" shape=none]
+	1 -- 5 [color=lightgreen]
+	6 [label="" shape=none]
+	0 -- 6 [color=lightgreen]
+}
