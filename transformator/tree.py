@@ -5,9 +5,10 @@ class Tree:
     shape = "plain"
     arity = 2
     kinds = ["o"]
+    pointers = ["*"]
 
     def __init__(self, pre_order):
-        self.pre_order = list(pre_order)
+        self.pre_order = [k if isinstance(k, tuple) else (k, ) for k in pre_order]
 
     def __iter__(self):
         return iter(self.pre_order)
@@ -16,13 +17,13 @@ class Tree:
         return self.graph._repr_svg_()
 
     def get_kind_label(self, kind):
-        if kind is None:
-            return ""
+        if kind[0] is None:
+            return "".join(kind[1:])
 
-        return kind
+        return "".join(kind)
 
     def get_kind_shape(self, kind):
-        if kind is None:
+        if kind[0] is None:
             return "none"
 
         return self.shape
@@ -38,7 +39,7 @@ class Tree:
     def get_kind_edge_dict(self, kind, parent_kind):
         result = {}
 
-        if kind is None:
+        if kind[0] is None:
             result["color"] = "lightgreen"
 
         return result
@@ -52,7 +53,7 @@ class Tree:
             idx = str(i)
 
             if i == 0:
-                if kind is not None:
+                if kind[0] is not None:
                     graph.node(idx, **self.get_kind_node_dict(kind))
 
             else:
@@ -65,7 +66,7 @@ class Tree:
                 if p_n > 0:
                     stack.append((p_idx, p_kind, p_n))
 
-            if kind is not None and self.arity > 0:
+            if kind[0] is not None and self.arity > 0:
                 stack.append((idx, kind, self.arity))
 
         if len(stack):
@@ -79,7 +80,7 @@ class Tree:
 
         count = 1
         while count > 0:
-            if self.pre_order[end] is None:
+            if self.pre_order[end][0] is None:
                 count -= 1
             else:
                 count += 1
@@ -93,7 +94,7 @@ class Tree:
 
         kind = self.pre_order[idx]
 
-        if kind is not None:
+        if kind[0] is not None:
             left = self.get_subtree(idx + 1)
             right = self.get_subtree(idx + 1 + len(left))
         else:
@@ -130,7 +131,7 @@ class Tree:
                 if not self.validate_vertex(p_kind, p_children):
                     return False
 
-            if kind is not None:
+            if kind[0] is not None:
                 stack.append((kind, []))
 
         if len(stack) > 0:
@@ -146,7 +147,7 @@ class Tree:
         kinds = kinds or cls.kinds
 
         if n == 0:
-            yield cls([None])
+            yield cls([(None, )])
 
         else:
             for kind in kinds:
@@ -156,10 +157,30 @@ class Tree:
 
                     for left in cls.generate(left_n, kinds, validate=False):
                         for right in cls.generate(right_n, kinds, validate=False):
-                            result = cls([kind] + left.pre_order + right.pre_order)
+                            result = cls([(kind, )] + left.pre_order + right.pre_order)
 
                             if validate:
                                 if result.validate():
                                     yield result
                             else:
                                 yield result
+
+    @classmethod
+    def generate_pointed(cls, n, kinds=None, pointers=None):
+        pointers = pointers or cls.pointers
+
+        for tree in cls.generate(n, kinds):
+            for pointer in pointers:
+                for t in tree.visit_subtrees(lambda kind, left, right: [kind + (pointer, )] + left + right):
+                    yield t
+
+    def __str__(self):
+        result = [
+            self.get_kind_label(kind) for kind in self
+        ]
+
+        return f"<{', '.join(result)}>"
+
+    def __repr__(self):
+        return str(self)
+

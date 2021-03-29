@@ -10,28 +10,32 @@ class LambdaTree(Tree):
     def validate_vertex(self, kind, children):
         left, right = children
 
-        if kind == "l":
-            if left is None:
+        sk = kind[0]
+        sl = left[0] if left is not None else None
+        sr = right[0] if right is not None else None
+
+        if sk == "l":
+            if sl is None:
                 return False
-            if right is not None:
+            if sr is not None:
                 return False
 
-        elif kind == "s":
-            if left is not None:
+        elif sk == "s":
+            if sl is not None:
                 return False
-            if right not in ("s", "o"):
-                return False
-
-        elif kind == "@":
-            if left is None:
-                return False
-            if right is None:
+            if sr not in ("s", "o"):
                 return False
 
-        elif kind == "o":
-            if left is not None:
+        elif sk == "@":
+            if sl is None:
                 return False
-            if right is not None:
+            if sr is None:
+                return False
+
+        elif sk == "o":
+            if sl is not None:
+                return False
+            if sr is not None:
                 return False
 
         else:
