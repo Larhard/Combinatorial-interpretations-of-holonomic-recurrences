@@ -118,6 +118,22 @@ class Tree:
             if result is not None:
                 yield self.__class__(pre + result + post)
 
+    def visit_parent_subtrees(self, func):
+        for i in range(len(self.pre_order)):
+            pre, kind, left, right, post = self.split_subree(i)
+
+            if len(left) > 0:
+                result = func(left[0], kind, left, right)
+
+                if result is not None:
+                    yield self.__class__(pre + result + post)
+
+            if len(right) > 0:
+                result = func(right[0], kind, left, right)
+
+                if result is not None:
+                    yield self.__class__(pre + result + post)
+
     def validate(self):
         stack = []
 
@@ -178,6 +194,9 @@ class Tree:
             for pointer in pointers:
                 for t in tree.visit_subtrees(lambda kind, left, right: [kind + (pointer, )] + left + right):
                     yield t
+
+    def with_pointers_removed(self):
+        return self.__class__(k[0] for k in self.pre_order)
 
     def __str__(self):
         result = [
