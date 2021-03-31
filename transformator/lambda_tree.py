@@ -2,7 +2,7 @@ from transformator.tree import Tree
 
 
 class LambdaTree(Tree):
-    kinds = ["l", "@", "s", "o"]
+    kinds = ["l", "a", "s", "o"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,7 +26,7 @@ class LambdaTree(Tree):
             if sr not in ("s", "o"):
                 return False
 
-        elif sk == "@":
+        elif sk == "a":
             if sl is None:
                 return False
             if sr is None:

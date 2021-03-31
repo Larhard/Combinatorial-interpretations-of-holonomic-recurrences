@@ -16,6 +16,9 @@ class Tree:
     def _repr_svg_(self):
         return self.graph._repr_svg_()
 
+    def _repr_html_(self):
+        return self._repr_svg_()
+
     def get_kind_label(self, kind):
         if kind[0] is None:
             return "".join(kind[1:])
@@ -47,6 +50,8 @@ class Tree:
     @property
     def graph(self):
         graph = Graph()
+        graph.attr(size="4,4")
+
         stack = []
 
         for i, kind in enumerate(self.pre_order):
