@@ -7,8 +7,9 @@ class Tree:
     kinds = ["o"]
     pointers = ["*"]
 
-    def __init__(self, pre_order):
+    def __init__(self, pre_order, **extra):
         self.pre_order = [k if isinstance(k, tuple) else (k, ) for k in pre_order]
+        self.extra = extra
 
     def __iter__(self):
         return iter(self.pre_order)
@@ -116,7 +117,7 @@ class Tree:
             result = func(kind, left, right)
 
             if result is not None:
-                yield self.__class__(pre + result + post)
+                yield self.__class__(pre + result + post, base=self)
 
     def visit_left_parent_subtrees(self, func):
         for i in range(len(self.pre_order)):
@@ -126,7 +127,7 @@ class Tree:
                 result = func(right[0], kind, left, right)
 
                 if result is not None:
-                    yield self.__class__(pre + result + post)
+                    yield self.__class__(pre + result + post, base=self)
 
     def visit_right_parent_subtrees(self, func):
         for i in range(len(self.pre_order)):
@@ -136,7 +137,7 @@ class Tree:
                 result = func(left[0], kind, left, right)
 
                 if result is not None:
-                    yield self.__class__(pre + result + post)
+                    yield self.__class__(pre + result + post, base=self)
 
     def visit_parent_subtrees(self, func):
         for i in range(len(self.pre_order)):
@@ -146,13 +147,13 @@ class Tree:
                 result = func(left[0], kind, left, right)
 
                 if result is not None:
-                    yield self.__class__(pre + result + post)
+                    yield self.__class__(pre + result + post, base=self)
 
             if len(right) > 0:
                 result = func(right[0], kind, left, right)
 
                 if result is not None:
-                    yield self.__class__(pre + result + post)
+                    yield self.__class__(pre + result + post, base=self)
 
     def validate(self):
         stack = []
