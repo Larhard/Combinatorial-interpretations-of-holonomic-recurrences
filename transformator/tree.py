@@ -118,6 +118,26 @@ class Tree:
             if result is not None:
                 yield self.__class__(pre + result + post)
 
+    def visit_left_parent_subtrees(self, func):
+        for i in range(len(self.pre_order)):
+            pre, kind, left, right, post = self.split_subree(i)
+
+            if len(right) > 0:
+                result = func(right[0], kind, left, right)
+
+                if result is not None:
+                    yield self.__class__(pre + result + post)
+
+    def visit_right_parent_subtrees(self, func):
+        for i in range(len(self.pre_order)):
+            pre, kind, left, right, post = self.split_subree(i)
+
+            if len(left) > 0:
+                result = func(left[0], kind, left, right)
+
+                if result is not None:
+                    yield self.__class__(pre + result + post)
+
     def visit_parent_subtrees(self, func):
         for i in range(len(self.pre_order)):
             pre, kind, left, right, post = self.split_subree(i)
