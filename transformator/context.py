@@ -142,7 +142,7 @@ class Context:
         self._active_class = k
         self._active_section = None
 
-        self.sections[self._active_class] = [[] for _ in range(len(self.section_expressions[self._active_class]))]
+        self.clear_class(self._active_class)
 
     def define_section(self, k):
         assert k < len(self.section_expressions[self._active_class])
@@ -151,7 +151,7 @@ class Context:
 
         self._active_section = k
 
-        self.sections[self._active_class][self._active_section] = []
+        self.clear_section(self._active_class, self._active_section)
 
         equation, introduction = self.section_expressions[self._active_class][self._active_section]
         print(f"# define {self._active_class},{self._active_section}: {equation} [{introduction}]")
@@ -219,6 +219,21 @@ class Context:
         }
         return eval(equation, ctx)
 
+    def clear_all_classes(self):
+        for i in range(len(self.sections)):
+            self.clear_class(i)
+
+    def clear_class(self, class_idx=None):
+        class_idx = class_idx if class_idx is not None else self._active_class
+
+        self.sections[class_idx] = [[] for _ in range(len(self.section_expressions[class_idx]))]
+
+    def clear_section(self, class_idx, section_idx):
+        class_idx = class_idx if class_idx is not None else self._active_class
+        section_idx = section_idx if section_idx is not None else self._active_section
+
+        self.sections[class_idx][section_idx] = []
+
     def clear_cache(self):
         for key in self._cached:  # set by @cached_property
             try:
@@ -233,8 +248,16 @@ class Context:
             except AttributeError:
                 pass
 
-    def print_class_stats(self, class_idx=None):
-        print("=== Class stats ===")
+    def print_all_classes_stats(self, class_idx=None):
+        print("=== Classes stats ===")
+
+        for i in range(len(self.sections)):
+            self.print_class_stats(i, show_header=False)
+
+    def print_class_stats(self, class_idx=None, show_header=True):
+        if show_header:
+            print("=== Class stats ===")
+
         class_idx = class_idx if class_idx is not None else self._active_class
 
         for i in range(len(self.sections[class_idx])):
@@ -248,11 +271,12 @@ class Context:
         section_idx = section_idx if section_idx is not None else self._active_section
 
         section_count = self.section_counts[class_idx][section_idx]
+        equation, introductions = self.section_expressions[class_idx][section_idx]
         count = sum(map(lambda x: x[0] * len(x[1]), self.sections[class_idx][section_idx]))
 
         ready = section_count == count
 
-        print(f"[{'x' if ready else ' '}]  {class_idx},{section_idx}: {count:5d} of {section_count}")
+        print(f"[{'x' if ready else ' '}]  {class_idx},{section_idx}: {count:5d} of {section_count:5d} | {equation:25} [{introductions}]")
 
     def print_diff_stats(self):
         print("=== Diff stats ===")
@@ -267,5 +291,24 @@ class Context:
             print(f"{key[0]},{key[1]}: {result[key][0]:5d} {result[key][1]:5d}")
 
     def print_stats(self):
-        self.print_class_stats()
+        self.print_all_classes_stats()
         self.print_diff_stats()
+
+    def display_diff_trees(self, class_idx=None, section_idx=None, part_idx=None):
+        self.display_diff_trees_side(0, class_idx, section_idx, part_idx)
+        self.display_diff_trees_side(1, class_idx, section_idx, part_idx)
+
+    def display_diff_trees_side(self, side, class_idx=None, section_idx=None, part_idx=None):
+        from IPython.display import display, HTML
+        import pyAgrum.lib.notebook as gnb
+
+        filter_key = lambda x: \
+            class_idx is None or x[1][0] == class_idx and \
+            section_idx is None or x[1][1] == section_idx and \
+            part_idx is None or x[1][2] == part_idx
+
+        trees = filter(filter_key, self.diff[side])
+
+        display(HTML(f"=== {'Minus' if side == 0 else 'Plus'} ==="))
+        for tree, _ in trees:
+            gnb.sideBySide(tree, tree.extra["base"])
