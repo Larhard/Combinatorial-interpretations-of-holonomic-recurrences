@@ -1,9 +1,6 @@
-import itertools as it
 import functools as fn
 
 from collections import defaultdict
-
-from transformator.helpers import diff_sorted
 
 
 class cached_property(fn.cached_property):
