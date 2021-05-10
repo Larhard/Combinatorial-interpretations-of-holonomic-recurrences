@@ -303,12 +303,33 @@ class Context:
         import pyAgrum.lib.notebook as gnb
 
         filter_key = lambda x: \
-            class_idx is None or x[1][0] == class_idx and \
-            section_idx is None or x[1][1] == section_idx and \
-            part_idx is None or x[1][2] == part_idx
+            (class_idx is None or x[1][0] == class_idx) and \
+            (section_idx is None or x[1][1] == section_idx) and \
+            (part_idx is None or x[1][2] == part_idx)
 
         trees = filter(filter_key, self.diff[side])
 
         display(HTML(f"=== {'Minus' if side == 0 else 'Plus'} ==="))
         for tree, _ in trees:
             gnb.sideBySide(tree, tree.extra["base"])
+
+    def display_trees(self, class_idx=None, section_idx=None, part_idx=None):
+        if class_idx is None:
+            for i in range(len(self.sections)):
+                self.display_trees(i)
+        elif section_idx is None:
+            for i in range(len(self.sections[class_idx])):
+                self.display_trees(class_idx, i)
+        elif part_idx is None:
+            for i in range(len(self.sections[class_idx][section_idx])):
+                self.display_trees(class_idx, section_idx, i)
+        else:
+            from IPython.display import display, HTML
+            import pyAgrum.lib.notebook as gnb
+
+            multiplier, trees = self.sections[class_idx][section_idx][part_idx]
+
+            display(HTML(f"{class_idx},{section_idx},{part_idx}: {multiplier} * {len(trees)}"))
+
+            for tree in trees:
+                gnb.sideBySide(tree, tree.extra["base"])
