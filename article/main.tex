@@ -100,7 +100,7 @@
 
 \section*{Abstract}
 
-We analyze problem of finding combinatorial interpretations of holonomic recurrences and show some techniques that were used to achieve known results.
+We analyze the problem of finding combinatorial interpretations of holonomic recurrences and show some techniques that were used to achieve known results.
 
 We also try to find combinatorial interpretation of holonomic recurrence for trees of lambda terms in de Bruijn notation.
 
@@ -110,9 +110,11 @@ We also try to find combinatorial interpretation of holonomic recurrence for tre
 
 \subsection{Notation}
 
-In order to make reading this article easier, let's fix some notation and make some assumptions. Any deviation from this will be clearly stated.
+In order to make reading of this article easier, let's fix some notation and make some assumptions. Any deviation from this will be clearly stated.
 
-\(\poly\) is set of all polynomials.
+\(\textiff\) means if and only if.
+
+\(\poly\) is a set of all polynomials.
 
 \(n, m, i, j, k\) are implicitly assumed to be natural numbers.
 
@@ -122,7 +124,7 @@ In order to make reading this article easier, let's fix some notation and make s
 
 \(x_i\) is implicitly assumed to be \(i\)-th element of the sequence \(X\), where \(x\) can be any lower-case letter and \(X\) is upper-case \(x\).
 
-Calligraphic \(\gf{X}\) is implicitly assumed to be generating function of the sequence \(X\) where \(X\) is any upper-case letter.
+Calligraphic \(\gf{X}\) is implicitly assumed to be a generating function of the sequence \(X\) where \(X\) is any upper-case letter.
 
 \subsection{Structurally recursive objects}
 
@@ -173,7 +175,7 @@ Most of the time we will be working with holonomic recurrences, let's introduce 
 \begin{definition}
     \label{def-holo-1}
     \cite{holotoolkit}
-    An infinite sequence \(A = (a_i)_{i=0}^{\infty}\) is called holonomic (aka. P-finite, P-recursive or D-recursive) \(\textiff\) exists holonomic recurrence for it, ie.:
+    An infinite sequence \(A = (a_i)_{i=0}^{\infty}\) is holonomic (aka. P-finite, P-recursive or D-recursive) \(\textiff\) exists holonomic recurrence for it, ie.:
 
 \[\exists_{r \in \N} \exists_{p_0, \ldots, p_r \in \poly} \forall_{n \in \N} \sum_{i=0}^r p_i(n)a_{n+i} = 0\]
 \end{definition}
@@ -186,23 +188,18 @@ Note that the sum can only take finite number of subsequent elements of the sequ
 \end{example}
 
 \begin{example}
-    Sequences \(a_n = \sqrt{n}\), \(b_n = n^n\) are \textbf{not} holonomic.
+    Sequences \(a_n = \sqrt{n}\), \(b_n = n^n\) are \textbf{not} holonomic, ie. none of them satisifies a linear recurrence equation with polynomial coefficients\cite{nonholo}.
 \end{example}
 
 \begin{definition}
     \label{def-holo-2}
-    \cite{holotoolkit, complexity}
-    Equivalently to definition\ \ref{def-holo-1}, an analytic function \(y\) is called holonomic \(\textiff\) it satisfies differential equation in the following form:
-    \[\sum_{i=0}^{r} p_i(z) y^{(i)}(z) = b(z)\]
+    \cite{complexity}
+    Equivalently to definition\ \ref{def-holo-1}, \(A = (a_i)_{i=0}^{\infty}\) is holonomic \(\textiff\) exists generating function in the following form:
+    \[\sum_{i=0}^{r} p_i(z) \gf{A}^{(i)}(z) = b(z)\]
     for some fixed \(r \in \N\); \(b, p_0, \ldots, p_r \in \poly\) not all identically zero.
 \end{definition}
 
-\begin{example}
-    \(y(z) = \frac{5n - 3}{3n + 5}\) is holonomic, because:
-    \[(5z-3)(3z+5)y'(z) - 34y(z) = 0\]
-\end{example}
-
-Equivalence of these two definitions assures us that if we find differential equation describing the desired objects satisfying definition\ \ref{def-holo-2}, we will be able to find holonomic recurrence mentioned in definition\ \ref{def-holo-1}.
+Equivalence of these two definitions assures us that if we find generating function describing the desired objects satisfying definition\ \ref{def-holo-2}, we will be able to find holonomic recurrence mentioned in definition\ \ref{def-holo-1}.\cite{complexity}
 
 \begin{example}
     For generating function full binary trees defined in example\ \ref{ex-bin-gf}, ie.:
@@ -228,6 +225,13 @@ Equivalence of these two definitions assures us that if we find differential equ
         rec := {(2 + 4 n) B(n) + (-2 - n) B(n + 1), B(0) = 1}
     \end{lstlisting}
 
+    Our holonomic recurrence is then:
+    \[\left\{\begin{array}{rcl}
+                B(0) &=& 1\\
+                (2 + 4 n) B(n) + (-2 - n) B(n + 1) &=& 0
+    \end{array}\right.\]
+
+    For our purposes we will often ignore the initial conditions, as they can be easily described by exact number of the objects. The most interesting part for us is the relation between the finite number consecutive elements.
 
 \end{example}
 
@@ -324,6 +328,12 @@ In the article we try to gather methods and results that may be helpful for anyo
     in: Carsten Schneider, Johannes Blümlein (eds) Computer Algebra in Quantum Field Theory. Texts \& Monographs in Symbolic Computation (A Series of the Research Institute for Symbolic Computation, Johannes Kepler University, Linz, Austria),
     Springer, Vienna,
     2013
+
+    \bibitem{nonholo}
+    Stefan Gerhold,
+    \textit{Combinatorial sequences: Non-holonomicity and inequalities. Ph.D. thesis},
+    RISC-Linz, Johannes Kepler Universitat Linz,
+    2005
 
 \end{thebibliography}
 
