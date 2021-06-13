@@ -1,0 +1,330 @@
+\documentclass[final]{article}
+
+\usepackage{todonotes}
+\setlength{\marginparwidth}{4cm}
+
+\RequirePackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{00A0}{ }
+
+\RequirePackage{color}
+\definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
+\definecolor{blue(pigment)}{rgb}{0.2, 0.2, 0.6}
+\definecolor{egyptianblue}{rgb}{0.06, 0.2, 0.65}
+
+\RequirePackage{listings}
+\lstset{
+    basicstyle=\small
+}
+
+\RequirePackage{graphicx}
+
+\RequirePackage{amsthm}
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{soul}
+\RequirePackage{xspace}
+\RequirePackage{bussproofs}
+\RequirePackage[customcolors]{hf-tikz}
+
+\RequirePackage{tikz}
+\RequirePackage{setspace}
+
+\RequirePackage{multicol}
+\RequirePackage{lipsum}
+\RequirePackage{textpos}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{.7em}
+
+\title{Combinatorial interpretations of holonomic recurrences}
+\author{Bartłomiej Puget}
+
+% \date{Kraków, 19 maja 2021}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[subsection]
+
+\theoremstyle{remark}
+\newtheorem{example}{Example}[subsection]
+
+\newcounter{highlightid}
+\newcommand{\mhl}[1]{{\tikzmarkin[set fill color=red!30,set border color=red]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
+
+\newcommand{\gf}[1]{\ensuremath{\mathcal{#1}}}
+
+\DeclareMathOperator{\textiff}{\text{iff}}
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\poly}{\mathbb{P}}
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+	\textsc{\LARGE Jagiellonian University}
+
+	\Large Faculty of Mathematics and Computer Science
+
+	\Large Theoretical Computer Science
+
+	\vfill
+
+	\vspace{1cm}
+	\hrulefill
+	\vspace{0.5cm}
+
+    \makeatletter
+    \huge \textsc{\@title}
+    \makeatother
+
+	\vspace{0.2cm}
+	\hrulefill
+
+	\vspace{1cm}
+    \makeatletter
+	\textsc{\Large \@author}
+    \makeatother
+
+	\vspace{1cm}
+    \normalsize
+
+	Master Thesis\\
+	Advisor: \textsc{Katarzyna Grygiel}
+
+	\vfill
+
+    \makeatletter
+    \@date
+    \makeatother
+	\end{center}
+\end{titlepage}
+
+\section*{Abstract}
+
+We analyze problem of finding combinatorial interpretations of holonomic recurrences and show some techniques that were used to achieve known results.
+
+We also try to find combinatorial interpretation of holonomic recurrence for trees of lambda terms in de Bruijn notation.
+
+\clearpage
+
+\section{Introduction}
+
+\subsection{Notation}
+
+In order to make reading this article easier, let's fix some notation and make some assumptions. Any deviation from this will be clearly stated.
+
+\(\poly\) is set of all polynomials.
+
+\(n, m, i, j, k\) are implicitly assumed to be natural numbers.
+
+\(f, g\) are implicitly assumed to be functions.
+
+\(f^{(n)}\) is implicitly defined as \(n\)-th derivative of function \(f\).
+
+\(x_i\) is implicitly assumed to be \(i\)-th element of the sequence \(X\), where \(x\) can be any lower-case letter and \(X\) is upper-case \(x\).
+
+Calligraphic \(\gf{X}\) is implicitly assumed to be generating function of the sequence \(X\) where \(X\) is any upper-case letter.
+
+\subsection{Structurally recursive objects}
+
+We will be analyzing structures that can be expressed using recursive expressions. Eg.\ we can define full binary tree recursively as a node having no children (ie.\ being a leaf) or having exactly two subtrees being full binary trees. To express the alternative in the construction rule, we use \(+\). The reason will become obvious soon.
+
+\[B = \text{leaf} + B^2\]
+
+\todo{Add some image}
+
+\subsection{Generating functions}
+
+In the article we use ordinary generating functions to describe and count structures.
+
+\begin{definition}
+The ordinary generating function of sequence \(A = (a_i)_{i=0}^{\infty}\) is defined as:
+\[\gf{A}(z) = \sum_{i=0}^{\infty} a_i z^i\]
+\end{definition}
+
+Note that in order to compute \(k\)-th element of the sequence, \(a_k\), we just need to find constant corresponding to indeterminate \(z^k\).
+
+\begin{example}
+    \label{ex-bin-gf}
+    Having our recursive definition of the object, we can easily construct a generating function for it. Let's create generating function that will count number of full binary trees consisting of exactly \(k\) internal nodes.
+
+\[\gf{B}(z) = 1 + z\gf{B}^2(z)\]
+
+Note that we used \(z\) to count internal nodes and left the leaf part as \(1\).
+
+In order to get some intuition on how it works unbeneath, let's take a look on how we can find number of the full binary trees of size \(2\). We can expand the recurrence a bit:
+
+\[\begin{array}{rcl}
+        \gf{B}(z) &=& 1 + z\gf{B}^2(z)\\
+                  &=& 1 + z\bigg(1 + z\gf{B}^2(z)\bigg)\bigg(1 + z\gf{B}^2(z)\bigg)\\
+                  &=& 1 + \mhl{z}\bigg(1 + \mhl{z}\Big(\mhl{1} + z\gf{B}^2(z)\Big)\Big(\mhl{1} + z\gf{B}^2(z)\Big)\bigg)\bigg(\mhl{1} + z\gf{B}^2(z)\bigg)
+\end{array}\]
+
+The highlighted terms are describing following tree:
+
+iilll\todo{Add image}
+\end{example}
+
+There exist multiple well-known methods and tools that allow us to work with generating functions without need of digging into details. The tool we will be using extensively in this work is Maple package called GFUN\cite{gfun}.
+
+\subsection{Holonomic recurrences}
+
+Most of the time we will be working with holonomic recurrences, let's introduce them.
+
+\begin{definition}
+    \label{def-holo-1}
+    \cite{holotoolkit}
+    An infinite sequence \(A = (a_i)_{i=0}^{\infty}\) is called holonomic (aka. P-finite, P-recursive or D-recursive) \(\textiff\) exists holonomic recurrence for it, ie.:
+
+\[\exists_{r \in \N} \exists_{p_0, \ldots, p_r \in \poly} \forall_{n \in \N} \sum_{i=0}^r p_i(n)a_{n+i} = 0\]
+\end{definition}
+
+Note that the sum can only take finite number of subsequent elements of the sequence \(A\) into the relation.
+
+\begin{example}
+    \(a_n = \frac{5n - 3}{3n + 5}\) is holonomic, because:
+    \[(3n + 5)(5n + 2) a_n - (5n - 3)(3n + 8) a_{n+1} = 0\]
+\end{example}
+
+\begin{example}
+    Sequences \(a_n = \sqrt{n}\), \(b_n = n^n\) are \textbf{not} holonomic.
+\end{example}
+
+\begin{definition}
+    \label{def-holo-2}
+    \cite{holotoolkit, complexity}
+    Equivalently to definition\ \ref{def-holo-1}, an analytic function \(y\) is called holonomic \(\textiff\) it satisfies differential equation in the following form:
+    \[\sum_{i=0}^{r} p_i(z) y^{(i)}(z) = b(z)\]
+    for some fixed \(r \in \N\); \(b, p_0, \ldots, p_r \in \poly\) not all identically zero.
+\end{definition}
+
+\begin{example}
+    \(y(z) = \frac{5n - 3}{3n + 5}\) is holonomic, because:
+    \[(5z-3)(3z+5)y'(z) - 34y(z) = 0\]
+\end{example}
+
+Equivalence of these two definitions assures us that if we find differential equation describing the desired objects satisfying definition\ \ref{def-holo-2}, we will be able to find holonomic recurrence mentioned in definition\ \ref{def-holo-1}.
+
+\begin{example}
+    For generating function full binary trees defined in example\ \ref{ex-bin-gf}, ie.:
+    \[\gf{B}(z) = 1 + z\gf{B}^2(z)\]
+    we can use GFUN\cite{gfun} to immediately find holonomic recurrence of our interest:
+
+    \begin{lstlisting}
+> with(gfun):
+> RootOf(B = B^2*z + 1, B);
+                                 2
+                        RootOf(_Z  z - _Z + 1)
+
+> algfuntoalgeq(%, B(z));
+                              2
+                             B  z - B + 1
+
+> algeqtodiffeq(%, B(z));
+                                        2      /d      \
+              1 + (-1 + 2 z) B(z) + (4 z  - z) |-- B(z)|
+                                               \dz     /
+
+> rec := diffeqtorec(%, B(z), B(n));
+        rec := {(2 + 4 n) B(n) + (-2 - n) B(n + 1), B(0) = 1}
+    \end{lstlisting}
+
+
+\end{example}
+
+\subsection{Combinatorial interpretations}
+
+Combinatorial interpretation is just fancy name for something you probably know and use. Eg.\ if you know the binomial coefficient \(\binom{n}{k}\), I bet it was introduced to you as something like: "let's assume you have \(n\) distinguishable balls. If you want to choose \(k\) from them, then you can do it in \(\binom{n}{k}\) ways" and now, whenever you see the term \(\binom{n}{k}\) you interpret it as number of ways to choose \(k\) objects from the set of size \(n\). This is the combinatorial interpretation of the binomial coefficient.
+
+Holonomic recurrences are very useful if we want to count objects of given size. Of course, size can be defined in more complex ways, eg.\ we may want to find number of trees with \(n\) internal nodes having exactly \(m\) nodes beging left child of its parent.
+
+Unfortunately, as for the most of auto-generated code, they almost never come with intuitive interpretation. They are just some recurrences, but there is no commonly known method to find, how they correspond to the structures they describe.
+
+In the article we try to gather methods and results that may be helpful for anyone who will try to find such interpretation, as we believe that such interpretation may give better insight into the nature of the structure and make it easier to study its behaviour.
+
+\section{Known results}
+
+\subsection{Binary trees}
+
+\subsection{Schröder trees}
+
+\subsection{Unary-binary trees}
+
+\section{Approaches}
+
+\subsection{Defining the size carefully}
+
+\subsection{Weights variablization}
+
+\subsection{Inductive translation}
+
+\subsection{Brutal iterative approach}
+
+\section{Further work}
+
+\clearpage
+
+\begin{thebibliography}{9}
+    \bibitem{remy}
+    Laurent Alonso Alonso, Jean-Luc Remy, and René Schott,
+    \textit{A Linear-Time Algorithm for the Generation of Trees},
+    Algorithmica 17,
+    1997,
+    p. 162-182
+
+    \bibitem{motzkin}
+    Serge Dulucq, Jean-Guy Penaud,
+    \textit{Interprétation bijective d'une récurrence des nombres de Motzkin},
+    Discrete Mathematics,
+    Volume 256, Issue 3,
+    2002,
+    p. 671-676
+
+    \bibitem{schroder}
+    Dominique Foata, Doron Zeilberger,
+    \textit{A Classic Proof of a Recurrence for a Very Classical Sequence}
+    J. Comb., Ser. A, 80,
+    1997, 380-384
+
+    \bibitem{generation}
+    Jean-Luc Rémy,
+    \textit{Un procédé itératif de dénombrement d’arbres binaires et son application à leur génération aléatoire}
+    Informatique théorique, tome 19, no 2, 
+    1985,
+    p. 179-195
+
+    \bibitem{doron}
+    Doron Zeilberger,
+    \textit{e-mail conversation},
+    2020
+
+    \bibitem{note}
+    Jarmo Siltaneva, Erkki Mäkinen,
+    \textit{A Note on Rémy's Algorithm for Generating Random Binary Trees},
+    Missouri Journal of Mathematical Sciences. 15. 103-109. 10.35834/2003/1502103,
+    2003 
+
+    \bibitem{bodini}
+    Axel Bacher, Olivier Bodini, Alice Jacquot,
+    Efficient random sampling of binary and unary-binary trees via holonomic equations,
+    2014
+
+    \bibitem{complexity}
+    Igor Pak,
+    \textit{Complexity problems in enumerative combinatorics},
+    2018
+
+    \bibitem{gfun}
+    Bruno Salvy, Paul Zimmermann,
+    \textit{GFUN : a maple package for the manipulation of generating and holonomic functions in one variable}
+    [Research Report] RT-0143, INRIA. 1992, pp.14. ffinria-00070025f
+
+    \bibitem{holotoolkit}
+    Manuel Kauers,
+    \textit{The Holonomic Toolkit},
+    in: Carsten Schneider, Johannes Blümlein (eds) Computer Algebra in Quantum Field Theory. Texts \& Monographs in Symbolic Computation (A Series of the Research Institute for Symbolic Computation, Johannes Kepler University, Linz, Austria),
+    Springer, Vienna,
+    2013
+
+\end{thebibliography}
+
+\end{document}
