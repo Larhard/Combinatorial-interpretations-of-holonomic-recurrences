@@ -273,7 +273,7 @@ class Context:
 
         ready = section_count == count
 
-        print(f"[{'x' if ready else ' '}]  {class_idx},{section_idx}: {count:5d} of {section_count:5d} | {equation:25} [{introductions}]")
+        print(f"[{'x' if ready else ' '}]  {class_idx},{section_idx}: {count:7d} of {section_count:7d} | {equation:25} [{introductions}]")
 
     def print_diff_stats(self):
         print("=== Diff stats ===")
