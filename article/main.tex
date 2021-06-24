@@ -1,7 +1,7 @@
 \documentclass[final]{article}
 
 \usepackage{todonotes}
-\setlength{\marginparwidth}{4cm}
+\setlength{\marginparwidth}{2.5cm}
 
 \RequirePackage[utf8]{inputenc}
 \DeclareUnicodeCharacter{00A0}{ }
@@ -16,6 +16,7 @@
     basicstyle=\small
 }
 
+\RequirePackage{geometry}
 \RequirePackage{graphicx}
 
 \RequirePackage{amsthm}
@@ -50,11 +51,26 @@
 \newcounter{highlightid}
 \newcommand{\mhl}[1]{{\tikzmarkin[set fill color=red!30,set border color=red]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
 
+\newcommand{\ols}[1]{\mskip.5\thinmuskip\overline{\mskip-.5\thinmuskip {#1} \mskip-.5\thinmuskip}\mskip.5\thinmuskip} % overline short
+\newcommand{\olsi}[1]{\,\overline{\!{#1}}} % overline short italic
+
 \newcommand{\gf}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\enc}[1]{\ensuremath{\ols{#1}}}
+\newcommand{\pointed}[1]{\ensuremath{{#1}^*}}
+\newcommand{\size}[1]{\ensuremath{\left|#1\right|}}
 
 \DeclareMathOperator{\textiff}{\text{iff}}
 \DeclareMathOperator{\N}{\mathbb{N}}
 \DeclareMathOperator{\poly}{\mathbb{P}}
+\DeclareMathOperator{\troot}{\text{root}}
+\DeclareMathOperator{\tleft}{\text{left}}
+\DeclareMathOperator{\tright}{\text{right}}
+\DeclareMathOperator{\tLeft}{\text{Left}}
+\DeclareMathOperator{\tRight}{\text{Right}}
+\DeclareMathOperator{\tSub}{\text{Sub}}
+\DeclareMathOperator{\tPre}{\text{Pre}}
+\DeclareMathOperator{\tSuf}{\text{Suf}}
+\DeclareMathOperator{\n}{\bullet}
 
 \begin{document}
 
@@ -122,9 +138,41 @@ In order to make reading of this article easier, let's fix some notation and mak
 
 \(f^{(n)}\) is implicitly defined as \(n\)-th derivative of function \(f\).
 
+\(V(T)\) is implicitly defined as a set of nodes of the tree \(T\).
+
+\(E(T)\) is implicitly defined as a set of edges of the tree \(T\).
+
+\(u, v\) are implicitly assumed to be a nodes.
+
+\(e\) is implicitly assumed to be an edge.
+
+\(\troot(T)\) is implicitly defined as a root of tree \(T\).
+
+\(\tleft(v)\) is implicitly defined as a left child of node \(v\).
+
+\(\tright(v)\) is implicitly defined as a right child of node \(v\).
+
+\(\tSub(v)\) is implicitly defined as a whole subree rooted with node \(v\).
+
+\(\tLeft(v)\) is implicitly defined as a left subree of node \(v\).
+
+\(\tRight(v)\) is implicitly defined as a right subree of node \(v\).
+
+\(\n\) is implicitly defined as a default identifier a node.
+
+\(\o\) is implicitly defined as a identifier of non-existing node (eg.\ if \(v\) is a leaf, ie.\ has no children, \(\tleft(v) = \n\)).
+
+\(\pointed{v}\) is implicitly defined as a pointed node \(v\).
+
 \(x_i\) is implicitly assumed to be \(i\)-th element of the sequence \(X\), where \(x\) can be any lower-case letter and \(X\) is upper-case \(x\).
 
 Calligraphic \(\gf{X}\) is implicitly assumed to be a generating function of the sequence \(X\) where \(X\) is any upper-case letter.
+
+\(\size{X}\) is implicitly defined as a size of the object \(X\).
+
+eg.\ stands for Latin exampli gratia, which means \textit{for example}.
+
+ie.\ stands for Latin id est, which means \textit{that is}.
 
 \subsection{Structurally recursive objects}
 
@@ -202,6 +250,7 @@ Note that the sum can only take finite number of subsequent elements of the sequ
 Equivalence of these two definitions assures us that if we find generating function describing the desired objects satisfying definition\ \ref{def-holo-2}, we will be able to find holonomic recurrence mentioned in definition\ \ref{def-holo-1}.\cite{complexity}
 
 \begin{example}
+    \label{ex-gfun-rec}
     For generating function full binary trees defined in example\ \ref{ex-bin-gf}, ie.:
     \[\gf{B}(z) = 1 + z\gf{B}^2(z)\]
     we can use GFUN\cite{gfun} to immediately find holonomic recurrence of our interest:
@@ -245,9 +294,90 @@ Unfortunately, as for the most of auto-generated code, they almost never come wi
 
 In the article we try to gather methods and results that may be helpful for anyone who will try to find such interpretation, as we believe that such interpretation may give better insight into the nature of the structure and make it easier to study its behaviour.
 
+\subsection{Pre-order notation}
+
+In order to make notation easier and unambiguous, we also introduce pre-order notation of \(n\)-ary tree.
+
+\begin{definition}
+    \(\enc{v}\) is an identifier of node \(v\). 
+\end{definition}
+
+\begin{definition}
+    Pre-order notation of \(n\)-ary tree \(T\), \(\enc{T}\), is defined recursively as \(\enc{\troot(T)} \prod_{i=1}^{n} \enc{i\text{-th subtree of } \troot(T)}\), ie.\ catenation of identifier of the root of the tree with encoded its subtrees from left to right.
+\end{definition}
+
+\begin{example}
+    \(\n \n \o \n \o \o \o\)
+    \todo{Add image}
+\end{example}
+
+We also can define prefix and suffix of \(T\).
+
+\begin{definition}
+    Let \(k\) be the index of its identifier in \enc{T}. Notation of prefix of \(T\) in relation to \(v\), \(\enc{\tPre(T, v)}\), is defined as a prefix of \enc{T} of size \(k - 1\).
+\end{definition}
+
+\begin{definition}
+    Let \(n\) be the size of \enc{T}. Notation of suffix of \(T\) in relation to \(v\), \(\enc{\tSuf(T, v)}\), is defined as a suffix of \enc{T} of size \(n - \size{\enc{\tPre(T, v)}} - \size{\enc{\tSub(v)}}\).
+\end{definition}
+
+In the article we define some operations using its notation. As pre-order notation is bijective, you can obtain the structure the notation describe by reversing the process of encoding.
+
 \section{Known results}
 
 \subsection{Binary trees}
+
+Let's start with probably the most known result, full binary trees\cite{binary}.
+
+We define the size of tree as a number of internal nodes (ie.\ nodes that are not leaves). Our generating function is therefore:
+
+\[\gf{B}(z) = 1 + z\gf{B}^2(z)\]
+
+After a quick transformation, we get following holonomic recurrence:
+
+\[(n + 2)B(n + 1) = 2 (2n + 1)B(n)\]
+
+It is easy to see that tree of size \(n\) (\(n\) internal nodes) has \(n + 1\) leaves and therefore \(2n + 1\) nodes in total. Analogically the tree of size \(n + 1\) has \(n + 2\) leaves and \(2n + 3\) nodes in total. If you see some resemblence to our holonomic recurrence, you are perfectly right.
+
+We are going to create bijection between left and right side of the recurrence. We will be using term \textit{bijective language} to describe talking about the recurrence using the objects it describes and their transformations.
+
+Let's translate the recurrence to the bijective language then.
+\begin{itemize}
+    \item \(B(n)\) is simply set of all full binary trees of size \(n\),
+    \item \((n + 2) B(n + 1)\) is set of all full binary trees of size \(n + 1\) with one of the leaves pointed,
+    \item \((2n + 1) B(n)\) is set of all full binary trees of size \(n\) with one of the nodes pointed (remember that the node can be internal node or leaf),
+    \item \(2\) at the beginning of \(2 (2n + 1) B(n)\) means that we will be using \(2\) copies of the set defined in previous bullet.
+\end{itemize}
+
+At the moment left side of the recurrence describe set of trees of size \(n + 1\), the right, on the other hand, of size \(n\). Therefore, we need to apply some transformation to make the sets equal.
+
+Let's define two local operations: \(R_l(T, v)\) and \(R_r(T, v)\). The term \textit{local} means that the operation can operate on just some finite fragment of tree with predefined size (eg.\ node and its 2 children, but can not traverse the whole tree).
+
+\begin{definition}
+    \(\enc{R_l(T, v)} = \enc{\tPre(T, v)} \n \pointed{\n} \o \o \enc{\tSub(v)} \enc{\tSuf(T, v)}\)
+\end{definition}
+
+\begin{definition}
+    \(\enc{R_r(T, v)} = \enc{\tPre(T, v)} \n \enc{\tSub(v)} \pointed{\n} \o \o \enc{\tSuf(T, v)} \)
+\end{definition}
+
+\todo{Add some illustration}
+
+We can now take the bijective interpretation of \((2n + 1) B(n)\), ie. trees of size \(n\) with single node pointed. For each of such trees, \(T\) we create new one by applying \(R_l\) and \(R_r\) to the pair \(T', v\), where \(T'\) is \(T\) with removed pointers and \(v\) is a node that is pointed in \(T\). Therefore we generate \(2(2n + 1) B(n)\) trees of size \(n + 1\)
+
+The only thing that's left for us to verify is if we generate all trees of size \(n + 1\) with pointed leaf. As from the recursion, we know that \(2 (2n + 1) B(n)\) is total number of trees with single leaf pointed, it is enough to check if we do not generate any duplicate using \(R_l\) and \(R_r\). It can happen in 2 ways:
+\begin{enumerate}
+    \item operation itself generates duplicates or
+    \item 2 different operations generate the same tree.
+\end{enumerate}
+
+First case can be also split into 2 subcases. Without loss of the generality we can analyze just one of the operations, let it be \(R_l\). The second case will be symmetric.
+\begin{itemize}
+    \item for some nodes \(u \neq v\), \(R_l(T, u) = R_l(T, v)\). Let \(i_u, i_v\) be the indices of respectively \(\enc{u}\) and \(\enc{v}\) in \(\enc{T}\). Let \(\pointed{i}_u, \pointed{i}_v\) be the indices of pointed vertex respectively in \(\enc{R_l(T, u)}\) and \(\enc{R_l(T, v)}\). Due to the definition of \(R_l\), we get that \(\pointed{i}_u = i_u + 1\) and \(\pointed{i}_v = i_v + 1\), which implies that \(u = v\) what we assumed false.
+    \item for some trees \(T \neq S\), \(R_l(T, u) = R_l(S, v)\). Let \(i_u, i_v\) be the indices of respectively \(\enc{u}\) in \(\enc{T}\) and \(\enc{v}\) in \(\enc{S}\). Let \(\pointed{i}_u, \pointed{i}_v\) be the indices of pointed vertex respectively in \(\enc{R_l(T, u)}\) and \(\enc{R_l(S, v)}\). If \(\pointed{i}_u \neq \pointed{i}_v\), this case is trivially false, so we can assume that \(\pointed{i}_u = \pointed{i}_v\). Therefore, again from the definition of \(R_l\), we have that \(i_u = i_v\). That implies that \(\enc{\tPre(T, u)} \enc{\tSub(u)} \enc{\tSuf(T, u)} = \enc{\tPre(S, v)} \enc{\tSub(v)} \enc{\tSuf(S, v)} \), which then sums up to \(\enc{T} = \enc{S}\), which we assumed false.
+\end{itemize}
+
+In the second case it is enough to noitice that \(R_l\) generates trees with pointed vertex being a left child, and \(R_r\) generates trees with pointed vertex being right child. That immediately provides us with conclusion that we are generating no duplicates.
 
 \subsection{Schröder trees}
 
@@ -257,13 +387,89 @@ In the article we try to gather methods and results that may be helpful for anyo
 
 \subsection{Defining the size carefully}
 
+First thing that we have to select is defining the size carrefully. We have few standard choices of computing tree sizes:
+\begin{itemize}
+    \item counting all existing nodes,
+    \item counting internal nodes,
+    \item counting leaves,
+    \item counting null-nodes (ie.\ children of the leaves).
+\end{itemize}
+
+It may seem counter-intuitive at first, that this changes anything crucial, but the holonomic recurrence may change drastically making the problem more difficult than it should be.
+
+There are 2 most common symptoms that we may want to choose different method of counting the size:
+\begin{itemize}
+    \item we get empty classes of the objects, eg.\ if we analyze problem of full binary trees and define size as number of all existing nodes, we can not generate tree of even size, therefore half of our classes are empty;
+    \item we want to join trees using common root and we get many \(\pm1\) in our notes. Note that if you count internal nodes, such catenation creates tree of size being sum of sizes of the components increases by 1. If you had defined the size as number of leaves or null-nodes, the size would be just plain sum of sizes of the smaller trees. \todo{Add some example}
+\end{itemize}
+
 \subsection{Weights variablization}
+
+Most of the time we are operating on trees with some nodes of weight \(0\) and some of weight \(1\). We may as well try to make them variable or assign some other values (eg.\ small prime numbers).
+
+This method gives us some suggestion which kind of nodes are being modified in the operation
+
+Another benefit of this method is decreasing the sizes of particular classes, so we have less objects to look at.
+
+Unfortunately, decreasing size of the classes increases number of the sizes we need to analyze to get full result.
+
+\todo{Add some example}
 
 \subsection{Inductive translation}
 
+Another method that may help finding the interpretation is inductive translation\cite{doron}. The method is based on the idea that most of the time there is easy to find some natural induction (not necessarily holonomic) that has trivial interpretation in bijective language.
+
+\todo{describe binary trees example}
+
+The method itself has proven to be helpful in order to divide the problem into smaller parts. Unfortunately It does not give any immediate interpretation for applying the inductive step.
+
 \subsection{Brutal iterative approach}
 
+If all elaborate methods has failed and the problem is still too big to interpret it by hand, a computer comes with help.
+
+As the main field of our interest was analyzis of terms of lambda trees, we will use it as an example to describe the method.\todo{Add definition}
+
+At first let's create generating functions that will keep track of more than just number of vertices, but also counts of each kind of vertices in the tree. The generating function will be parameterized then using following arguments:
+\begin{itemize}
+    \item \(z\) counting total number of virtual leaves
+    \item \(a\) counting number of application vertices
+    \item \(l\) counting number of lambda abstraction vertices
+    \item \(o\) counting number of bound variable vertices
+    \item \(s\) counting number of successors of bound variable vertices
+\end{itemize}
+
+In order to make the image cleaner, we will drop the arguments of generating functions, ie. \(\gf{L} := \gf{L}(z, a, l, o, s)\)
+\[\gf{L} = z a \gf{L}^2 + z l \gf{L} + \frac{o z}{1 - z s}\]
+\todo{add some image}
+\todo{describe how the frac is generated}
+
+Using a little bit of Maple magic, we can easily achieve following holonomic recurrence.
+
+\begin{lstlisting}
+l^2*s^2*n*B(n) + ((4*a*o*s*u - 2*l^2*s - 2*l*s^2)*n + 6*a*o*s*u - 2*l^2*s - 3*l*s^2)*B(1 + n) + ((-4*a*o*u + l^2 + 4*l*s + s^2)*n - 8*a*o*u + 2*l^2 + 10*l*s + 3*s^2)*B(n + 2) + ((-2*l - 2*s)*n - 7*l - 8*s)*B(n + 3) + (5 + n)*B(n + 4)
+\end{lstlisting}
+\todo{rewrite to LaTeX}
+
+You may notice that some potentially trivial terms are more complex that it seems.\todo{example}
+
+We also created a framework that may help visualize our work. It is based on the idea that every transformation described using bijective language can be translated to a function transforming vertex and finite number of its surrounding vertices. This function can not discriminate vertices on the grounds of their kind. The only discrimination that may occur may be connected to the following cases:
+\begin{itemize}
+    \item vertex has no children, ie.~is a virtual leaf (which corresponds to the size of the tree, \(n\));
+    \item vertex has has children, ie.~is not a virtual leaf (which corresponds to \(n - 1\));
+    \item vertex has its parent on the left, ie.~is right child of its parent;
+    \item vertex has its parent on the right, ie.~is left child of its parent.
+\end{itemize}
+
+The latest two are intruduced in order to make the analysis simpler, but do not have immediate interpretation in the world of holonomic recurrences. If we use them both, it sums up to all vertices except root (as root is neither left nor right child).
+
+\todo{split into classes / subclasses}
+\todo{define iteration}
+\todo{remind the cheat}
+
 \section{Further work}
+
+\todo{finish interpretation}
+\todo{missing formal proof}
 
 \clearpage
 
@@ -289,7 +495,7 @@ In the article we try to gather methods and results that may be helpful for anyo
     J. Comb., Ser. A, 80,
     1997, 380-384
 
-    \bibitem{generation}
+    \bibitem{binary}
     Jean-Luc Rémy,
     \textit{Un procédé itératif de dénombrement d’arbres binaires et son application à leur génération aléatoire}
     Informatique théorique, tome 19, no 2, 
