@@ -57,6 +57,7 @@
 \newcommand{\gf}[1]{\ensuremath{\mathcal{#1}}}
 \newcommand{\enc}[1]{\ensuremath{\ols{#1}}}
 \newcommand{\pointed}[1]{\ensuremath{{#1}^*}}
+\newcommand{\weighted}[1]{\ensuremath{_{(#1)}}}
 \newcommand{\size}[1]{\ensuremath{\left|#1\right|}}
 
 \DeclareMathOperator{\textiff}{\text{iff}}
@@ -71,6 +72,7 @@
 \DeclareMathOperator{\tPre}{\text{Pre}}
 \DeclareMathOperator{\tSuf}{\text{Suf}}
 \DeclareMathOperator{\n}{\bullet}
+\DeclareMathOperator{\no}{\o}
 
 \begin{document}
 
@@ -122,11 +124,15 @@ We also try to find combinatorial interpretation of holonomic recurrence for tre
 
 \clearpage
 
+\tableofcontents
+\clearpage
+
 \section{Introduction}
 
 \subsection{Notation}
+\label{section-notation}
 
-In order to make reading of this article easier, let's fix some notation and make some assumptions. Any deviation from this will be clearly stated.
+In order to make reading of this article easier, let's fix some notation and make some assumptions. Any deviation from this will be clearly stated. If you have trouble guessing what some letter or word means, this should be your primary place to look for the answer.
 
 \(\textiff\) means if and only if.
 
@@ -158,11 +164,35 @@ In order to make reading of this article easier, let's fix some notation and mak
 
 \(\tRight(v)\) is implicitly defined as a right subree of node \(v\).
 
+Sibling of vertex \(v\) is defined as vertex \(u\) having the same parent as \(v\).
+
+Uncle of vertex \(v\) is defined as sibling of the parent of \(v\).
+
+We say that node \(v\) is an oneling \(\textiff\) \(v\) has no sibling. Note that the root is oneling even if it has no parent.
+
+We say that node \(v\) is twinling \(\textiff\) \(v\) has at least one sibling.
+
+We say that node \(v\) is an virtual-oneling \(\textiff\) \(v\) has no sibling being virtual node.
+
+We say that node \(v\) is virtual-twinling \(\textiff\) \(v\) has at least one sibling being virtual node.
+
+Leaf is a vertex which has no children.
+
 \(\n\) is implicitly defined as a default identifier a node.
 
-\(\o\) is implicitly defined as a identifier of non-existing node (eg.\ if \(v\) is a leaf, ie.\ has no children, \(\tleft(v) = \n\)).
+\(\no\) is implicitly defined as a identifier of non-existing node (eg.\ if \(v\) is a leaf, \(\tleft(v) = \n\)).
+
+Virtual node is artificially defined node that does not affect the structure definition (eg.\ we can define virtual leafs that are children of actual leaves of the binary tree. Such virtual leaves are not included when counting number of children of the node, so the actual leaves are still called leaves).
+
+Actual node is a node that is not virtual.
+
+We say that node \(v\) is right (left) \(\textiff\) \(v\) is a right (left) child of its parent.
+
+We say that node \(v\) has a right (left) parent \(u\) \(\textiff\) \(v\) is a left (right) child of \(u\).
 
 \(\pointed{v}\) is implicitly defined as a pointed node \(v\).
+
+\(v\weighted{n}\) is implicitly defined as a weighted node \(v\) with weight \(n\).
 
 \(x_i\) is implicitly assumed to be \(i\)-th element of the sequence \(X\), where \(x\) can be any lower-case letter and \(X\) is upper-case \(x\).
 
@@ -307,7 +337,7 @@ In order to make notation easier and unambiguous, we also introduce pre-order no
 \end{definition}
 
 \begin{example}
-    \(\n \n \o \n \o \o \o\)
+    \(\n \n \no \n \no \no \no\)
     \todo{Add image}
 \end{example}
 
@@ -337,6 +367,8 @@ After a quick transformation, we get following holonomic recurrence:
 
 \[(n + 2)B(n + 1) = 2 (2n + 1)B(n)\]
 
+This recurrence describes also Catalan numbers.
+
 It is easy to see that tree of size \(n\) (\(n\) internal nodes) has \(n + 1\) leaves and therefore \(2n + 1\) nodes in total. Analogically the tree of size \(n + 1\) has \(n + 2\) leaves and \(2n + 3\) nodes in total. If you see some resemblence to our holonomic recurrence, you are perfectly right.
 
 We are going to create bijection between left and right side of the recurrence. We will be using term \textit{bijective language} to describe talking about the recurrence using the objects it describes and their transformations.
@@ -354,11 +386,11 @@ At the moment left side of the recurrence describe set of trees of size \(n + 1\
 Let's define two local operations: \(R_l(T, v)\) and \(R_r(T, v)\). The term \textit{local} means that the operation can operate on just some finite fragment of tree with predefined size (eg.\ node and its 2 children, but can not traverse the whole tree).
 
 \begin{definition}
-    \(\enc{R_l(T, v)} = \enc{\tPre(T, v)} \n \pointed{\n} \o \o \enc{\tSub(v)} \enc{\tSuf(T, v)}\)
+    \(\enc{R_l(T, v)} = \enc{\tPre(T, v)} \n \pointed{\n} \no \no \enc{\tSub(v)} \enc{\tSuf(T, v)}\)
 \end{definition}
 
 \begin{definition}
-    \(\enc{R_r(T, v)} = \enc{\tPre(T, v)} \n \enc{\tSub(v)} \pointed{\n} \o \o \enc{\tSuf(T, v)} \)
+    \(\enc{R_r(T, v)} = \enc{\tPre(T, v)} \n \enc{\tSub(v)} \pointed{\n} \no \no \enc{\tSuf(T, v)} \)
 \end{definition}
 
 \todo{Add some illustration}
@@ -379,9 +411,105 @@ First case can be also split into 2 subcases. Without loss of the generality we 
 
 In the second case it is enough to noitice that \(R_l\) generates trees with pointed vertex being a left child, and \(R_r\) generates trees with pointed vertex being right child. That immediately provides us with conclusion that we are generating no duplicates.
 
+\subsection{Unary-binary trees}
+\label{section-unary-binary}
+
+Let's think, what would have changed if we introduce unary vertices to the binary case\cite{motzkin}. We will be counting edges. Note that tree having \(n\) edges has exactly \(n + 1\) vertices.
+
+\begin{definition}
+    Unary-binary tree is such tree of which any vertex can have either 0, 1 or 2 children.
+\end{definition}
+
+We can easily derive the generating function:
+
+\[\gf{U}(z) = 1 + z\gf{U}(z) + z^2 \gf{U}^2(z)\]
+
+And with a bit of Maple magic, we immediately get following recurrence:
+
+\[(n + 2)U(n) = (2n + 1)U(n - 1) + 3(n - 1)U(n - 2)\]
+
+The definition above is precise, but introduces a new kind of vertice that we would have to take care of. We can avoid it by using a trick to make the tree recall binary tree. We don't change the structure, just the notation.
+
+\begin{definition}
+    \label{def-unary-binary-2}
+    Left-leaning binary tree\todo{find official name; skewed binary tree is something different} is a binary tree with following constraint added: if a vertex has right child, it also have a left child.
+\end{definition}
+
+The bijection between unary-binary and left-leaning binary trees is very simple. We just represent unary vertices as vertices with just left child of left-leaning binary tree. The other cases translate immediately to corresponding ones. Please note that this transformation keeps the size of the tree (ie.~number of edges).
+
+The next step is to make binary trees full. Let's just define virtual leaves.
+
+\begin{definition}
+    Virtual leaf is a virtual node added to the vertex in place of non-existing child.
+\end{definition}
+
+As we have added \(n + 2\) virtual vertices, we have added as much virtual edges.
+
+\todo{image of transformation unary-binary to full-binary}
+
+Please note that \(n + 2\) matches the multiplier of \(U(n)\). Let's point the virtual leaves then.
+
+To present the interpretation in bijective language, we will have to introduce several types of the the virtual leaves (you may want to revisit section \ref{section-notation} Notation):
+
+\begin{enumerate}
+    \item Vro - virtual leaf being right virtual-oneling;
+    \item Vrt - virtual leaf being right virtual-twinling. We will divide this case into:
+        \begin{enumerate}
+            \item VrtUrv - Vri which uncle is a right virtual leaf;
+            \item VrtUra - Vri which uncle is a right actual node;
+            \item VrtUla - Vri which uncle is a left actual node.
+        \end{enumerate}
+    \item Vlt - virtual leaf left virtual-twinling. Note that from definition \ref{def-unary-binary-2}, left virtual leave can not have sibling being a actual node. We can divide also this case into:
+        \begin{enumerate}
+            \item VltUrv - Vlt which uncle is a right virtual leaf;
+            \item VltUra - Vlt which uncle is a right actual node;
+            \item VltUla - Vlt which uncle is a left actual node.
+        \end{enumerate}
+\end{enumerate}
+
+Note that it covers all possible cases of pointing virtual leaf and all the cases are mutually disjoint.
+
+All we need to show are the transformations from the smaller cases, ie. \(U(n-1)\) and \(U(n-2)\).
+
+Let's start from \(U(n-1)\). Its multiplier is \(2n + 1\). It suggests that we can point any vertex, as in a tree having \(n - 1\) edges, we have \(n\) actual and \(n + 1\) virtual ones.
+
+In case of \(U(n-2)\), the multiplier is \(3(n-1)\), that suggests that we should perform \(3\) transformations on the trees with a pointed actual node.
+
+\todo{draw the transformations}
+
+As you can see, we have satisfied all of the cases of \(U(n)\) with no repetitions, which concludes the construction.
+
 \subsection{Schröder trees}
 
-\subsection{Unary-binary trees}
+The next case we will show is case of Schröder trees\cite{schroder}.
+
+\begin{definition}
+    Schröder tree is a tree with no unary vertices.
+\end{definition}
+
+Simply speaking, vertex can have zero or strictly more than one children.
+
+\todo{example}
+
+This definition is quite precise, but is difficult to implement as a structural recursion. Let's transform it into something more manageable, ie.~of finite arity.
+
+\begin{definition}
+    Well-weighted binary plane tree is a weighted tree such that:
+    \begin{itemize}
+        \item leaves are unweighted;
+        \item internal nodes can have weight either \(1\) or \(2\);
+        \item if internal node has weight 2, then its right child is not a leaf.
+    \end{itemize}
+\end{definition}
+
+We can easily define the bijection \(\Phi\) between these two models using pre-order notation:
+\[\Phi(T) = \left\{\begin{array}{lcl}
+            \n \no \no &:& T = \n \no \no \\
+            \n\weighted{1}\; T_1\; T_2 &:& T = \n\; T_1\; T_2\\
+            \n\weighted{2}\; T_1\; \Phi(\n\; T_2 \ldots T_n) &:& T = \n\; T_1\; T_2 \ldots T_n
+\end{array}\right.\]
+
+Let's define size as a number of leaves. Note that the size is independent from which construction we use, as the leaf is translated to leaf and the internal node to internal nodes.
 
 \section{Approaches}
 
@@ -392,7 +520,8 @@ First thing that we have to select is defining the size carrefully. We have few 
     \item counting all existing nodes,
     \item counting internal nodes,
     \item counting leaves,
-    \item counting null-nodes (ie.\ children of the leaves).
+    \item counting null-nodes (ie.\ children of the leaves),
+    \item edges.
 \end{itemize}
 
 It may seem counter-intuitive at first, that this changes anything crucial, but the holonomic recurrence may change drastically making the problem more difficult than it should be.
@@ -402,6 +531,12 @@ There are 2 most common symptoms that we may want to choose different method of 
     \item we get empty classes of the objects, eg.\ if we analyze problem of full binary trees and define size as number of all existing nodes, we can not generate tree of even size, therefore half of our classes are empty;
     \item we want to join trees using common root and we get many \(\pm1\) in our notes. Note that if you count internal nodes, such catenation creates tree of size being sum of sizes of the components increases by 1. If you had defined the size as number of leaves or null-nodes, the size would be just plain sum of sizes of the smaller trees. \todo{Add some example}
 \end{itemize}
+
+\subsection{Tree binarization}
+
+If we describe some structure we may be tempted to use multiple kinds of vertices, eg.~unary and binary vertices. Having multiple kinds of vertices may cause problems, both in creating holonomic recurrence and finding the interpretation, as we have to keep track of how they can transform.
+
+As the most common trees are binary ones, it may be worth an effort to find the some structure based on binary trees that can represent original structure (see section~\ref{section-unary-binary}).
 
 \subsection{Weights variablization}
 
@@ -425,7 +560,7 @@ The method itself has proven to be helpful in order to divide the problem into s
 
 \subsection{Brutal iterative approach}
 
-If all elaborate methods has failed and the problem is still too big to interpret it by hand, a computer comes with help.
+If all elaborate methods has failed and the problem is still too big to interpret it by hand, a computer comes handy.
 
 As the main field of our interest was analyzis of terms of lambda trees, we will use it as an example to describe the method.\todo{Add definition}
 
