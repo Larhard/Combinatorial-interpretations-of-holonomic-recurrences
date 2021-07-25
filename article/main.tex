@@ -59,6 +59,7 @@
 \newcommand{\pointed}[1]{\ensuremath{{#1}^*}}
 \newcommand{\weighted}[1]{\ensuremath{_{(#1)}}}
 \newcommand{\size}[1]{\ensuremath{\left|#1\right|}}
+\newcommand{\LambdadB}{\ensuremath{\Lambda_{\text{dB}}}}
 
 \DeclareMathOperator{\textiff}{\text{iff}}
 \DeclareMathOperator{\N}{\mathbb{N}}
@@ -116,7 +117,8 @@
 	\end{center}
 \end{titlepage}
 
-\section*{Abstract}
+\section*{Abstract}%
+\label{sec:abstract}
 
 We analyze the problem of finding combinatorial interpretations of holonomic recurrences and show some techniques that were used to achieve known results.
 
@@ -127,10 +129,11 @@ We also try to find combinatorial interpretation of holonomic recurrence for tre
 \tableofcontents
 \clearpage
 
-\section{Introduction}
+\section{Introduction}%
+\label{sec:introduction}
 
-\subsection{Notation}
-\label{section-notation}
+\subsection{Notation}%
+\label{sub:notation}
 
 In order to make reading of this article easier, let's fix some notation and make some assumptions. Any deviation from this will be clearly stated. If you have trouble guessing what some letter or word means, this should be your primary place to look for the answer.
 
@@ -204,7 +207,8 @@ eg.\ stands for Latin exampli gratia, which means \textit{for example}.
 
 ie.\ stands for Latin id est, which means \textit{that is}.
 
-\subsection{Structurally recursive objects}
+\subsection{Structurally recursive objects}%
+\label{sub:structurally_recursive_objects}
 
 We will be analyzing structures that can be expressed using recursive expressions. Eg.\ we can define full binary tree recursively as a node having no children (ie.\ being a leaf) or having exactly two subtrees being full binary trees. To express the alternative in the construction rule, we use \(+\). The reason will become obvious soon.
 
@@ -212,7 +216,8 @@ We will be analyzing structures that can be expressed using recursive expression
 
 \todo{Add some image}
 
-\subsection{Generating functions}
+\subsection{Generating functions}%
+\label{sub:generating_functions}
 
 In the article we use ordinary generating functions to describe and count structures.
 
@@ -224,7 +229,7 @@ The ordinary generating function of sequence \(A = (a_i)_{i=0}^{\infty}\) is def
 Note that in order to compute \(k\)-th element of the sequence, \(a_k\), we just need to find constant corresponding to indeterminate \(z^k\).
 
 \begin{example}
-    \label{ex-bin-gf}
+    \label{ex:bin_gf}
     Having our recursive definition of the object, we can easily construct a generating function for it. Let's create generating function that will count number of full binary trees consisting of exactly \(k\) internal nodes.
 
 \[\gf{B}(z) = 1 + z\gf{B}^2(z)\]
@@ -246,12 +251,13 @@ iilll\todo{Add image}
 
 There exist multiple well-known methods and tools that allow us to work with generating functions without need of digging into details. The tool we will be using extensively in this work is Maple package called GFUN\cite{gfun}.
 
-\subsection{Holonomic recurrences}
+\subsection{Holonomic recurrences}%
+\label{sub:holonomic_recurrences}
 
 Most of the time we will be working with holonomic recurrences, let's introduce them.
 
 \begin{definition}
-    \label{def-holo-1}
+    \label{def:holo_1}
     \cite{holotoolkit}
     An infinite sequence \(A = (a_i)_{i=0}^{\infty}\) is holonomic (aka. P-finite, P-recursive or D-recursive) \(\textiff\) exists holonomic recurrence for it, ie.:
 
@@ -270,18 +276,18 @@ Note that the sum can only take finite number of subsequent elements of the sequ
 \end{example}
 
 \begin{definition}
-    \label{def-holo-2}
+    \label{def:holo_2}
     \cite{complexity}
-    Equivalently to definition\ \ref{def-holo-1}, \(A = (a_i)_{i=0}^{\infty}\) is holonomic \(\textiff\) exists generating function in the following form:
+    Equivalently to definition\ \ref{def:holo_1}, \(A = (a_i)_{i=0}^{\infty}\) is holonomic \(\textiff\) exists generating function in the following form:
     \[\sum_{i=0}^{r} p_i(z) \gf{A}^{(i)}(z) = b(z)\]
     for some fixed \(r \in \N\); \(b, p_0, \ldots, p_r \in \poly\) not all identically zero.
 \end{definition}
 
-Equivalence of these two definitions assures us that if we find generating function describing the desired objects satisfying definition\ \ref{def-holo-2}, we will be able to find holonomic recurrence mentioned in definition\ \ref{def-holo-1}.\cite{complexity}
+Equivalence of these two definitions assures us that if we find generating function describing the desired objects satisfying definition\ \ref{def:holo_2}, we will be able to find holonomic recurrence mentioned in definition\ \ref{def:holo_1}.\cite{complexity}
 
 \begin{example}
-    \label{ex-gfun-rec}
-    For generating function full binary trees defined in example\ \ref{ex-bin-gf}, ie.:
+    \label{ex:gfun-rec}
+    For generating function full binary trees defined in example\ \ref{ex:bin_gf}, ie.:
     \[\gf{B}(z) = 1 + z\gf{B}^2(z)\]
     we can use GFUN\cite{gfun} to immediately find holonomic recurrence of our interest:
 
@@ -314,7 +320,8 @@ Equivalence of these two definitions assures us that if we find generating funct
 
 \end{example}
 
-\subsection{Combinatorial interpretations}
+\subsection{Combinatorial interpretations}%
+\label{sub:combinatorial_interpretations}
 
 Combinatorial interpretation is just fancy name for something you probably know and use. Eg.\ if you know the binomial coefficient \(\binom{n}{k}\), I bet it was introduced to you as something like: "let's assume you have \(n\) distinguishable balls. If you want to choose \(k\) from them, then you can do it in \(\binom{n}{k}\) ways" and now, whenever you see the term \(\binom{n}{k}\) you interpret it as number of ways to choose \(k\) objects from the set of size \(n\). This is the combinatorial interpretation of the binomial coefficient.
 
@@ -324,7 +331,10 @@ Unfortunately, as for the most of auto-generated code, they almost never come wi
 
 In the article we try to gather methods and results that may be helpful for anyone who will try to find such interpretation, as we believe that such interpretation may give better insight into the nature of the structure and make it easier to study its behaviour.
 
-\subsection{Pre-order notation}
+\subsection{Pre-order notation}%
+\label{sub:pre_order_notation}
+
+
 
 In order to make notation easier and unambiguous, we also introduce pre-order notation of \(n\)-ary tree.
 
@@ -353,9 +363,13 @@ We also can define prefix and suffix of \(T\).
 
 In the article we define some operations using its notation. As pre-order notation is bijective, you can obtain the structure the notation describe by reversing the process of encoding.
 
-\section{Known results}
+\section{Known results}%
+\label{sec:known_results}
 
-\subsection{Binary trees}
+\subsection{Binary trees}%
+\label{sub:binary_trees}
+
+
 
 Let's start with probably the most known result, full binary trees\cite{binary}.
 
@@ -411,8 +425,8 @@ First case can be also split into 2 subcases. Without loss of the generality we 
 
 In the second case it is enough to noitice that \(R_l\) generates trees with pointed vertex being a left child, and \(R_r\) generates trees with pointed vertex being right child. That immediately provides us with conclusion that we are generating no duplicates.
 
-\subsection{Unary-binary trees}
-\label{section-unary-binary}
+\subsection{Unary-binary trees}%
+\label{sub:unary_binary_trees}
 
 Let's think, what would have changed if we introduce unary vertices to the binary case\cite{motzkin}. We will be counting edges. Note that tree having \(n\) edges has exactly \(n + 1\) vertices.
 
@@ -431,7 +445,7 @@ And with a bit of Maple magic, we immediately get following recurrence:
 The definition above is precise, but introduces a new kind of vertice that we would have to take care of. We can avoid it by using a trick to make the tree recall binary tree. We don't change the structure, just the notation.
 
 \begin{definition}
-    \label{def-unary-binary-2}
+    \label{def:unary_binary_2}
     Left-leaning binary tree\todo{find official name; skewed binary tree is something different} is a binary tree with following constraint added: if a vertex has right child, it also have a left child.
 \end{definition}
 
@@ -449,7 +463,7 @@ As we have added \(n + 2\) virtual vertices, we have added as much virtual edges
 
 Please note that \(n + 2\) matches the multiplier of \(U(n)\). Let's point the virtual leaves then.
 
-To present the interpretation in bijective language, we will have to introduce several types of the the virtual leaves (you may want to revisit section \ref{section-notation} Notation):
+To present the interpretation in bijective language, we will have to introduce several types of the the virtual leaves (you may want to revisit section \ref{sub:notation} Notation):
 
 \begin{enumerate}
     \item Vro - virtual leaf being right virtual-oneling;
@@ -459,7 +473,7 @@ To present the interpretation in bijective language, we will have to introduce s
             \item VrtUra - Vri which uncle is a right actual node;
             \item VrtUla - Vri which uncle is a left actual node.
         \end{enumerate}
-    \item Vlt - virtual leaf left virtual-twinling. Note that from definition \ref{def-unary-binary-2}, left virtual leave can not have sibling being a actual node. We can divide also this case into:
+    \item Vlt - virtual leaf left virtual-twinling. Note that from definition \ref{def:unary_binary_2}, left virtual leave can not have sibling being a actual node. We can divide also this case into:
         \begin{enumerate}
             \item VltUrv - Vlt which uncle is a right virtual leaf;
             \item VltUra - Vlt which uncle is a right actual node;
@@ -479,7 +493,8 @@ In case of \(U(n-2)\), the multiplier is \(3(n-1)\), that suggests that we shoul
 
 As you can see, we have satisfied all of the cases of \(U(n)\) with no repetitions, which concludes the construction.
 
-\subsection{Schröder trees}
+\subsection{Schröder trees}%
+\label{sub:schröder_trees}
 
 The next case we will show is case of Schröder trees\cite{schroder}.
 
@@ -602,13 +617,16 @@ To achive trees from \((n - 2) T(n - 1)\), we can simply take trees from case 3.
 
 \todo{image}
 
-\section{Approaches}
+\section{Approaches}%
+\label{sec:approaches}
 
-\subsection{Introduction}
+\subsection{Introduction}%
+\label{sub:introduction}
 
 As you could see in the examples above, most of the solutions base on the simple analysis of number of laves, internal nodes and other similar properties. In this section, we've gathered some methods that may be helpful when trying to analyze the problem of interpreting combinatorically some holonomic recurrence.
 
-\subsection{Defining the size carefully}
+\subsection{Defining the size carefully}%
+\label{sub:defining_the_size_carefully}
 
 First thing that we have to select is defining the size carrefully. We have few standard choices of computing tree sizes:
 \begin{itemize}
@@ -627,13 +645,15 @@ There are 2 most common symptoms that we may want to choose different method of 
     \item we want to join trees using common root and we get many \(\pm1\) in our notes. Note that if you count internal nodes, such catenation creates tree of size being sum of sizes of the components increases by 1. If you had defined the size as number of leaves or null-nodes, the size would be just plain sum of sizes of the smaller trees. \todo{Add some example}
 \end{itemize}
 
-\subsection{Tree binarization}
+\subsection{Tree binarization}%
+\label{sub:tree_binarization}
 
 If we describe some structure we may be tempted to use multiple kinds of vertices, eg.~unary and binary vertices. Having multiple kinds of vertices may cause problems, both in creating holonomic recurrence and finding the interpretation, as we have to keep track of how they can transform.
 
-As the most common trees are binary ones, it may be worth an effort to find the some structure based on binary trees that can represent original structure (see section~\ref{section-unary-binary}).
+As the most common trees are binary ones, it may be worth an effort to find the some structure based on binary trees that can represent original structure (see section~\ref{sub:unary_binary_trees}).
 
-\subsection{Weights variablization}
+\subsection{Weights variablization}%
+\label{sub:weights_variablization}
 
 Most of the time we are operating on trees with some nodes of weight \(0\) and some of weight \(1\). We may as well try to make them variable or assign some other values (eg.\ small prime numbers).
 
@@ -645,7 +665,8 @@ Unfortunately, decreasing size of the classes increases number of the sizes we n
 
 \todo{Add some example}
 
-\subsection{Inductive translation}
+\subsection{Inductive translation}%
+\label{sub:inductive_translation}
 
 Another method that may help finding the interpretation is inductive translation\cite{doron}. The method is based on the idea that most of the time there is easy to find some natural induction (not necessarily holonomic) that has trivial interpretation in bijective language.
 
@@ -653,34 +674,137 @@ Another method that may help finding the interpretation is inductive translation
 
 The method itself has proven to be helpful in order to divide the problem into smaller parts. Unfortunately It does not give any immediate interpretation for applying the inductive step.
 
-\subsection{Brutal iterative approach}
+\section{Brutal iterative approach}%
+\label{sec:brutal_iterative_approach}
 
 If all elaborate methods has failed and the problem is still too big to interpret it by hand, a computer comes handy.
 
-As the main field of our interest was analyzis of terms of lambda trees, we will use it as an example to describe the method.\todo{Add definition}
+As the main field of our interest was analyzis of terms of lambda trees in unary de Bruijn notation, we will use it as an example to describe the method.\todo{Add definition}
 
-At first let's create generating functions that will keep track of more than just number of vertices, but also counts of each kind of vertices in the tree. The generating function will be parameterized then using following arguments:
+\subsection{Lambda terms}%
+\label{sub:lambda_terms}
+
+\begin{definition}
+    Set of lambda terms \(\Lambda\) is defined recursively:
+    \begin{itemize}
+        \item if \(x\) is a variable, \(x \in \Lambda\)
+        \item if \(M, N \in \Lambda\), then \((M N) \in \Lambda\) (application of function \(M\) to an argument \(N\))
+        \item if \(x\) is a variable and \(M \in \Lambda\), then \((\lambda x . M) \in \Lambda\) (abstraction, ie.\ creating a function with an argument \(x\) and binding each occurence of \(x\) in \(M\) to this argument)
+    \end{itemize}
+\end{definition}
+
+The definition above is quite popular, but introduces several problems. One of them is problem of potential collision of lambda-abstracted variables and difficulty of finding to which lambda abstraction is the variable is bound (or is it even free variable, ie.\ not bound). To address that, we can use de Bruijn indices.
+
+\begin{definition}
+    Set of lambda terms \(\LambdadB\) is defined recursively:
+    \begin{itemize}
+        \item if \(n \in \N\), \(n \in \LambdadB\) (\(n\) is a variable bound to lambda abstraction \(n\) levels above)
+        \item if \(M, N \in \LambdadB\), then \((M N) \in \LambdadB\) (application)
+        \item if \(M \in \LambdadB\), then \((\lambda M) \in \LambdadB\) (abstraction)
+    \end{itemize}
+\end{definition}
+
+As you can see, we managed to eliminate the arbitrary variables. We can also easily check if given variable is bound by checking its depth.
+
+\begin{example}
+    \(\lambda x . \lambda y . x\) is equivalent to \(\lambda \lambda 1\)
+\end{example}
+
+\begin{example}
+    \(\lambda x . (\lambda y . x) (\lambda y . y)\) is equivalent to \(\lambda (\lambda 1) (\lambda 0)\)
+\end{example}
+
+It also allows us to define tree representation of the terms.
+
+\begin{definition}
+    Injection from lambda terms in de Bruijn notation to binary trees \(\Phi\) is defined as follows:
+    \begin{itemize}
+        \item \(\Phi(0) = \n\; \no\; \no\)
+        \item \(\Phi(n) = \n\; \no\; \Phi(n - 1)\)
+        \item \(\Phi(\lambda M) = \n\; \Phi(M)\; \no\)
+        \item \(\Phi(M N) = \n\; \Phi(M)\; \Phi(N)\)
+    \end{itemize}
+\end{definition}
+
+To simplify the interpretation, we can introduce several kinds of the nodes: \(o\), \(s\), \(l\) and \(a\). They do not change the structure, but make the reading a bit easier:
+
+\begin{definition}
+    \(o\) is a leaf.
+\end{definition}
+
+\begin{definition}
+    \(s\) is a node with just right child.
+\end{definition}
+
+\begin{definition}
+    \(l\) is a node with just left child.
+\end{definition}
+
+\begin{definition}
+    \(a\) is a node with both children.
+\end{definition}
+
+Which leads to following interpreation of \(\Phi\):
+
+\begin{itemize}
+    \item \(\Phi(0) = o\; \no\; \no\)
+    \item \(\Phi(n) = s\; \no\; \Phi(n - 1)\)
+    \item \(\Phi(\lambda M) = l\; \Phi(M)\; \no\)
+    \item \(\Phi(M N) = a\; \Phi(M)\; \Phi(N)\)
+\end{itemize}
+
+You can note that not every binary tree represents valid term.
+
+\begin{example}
+    \(\n\; \no\; \n\; \n\; \no\; \no\; \no\) does not represent valid lambda term.
+\end{example}
+
+To see that, we can take a look at this tree with our node kinds used:
+    \[s\; \no\; l\; o\; \no\; \no\; \no\]
+
+\(s\) represents successor which can be applied only to \(n \in \N\), but is applied to lambda-abstracted term.
+
+\subsection{Enhanced holonomic reccurence}%
+\label{sub:enhanced_holonomic_reccurence}
+
+As we have our structure defined, let's create generating functions that will keep track of more than just number of vertices, but also counts of each kind of vertices in the tree. The generating function will be parameterized then using following arguments:
 \begin{itemize}
     \item \(z\) counting total number of virtual leaves
-    \item \(a\) counting number of application vertices
-    \item \(l\) counting number of lambda abstraction vertices
     \item \(o\) counting number of bound variable vertices
+    \item \(l\) counting number of lambda abstraction vertices
+    \item \(a\) counting number of application vertices
     \item \(s\) counting number of successors of bound variable vertices
 \end{itemize}
 
-In order to make the image cleaner, we will drop the arguments of generating functions, ie. \(\gf{L} := \gf{L}(z, a, l, o, s)\)
+In order to make the image cleaner, we will drop the arguments of generating functions, ie. \(\gf{L} := \gf{L}(z, o, l, a, s)\)
 \[\gf{L} = z a \gf{L}^2 + z l \gf{L} + \frac{o z}{1 - z s}\]
 \todo{add some image}
 \todo{describe how the frac is generated}
 
 Using a little bit of Maple magic, we can easily achieve following holonomic recurrence.
 
-\begin{lstlisting}
-l^2*s^2*n*B(n) + ((4*a*o*s*u - 2*l^2*s - 2*l*s^2)*n + 6*a*o*s*u - 2*l^2*s - 3*l*s^2)*B(1 + n) + ((-4*a*o*u + l^2 + 4*l*s + s^2)*n - 8*a*o*u + 2*l^2 + 10*l*s + 3*s^2)*B(n + 2) + ((-2*l - 2*s)*n - 7*l - 8*s)*B(n + 3) + (5 + n)*B(n + 4)
-\end{lstlisting}
-\todo{rewrite to LaTeX}
+\[\begin{array}{rl}
+        & (n - 4) l^2 s^2 L(n - 4)\\
+        +& ((4 n - 10) a o s - (2 n - 6) l^2 s - (2 n - 5) l s^2) L(n - 3)\\
+        +& ((-4 n + 8) a o + (n - 2) l^2 + (4 n - 6) l s + (n - 1) s^2) L(n - 2)\\
+        +& ((-2 n + 1) l - 2 n s) L(n - 1)\\
+        +& (n + 1) L(n)
+\end{array}\]
 
-You may notice that some potentially trivial terms are more complex that it seems.\todo{example}
+You may notice that some potentially trivial terms are more complex that it seems. If we didn't count different types of vertices, we would achieve following holonomic recurrence:
+
+\[\begin{array}{rl}
+        & (n - 4) L(n - 4)\\
+        +& L(n - 3)\\
+        +& (2 n - 1) L(n - 2)\\
+        +& (-4 n + 1) L(n - 1)\\
+        +& (1 + n) L(n)
+\end{array}\]
+
+We can see that for example simple \(L(n-3)\) is expanded into \(((4 n - 10) a o s - (2 n - 6) l^2 s - (2 n - 5) l s^2) L(n - 3)\).
+
+\subsection{The framework}%
+\label{sub:the_framework}
 
 We also created a framework that may help visualize our work. It is based on the idea that every transformation described using bijective language can be translated to a function transforming vertex and finite number of its surrounding vertices. This function can not discriminate vertices on the grounds of their kind. The only discrimination that may occur may be connected to the following cases:
 \begin{itemize}
@@ -696,7 +820,8 @@ The latest two are intruduced in order to make the analysis simpler, but do not 
 \todo{define iteration}
 \todo{remind the cheat}
 
-\section{Further work}
+\section{Further work}%
+\label{sec:further_work}
 
 \todo{finish interpretation}
 \todo{missing formal proof}
