@@ -167,9 +167,9 @@ In order to make reading of this article easier, let's fix some notation and mak
 
 \(\tRight(v)\) is implicitly defined as a right subree of node \(v\).
 
-Sibling of vertex \(v\) is defined as vertex \(u\) having the same parent as \(v\).
+Sibling of node \(v\) is defined as node \(u\) having the same parent as \(v\).
 
-Uncle of vertex \(v\) is defined as sibling of the parent of \(v\).
+Uncle of node \(v\) is defined as sibling of the parent of \(v\).
 
 We say that node \(v\) is an oneling \(\textiff\) \(v\) has no sibling. Note that the root is oneling even if it has no parent.
 
@@ -179,7 +179,7 @@ We say that node \(v\) is an virtual-oneling \(\textiff\) \(v\) has no sibling b
 
 We say that node \(v\) is virtual-twinling \(\textiff\) \(v\) has at least one sibling being virtual node.
 
-Leaf is a vertex which has no children.
+Leaf is a node which has no children.
 
 \(\n\) is implicitly defined as a default identifier a node.
 
@@ -419,19 +419,19 @@ The only thing that's left for us to verify is if we generate all trees of size 
 
 First case can be also split into 2 subcases. Without loss of the generality we can analyze just one of the operations, let it be \(R_l\). The second case will be symmetric.
 \begin{itemize}
-    \item for some nodes \(u \neq v\), \(R_l(T, u) = R_l(T, v)\). Let \(i_u, i_v\) be the indices of respectively \(\enc{u}\) and \(\enc{v}\) in \(\enc{T}\). Let \(\pointed{i}_u, \pointed{i}_v\) be the indices of pointed vertex respectively in \(\enc{R_l(T, u)}\) and \(\enc{R_l(T, v)}\). Due to the definition of \(R_l\), we get that \(\pointed{i}_u = i_u + 1\) and \(\pointed{i}_v = i_v + 1\), which implies that \(u = v\) what we assumed false.
-    \item for some trees \(T \neq S\), \(R_l(T, u) = R_l(S, v)\). Let \(i_u, i_v\) be the indices of respectively \(\enc{u}\) in \(\enc{T}\) and \(\enc{v}\) in \(\enc{S}\). Let \(\pointed{i}_u, \pointed{i}_v\) be the indices of pointed vertex respectively in \(\enc{R_l(T, u)}\) and \(\enc{R_l(S, v)}\). If \(\pointed{i}_u \neq \pointed{i}_v\), this case is trivially false, so we can assume that \(\pointed{i}_u = \pointed{i}_v\). Therefore, again from the definition of \(R_l\), we have that \(i_u = i_v\). That implies that \(\enc{\tPre(T, u)} \enc{\tSub(u)} \enc{\tSuf(T, u)} = \enc{\tPre(S, v)} \enc{\tSub(v)} \enc{\tSuf(S, v)} \), which then sums up to \(\enc{T} = \enc{S}\), which we assumed false.
+    \item for some nodes \(u \neq v\), \(R_l(T, u) = R_l(T, v)\). Let \(i_u, i_v\) be the indices of respectively \(\enc{u}\) and \(\enc{v}\) in \(\enc{T}\). Let \(\pointed{i}_u, \pointed{i}_v\) be the indices of pointed node respectively in \(\enc{R_l(T, u)}\) and \(\enc{R_l(T, v)}\). Due to the definition of \(R_l\), we get that \(\pointed{i}_u = i_u + 1\) and \(\pointed{i}_v = i_v + 1\), which implies that \(u = v\) what we assumed false.
+    \item for some trees \(T \neq S\), \(R_l(T, u) = R_l(S, v)\). Let \(i_u, i_v\) be the indices of respectively \(\enc{u}\) in \(\enc{T}\) and \(\enc{v}\) in \(\enc{S}\). Let \(\pointed{i}_u, \pointed{i}_v\) be the indices of pointed node respectively in \(\enc{R_l(T, u)}\) and \(\enc{R_l(S, v)}\). If \(\pointed{i}_u \neq \pointed{i}_v\), this case is trivially false, so we can assume that \(\pointed{i}_u = \pointed{i}_v\). Therefore, again from the definition of \(R_l\), we have that \(i_u = i_v\). That implies that \(\enc{\tPre(T, u)} \enc{\tSub(u)} \enc{\tSuf(T, u)} = \enc{\tPre(S, v)} \enc{\tSub(v)} \enc{\tSuf(S, v)} \), which then sums up to \(\enc{T} = \enc{S}\), which we assumed false.
 \end{itemize}
 
-In the second case it is enough to noitice that \(R_l\) generates trees with pointed vertex being a left child, and \(R_r\) generates trees with pointed vertex being right child. That immediately provides us with conclusion that we are generating no duplicates.
+In the second case it is enough to noitice that \(R_l\) generates trees with pointed node being a left child, and \(R_r\) generates trees with pointed node being right child. That immediately provides us with conclusion that we are generating no duplicates.
 
 \subsection{Unary-binary trees}%
 \label{sub:unary_binary_trees}
 
-Let's think, what would have changed if we introduce unary vertices to the binary case\cite{motzkin}. We will be counting edges. Note that tree having \(n\) edges has exactly \(n + 1\) vertices.
+Let's think, what would have changed if we introduce unary nodes to the binary case\cite{motzkin}. We will be counting edges. Note that tree having \(n\) edges has exactly \(n + 1\) nodes.
 
 \begin{definition}
-    Unary-binary tree is such tree of which any vertex can have either 0, 1 or 2 children.
+    Unary-binary tree is such tree of which any node can have either 0, 1 or 2 children.
 \end{definition}
 
 We can easily derive the generating function:
@@ -446,18 +446,18 @@ The definition above is precise, but introduces a new kind of vertice that we wo
 
 \begin{definition}
     \label{def:unary_binary_2}
-    Left-leaning binary tree\todo{find official name; skewed binary tree is something different} is a binary tree with following constraint added: if a vertex has right child, it also have a left child.
+    Left-leaning binary tree\todo{find official name; skewed binary tree is something different} is a binary tree with following constraint added: if a node has right child, it also have a left child.
 \end{definition}
 
-The bijection between unary-binary and left-leaning binary trees is very simple. We just represent unary vertices as vertices with just left child of left-leaning binary tree. The other cases translate immediately to corresponding ones. Please note that this transformation keeps the size of the tree (ie.~number of edges).
+The bijection between unary-binary and left-leaning binary trees is very simple. We just represent unary nodes as nodes with just left child of left-leaning binary tree. The other cases translate immediately to corresponding ones. Please note that this transformation keeps the size of the tree (ie.~number of edges).
 
 The next step is to make binary trees full. Let's just define virtual leaves.
 
 \begin{definition}
-    Virtual leaf is a virtual node added to the vertex in place of non-existing child.
+    Virtual leaf is a virtual node added to the node in place of non-existing child.
 \end{definition}
 
-As we have added \(n + 2\) virtual vertices, we have added as much virtual edges.
+As we have added \(n + 2\) virtual nodes, we have added as much virtual edges.
 
 \todo{image of transformation unary-binary to full-binary}
 
@@ -485,7 +485,7 @@ Note that it covers all possible cases of pointing virtual leaf and all the case
 
 All we need to show are the transformations from the smaller cases, ie. \(U(n-1)\) and \(U(n-2)\).
 
-Let's start from \(U(n-1)\). Its multiplier is \(2n + 1\). It suggests that we can point any vertex, as in a tree having \(n - 1\) edges, we have \(n\) actual and \(n + 1\) virtual ones.
+Let's start from \(U(n-1)\). Its multiplier is \(2n + 1\). It suggests that we can point any node, as in a tree having \(n - 1\) edges, we have \(n\) actual and \(n + 1\) virtual ones.
 
 In case of \(U(n-2)\), the multiplier is \(3(n-1)\), that suggests that we should perform \(3\) transformations on the trees with a pointed actual node.
 
@@ -499,10 +499,10 @@ As you can see, we have satisfied all of the cases of \(U(n)\) with no repetitio
 The next case we will show is case of Schröder trees\cite{schroder}.
 
 \begin{definition}
-    Schröder tree is a tree with no unary vertices.
+    Schröder tree is a tree with no unary nodes.
 \end{definition}
 
-Simply speaking, vertex can have zero or strictly more than one children.
+Simply speaking, node can have zero or strictly more than one children.
 
 \todo{example}
 
@@ -648,7 +648,7 @@ There are 2 most common symptoms that we may want to choose different method of 
 \subsection{Tree binarization}%
 \label{sub:tree_binarization}
 
-If we describe some structure we may be tempted to use multiple kinds of vertices, eg.~unary and binary vertices. Having multiple kinds of vertices may cause problems, both in creating holonomic recurrence and finding the interpretation, as we have to keep track of how they can transform.
+If we describe some structure we may be tempted to use multiple kinds of nodes, eg.~unary and binary nodes. Having multiple kinds of nodes may cause problems, both in creating holonomic recurrence and finding the interpretation, as we have to keep track of how they can transform.
 
 As the most common trees are binary ones, it may be worth an effort to find the some structure based on binary trees that can represent original structure (see section~\ref{sub:unary_binary_trees}).
 
@@ -767,13 +767,13 @@ To see that, we can take a look at this tree with our node kinds used:
 \subsection{Enhanced holonomic reccurence}%
 \label{sub:enhanced_holonomic_reccurence}
 
-As we have our structure defined, let's create generating functions that will keep track of more than just number of vertices, but also counts of each kind of vertices in the tree. The generating function will be parameterized then using following arguments:
+As we have our structure defined, let's create generating functions that will keep track of more than just number of nodes, but also counts of each kind of nodes in the tree. The generating function will be parameterized then using following arguments:
 \begin{itemize}
     \item \(z\) counting total number of virtual leaves
-    \item \(o\) counting number of bound variable vertices
-    \item \(l\) counting number of lambda abstraction vertices
-    \item \(a\) counting number of application vertices
-    \item \(s\) counting number of successors of bound variable vertices
+    \item \(o\) counting number of bound variable nodes
+    \item \(l\) counting number of lambda abstraction nodes
+    \item \(a\) counting number of application nodes
+    \item \(s\) counting number of successors of bound variable nodes
 \end{itemize}
 
 In order to make the image cleaner, we will drop the arguments of generating functions, ie. \(\gf{L} := \gf{L}(z, o, l, a, s)\)
@@ -791,7 +791,13 @@ Using a little bit of Maple magic, we can easily achieve following holonomic rec
         +& (n + 1) L(n)
 \end{array}\]
 
-You may notice that some potentially trivial terms are more complex that it seems. If we didn't count different types of vertices, we would achieve following holonomic recurrence:
+Appearing in the recurrence node kinds mean that we extend trees of given size using nodes of that kinds.
+
+\begin{example}
+    \((2n - 5) l s^2 L(n - 3)\) mean extending each tree of size \((n - 3)\) pointed in \((2n - 5)\) ways using single \(l\) node and two \(s\) nodes.
+\end{example}
+
+You may notice that some potentially trivial terms are more complex that it seems. If we didn't count different types of nodes, we would achieve following holonomic recurrence:
 
 \[\begin{array}{rl}
         & (n - 4) L(n - 4)\\
@@ -801,20 +807,39 @@ You may notice that some potentially trivial terms are more complex that it seem
         +& (1 + n) L(n)
 \end{array}\]
 
-We can see that for example simple \(L(n-3)\) is expanded into \(((4 n - 10) a o s - (2 n - 6) l^2 s - (2 n - 5) l s^2) L(n - 3)\).
+\begin{example}
+    \(L(n-3)\) is expanded into \(((4 n - 10) a o s - (2 n - 6) l^2 s - (2 n - 5) l s^2) L(n - 3)\).
+\end{example}
+
 
 \subsection{The framework}%
 \label{sub:the_framework}
 
-We also created a framework that may help visualize our work. It is based on the idea that every transformation described using bijective language can be translated to a function transforming vertex and finite number of its surrounding vertices. This function can not discriminate vertices on the grounds of their kind. The only discrimination that may occur may be connected to the following cases:
+We also created a framework that may help visualize our work. It is based on the idea that every transformation described using bijective language can be translated to a function transforming node and finite number of its surrounding nodes. This function can not discriminate nodes on the grounds of their kind. The only discrimination that may occur may be connected to the following cases:
 \begin{itemize}
-    \item vertex has no children, ie.~is a virtual leaf (which corresponds to the size of the tree, \(n\));
-    \item vertex has has children, ie.~is not a virtual leaf (which corresponds to \(n - 1\));
-    \item vertex has its parent on the left, ie.~is right child of its parent;
-    \item vertex has its parent on the right, ie.~is left child of its parent.
+    \item node has no children, ie.~is a virtual leaf (which corresponds to the size of the tree, \(n\));
+    \item node has has children, ie.~is not a virtual leaf (which corresponds to \(n - 1\));
+    \item node has its parent on the left, ie.~is right child of its parent;
+    \item node has its parent on the right, ie.~is left child of its parent.
 \end{itemize}
 
-The latest two are intruduced in order to make the analysis simpler, but do not have immediate interpretation in the world of holonomic recurrences. If we use them both, it sums up to all vertices except root (as root is neither left nor right child).
+The latest two are intruduced in order to make the analysis simpler, but do not have immediate interpretation in the world of holonomic recurrences. If we use them both, it sums up to all nodes except root (as root is neither left nor right child).
+
+
+\subsection{Transformation classes}%
+\label{sub:transformation_classes}
+
+We will be operating on transformation classes, sections and parts. Let's define them:
+
+\begin{definition}
+    Class \(T_i\) is defined as set of transformations of trees of size \((n - i)\) into trees of size \(n\).
+\end{definition}
+
+
+\begin{definition}
+    Section \(T_{i,j}\) is defined as subset of \(L_i\) adding specific set of nodes. We assign \(j\) according to the lexicographical order of lexicographically sorted node types that need 
+\end{definition}
+
 
 \todo{split into classes / subclasses}
 \todo{define iteration}

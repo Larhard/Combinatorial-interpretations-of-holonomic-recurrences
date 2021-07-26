@@ -128,7 +128,7 @@ class Context:
                             for _ in range(abs(multiplier)):
                                 result.append(data)
 
-        sorting_key = lambda data: (str(data[0]), -data[1][0], data[1][1], data[1][2])
+        sorting_key = lambda data: (str(data[0]), data[1][0], data[1][1], data[1][2])
 
         result.sort(key=sorting_key)
         return result
