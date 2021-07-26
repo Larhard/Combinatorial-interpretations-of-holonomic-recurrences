@@ -211,8 +211,8 @@ class Context:
 
     def eval_section_equation(self, equation, class_idx):
         ctx = {
-            "n": self.ns[class_idx],
-            "Cn": len(self.classes[class_idx]),
+            "k": self.ns[class_idx],
+            "Ck": len(self.classes[class_idx]),
         }
         return eval(equation, ctx)
 
