@@ -18,6 +18,7 @@
 
 \RequirePackage{geometry}
 \RequirePackage{graphicx}
+\RequirePackage{svg}
 
 \RequirePackage{amsthm}
 \RequirePackage{amsmath}
@@ -74,6 +75,8 @@
 \DeclareMathOperator{\tSuf}{\text{Suf}}
 \DeclareMathOperator{\n}{\bullet}
 \DeclareMathOperator{\no}{\o}
+
+\newcommand{\includeinlinesvg}[2]{\begin{minipage}{#1\textwidth}\includesvg[width=\textwidth]{#2}\end{minipage}}
 
 \begin{document}
 
@@ -193,7 +196,7 @@ We say that node \(v\) is right (left) \(\textiff\) \(v\) is a right (left) chil
 
 We say that node \(v\) has a right (left) parent \(u\) \(\textiff\) \(v\) is a left (right) child of \(u\).
 
-\(\pointed{v}\) is implicitly defined as a pointed node \(v\).
+\(\pointed{v}\) is implicitly defined as a pointed node \(v\). We can treat it as node with additional label \(\pointed{}\).
 
 \(v\weighted{n}\) is implicitly defined as a weighted node \(v\) with weight \(n\).
 
@@ -784,7 +787,7 @@ In order to make the image cleaner, we will drop the arguments of generating fun
 Using a little bit of Maple magic, we can easily achieve following holonomic recurrence.
 
 \[\begin{array}{rl}
-        & (n - 4) l^2 s^2 L(n - 4)\\
+        0 =& (n - 4) l^2 s^2 L(n - 4)\\
         +& ((4 n - 10) a o s - (2 n - 6) l^2 s - (2 n - 5) l s^2) L(n - 3)\\
         +& ((-4 n + 8) a o + (n - 2) l^2 + (4 n - 6) l s + (n - 1) s^2) L(n - 2)\\
         +& ((-2 n + 1) l - 2 n s) L(n - 1)\\
@@ -800,7 +803,7 @@ Appearing in the recurrence node kinds mean that we extend trees of given size u
 You may notice that some potentially trivial terms are more complex that it seems. If we didn't count different types of nodes, we would achieve following holonomic recurrence:
 
 \[\begin{array}{rl}
-        & (n - 4) L(n - 4)\\
+        0 =& (n - 4) L(n - 4)\\
         +& L(n - 3)\\
         +& (2 n - 1) L(n - 2)\\
         +& (-4 n + 1) L(n - 1)\\
@@ -812,10 +815,10 @@ You may notice that some potentially trivial terms are more complex that it seem
 \end{example}
 
 
-\subsection{The framework}%
+\subsection{The Transformator framework}%
 \label{sub:the_framework}
 
-We also created a framework that may help visualize our work. It is based on the idea that every transformation described using bijective language can be translated to a function transforming node and finite number of its surrounding nodes. This function can not discriminate nodes on the grounds of their kind. The only discrimination that may occur may be connected to the following cases:
+We also created a framework, called transformator, that may help visualize our work. It is based on the idea that every transformation described using bijective language can be translated to a function transforming node and finite number of its surrounding nodes. This function can not discriminate nodes on the grounds of their kind. The only discrimination that may occur may be connected to the following cases:
 \begin{itemize}
     \item node has no children, ie.~is a virtual leaf (which corresponds to the size of the tree, \(n\));
     \item node has has children, ie.~is not a virtual leaf (which corresponds to \(n - 1\));
@@ -886,7 +889,116 @@ As we want to make our work kind of organized, we are going to divide the proces
 
 We are going to generate two kinds of trees. Positive and negative ones. When computing total number of trees, we count positive tree is counted as \(1\), negative as \(-1\). Our goal is to generate \(E_{i, j}\) trees for each section \(T_{i, j}\).
 
-We start with interpreting \(E_{0,0}\).
+Our brains like small examples, so we will consider small \(n = 3\). This will cause some classes to be empty at the beginning, but it's ok. That's less trees to look at.
+
+
+\begin{lstlisting}
+=== Classes stats ===
+[ ]  0,0:       0 of      16 | (k + 1) * Ck              []
+[ ]  1,0:       0 of     -10 | - (2 * k + 1) * Ck        [l]
+[ ]  1,1:       0 of     -12 | - 2 * (k + 1) * Ck        [s]
+[ ]  2,0:       0 of      -4 | - (4 * k) * Ck            [aou]
+[ ]  2,1:       0 of       1 | (k) * Ck                  [ll]
+[ ]  2,2:       0 of       6 | (4 * k + 2) * Ck          [ls]
+[ ]  2,3:       0 of       2 | (k + 1) * Ck              [ss]
+[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Ck      [aosu]
+[x]  3,1:       0 of       0 | - (2 * k) * Ck            [lls]
+[ ]  3,2:       0 of      -1 | - (2 * k + 1) * Ck        [lss]
+[x]  4,0:       0 of       0 | k * Ck                    [llss]
+\end{lstlisting}
+
+This statistic tells us for each section, how many trees have been generated of expected total number of trees in that section. \verb|[x]| means that we generated enough trees for such section.
+
+We start with interpreting \(E_{0,0} = (k + 1) C_k\). From statistics above, we see that we should generate \(16\) trees. \((k + 1)\) suggests pointing virtual leaf. Let's do so.
+
+\begin{lstlisting}
+c.define_class(0)
+
+c.define_section(0)
+
+c.append_r_class_subtree_visitor(1,       # we define positive trees
+                                          # ie. that count as 1
+    lambda kind, left, right:
+        None if kind[0] is not None else  # we ignore all actual nodes
+        [kind + ("*", )] + left + right   # for each virtual node we point it
+)
+\end{lstlisting}
+
+\begin{lstlisting}
+# define 0,0: (k + 1) * Ck []
+=== Classes stats ===
+[x]  0,0:      16 of      16 | (k + 1) * Ck              []
+[ ]  1,0:       0 of     -10 | - (2 * k + 1) * Ck        [l]
+[ ]  1,1:       0 of     -12 | - 2 * (k + 1) * Ck        [s]
+[ ]  2,0:       0 of      -4 | - (4 * k) * Ck            [aou]
+[ ]  2,1:       0 of       1 | (k) * Ck                  [ll]
+[ ]  2,2:       0 of       6 | (4 * k + 2) * Ck          [ls]
+[ ]  2,3:       0 of       2 | (k + 1) * Ck              [ss]
+[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Ck      [aosu]
+[x]  3,1:       0 of       0 | - (2 * k) * Ck            [lls]
+[ ]  3,2:       0 of      -1 | - (2 * k + 1) * Ck        [lss]
+[x]  4,0:       0 of       0 | k * Ck                    [llss]
+=== Diff stats ===
+0,0:     0    16
+\end{lstlisting}
+
+The framework informs us that we have generated all trees for section \(0,0\) for \(n = 3\). It also can provide us with the visualization of the trees we have generated. For example:
+
+\includeinlinesvg{.19}{images/trees_00/4_base.svg}%
+\(\Rightarrow\)
+\includeinlinesvg{.19}{images/trees_00/4.svg}%
+\includeinlinesvg{.19}{images/trees_00/5.svg}%
+\includeinlinesvg{.19}{images/trees_00/6.svg}%
+\includeinlinesvg{.19}{images/trees_00/7.svg}%
+
+If we take a look at more examples, we can start seeing some patterns:
+
+\includeinlinesvg{.33}{images/trees_00/2.svg}%
+\includeinlinesvg{.33}{images/trees_00/3.svg}%
+\includeinlinesvg{.33}{images/trees_00/7.svg}%
+
+\includeinlinesvg{.33}{images/trees_00/4.svg}%
+\includeinlinesvg{.33}{images/trees_00/12.svg}%
+\includeinlinesvg{.33}{images/trees_00/13.svg}%
+
+\includeinlinesvg{.20}{images/trees_00/0.svg}%
+\includeinlinesvg{.20}{images/trees_00/1.svg}%
+\includeinlinesvg{.20}{images/trees_00/5.svg}%
+\includeinlinesvg{.20}{images/trees_00/6.svg}%
+\includeinlinesvg{.20}{images/trees_00/8.svg}%
+
+\includeinlinesvg{.20}{images/trees_00/9.svg}%
+\includeinlinesvg{.20}{images/trees_00/10.svg}%
+\includeinlinesvg{.20}{images/trees_00/11.svg}%
+\includeinlinesvg{.20}{images/trees_00/14.svg}%
+\includeinlinesvg{.20}{images/trees_00/15.svg}%
+
+The order may be a bit suggestive. Let's take a look at class \(1\). Section \(1,0\) adds single \(l\) node, section \(1,1\) adds single \(s\) node. It actually suggests how can we can try to generate first and second line of the trees above. The first one is simple. Let's add \(l\) node with pointed right virtual node to each actual node:
+
+\begin{lstlisting}
+c.define_class(1)
+
+c.define_section(0)
+
+c.append_r_class_subtree_visitor(-1,                # negative node
+    lambda kind, left, right:
+        None if kind[0] is None else                # we ignore all virtual nodes
+        ["l", kind] + left + right + [(None, "*")]  # for each actual node we add
+                                                    # l node with right virtual
+                                                    # node pointed as a parent
+)
+\end{lstlisting}
+
+It creates following trees:
+
+\includeinlinesvg{.24}{images/trees_100/0_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{images/trees_100/0.svg}%
+\includeinlinesvg{.24}{images/trees_100/1_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{images/trees_100/1.svg}%
+
+\includeinlinesvg{.24}{images/trees_100/2_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{images/trees_100/2.svg}%
+\includeinlinesvg{.24}{images/trees_100/3_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{images/trees_100/3.svg}%
+
+It addresses all cases from the first line. It introduces incorrect lambda tree though in which \(s\) is parent of \(l\), which can not happen. We will fix it with the section \(2,2\) generating positive trees, which introduces one \(l\) node and one \(s\) by extending the tree with \(2\) nodes where \(s\) is parent of \(l\).
+
 
 \subsection{The cheat}%
 \label{sub:the_cheat}
