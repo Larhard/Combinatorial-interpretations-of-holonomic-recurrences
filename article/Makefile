@@ -8,6 +8,9 @@ LATEXMKFLAGS = -pdf
 
 all: compile
 
+images::
+	$(MAKE) -C images
+
 ready::
 	$(RM) ready/*
 	$(MAKE) clean
@@ -29,6 +32,8 @@ compile: $(TARGETS)
 
 %.pdf: %.tex
 	$(LATEXMK) $(LATEXMKFLAGS) $<
+
+$(TARGETS): images
 
 clean:
 	$(RM) *.aux

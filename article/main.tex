@@ -20,6 +20,8 @@
 \RequirePackage{graphicx}
 \RequirePackage{svg}
 
+\svgpath{images/}
+
 \RequirePackage{amsthm}
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
@@ -944,36 +946,36 @@ c.append_r_class_subtree_visitor(1,       # we define positive trees
 
 The framework informs us that we have generated all trees for section \(0,0\) for \(n = 3\). It also can provide us with the visualization of the trees we have generated. For example:
 
-\includeinlinesvg{.19}{images/trees_00/4_base.svg}%
+\includeinlinesvg{.19}{trees_00__4_base.svg}%
 \(\Rightarrow\)
-\includeinlinesvg{.19}{images/trees_00/4.svg}%
-\includeinlinesvg{.19}{images/trees_00/5.svg}%
-\includeinlinesvg{.19}{images/trees_00/6.svg}%
-\includeinlinesvg{.19}{images/trees_00/7.svg}%
+\includeinlinesvg{.19}{trees_00__4.svg}%
+\includeinlinesvg{.19}{trees_00__5.svg}%
+\includeinlinesvg{.19}{trees_00__6.svg}%
+\includeinlinesvg{.19}{trees_00__7.svg}%
 
-If we take a look at more examples, we can start seeing some patterns:
+If we take a look at more examples from class \(0\), we can start seeing some patterns:
 
-\includeinlinesvg{.33}{images/trees_00/2.svg}%
-\includeinlinesvg{.33}{images/trees_00/3.svg}%
-\includeinlinesvg{.33}{images/trees_00/7.svg}%
+\includeinlinesvg{.33}{trees_00__2.svg}%
+\includeinlinesvg{.33}{trees_00__3.svg}%
+\includeinlinesvg{.33}{trees_00__7.svg}%
 
-\includeinlinesvg{.33}{images/trees_00/4.svg}%
-\includeinlinesvg{.33}{images/trees_00/12.svg}%
-\includeinlinesvg{.33}{images/trees_00/13.svg}%
+\includeinlinesvg{.33}{trees_00__4.svg}%
+\includeinlinesvg{.33}{trees_00__12.svg}%
+\includeinlinesvg{.33}{trees_00__13.svg}%
 
-\includeinlinesvg{.20}{images/trees_00/0.svg}%
-\includeinlinesvg{.20}{images/trees_00/1.svg}%
-\includeinlinesvg{.20}{images/trees_00/5.svg}%
-\includeinlinesvg{.20}{images/trees_00/6.svg}%
-\includeinlinesvg{.20}{images/trees_00/8.svg}%
+\includeinlinesvg{.20}{trees_00__0.svg}%
+\includeinlinesvg{.20}{trees_00__1.svg}%
+\includeinlinesvg{.20}{trees_00__5.svg}%
+\includeinlinesvg{.20}{trees_00__6.svg}%
+\includeinlinesvg{.20}{trees_00__8.svg}%
 
-\includeinlinesvg{.20}{images/trees_00/9.svg}%
-\includeinlinesvg{.20}{images/trees_00/10.svg}%
-\includeinlinesvg{.20}{images/trees_00/11.svg}%
-\includeinlinesvg{.20}{images/trees_00/14.svg}%
-\includeinlinesvg{.20}{images/trees_00/15.svg}%
+\includeinlinesvg{.20}{trees_00__9.svg}%
+\includeinlinesvg{.20}{trees_00__10.svg}%
+\includeinlinesvg{.20}{trees_00__11.svg}%
+\includeinlinesvg{.20}{trees_00__14.svg}%
+\includeinlinesvg{.20}{trees_00__15.svg}%
 
-The order may be a bit suggestive. Let's take a look at class \(1\). Section \(1,0\) adds single \(l\) node, section \(1,1\) adds single \(s\) node. It actually suggests how can we can try to generate first and second line of the trees above. The first one is simple. Let's add \(l\) node with pointed right virtual node to each actual node:
+The order may be a bit suggestive. Section \(1,0\) adds single \(l\) node, whereas section \(1,1\) adds single \(s\) node. It actually suggests how can we can try to generate first and second line of the trees above. The first one is simple. Let's add \(l\) node with pointed right virtual node to each actual node:
 
 \begin{lstlisting}
 c.define_class(1)
@@ -991,13 +993,13 @@ c.append_r_class_subtree_visitor(-1,                # negative node
 
 It creates following trees:
 
-\includeinlinesvg{.24}{images/trees_100/0_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{images/trees_100/0.svg}%
-\includeinlinesvg{.24}{images/trees_100/1_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{images/trees_100/1.svg}%
+\includeinlinesvg{.24}{trees_100__0_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__0.svg}%
+\includeinlinesvg{.24}{trees_100__1_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__1.svg}%
 
-\includeinlinesvg{.24}{images/trees_100/2_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{images/trees_100/2.svg}%
-\includeinlinesvg{.24}{images/trees_100/3_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{images/trees_100/3.svg}%
+\includeinlinesvg{.24}{trees_100__2_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__2.svg}%
+\includeinlinesvg{.24}{trees_100__3_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__3.svg}%
 
-It addresses all cases from the first line. It introduces incorrect lambda tree though in which \(s\) is parent of \(l\), which can not happen. We will fix it with the section \(2,2\) generating positive trees, which introduces one \(l\) node and one \(s\) by extending the tree with \(2\) nodes where \(s\) is parent of \(l\).
+It addresses all cases from the first line, but also introduces incorrect lambda tree in which \(s\) is parent of \(l\), which can not happen. We will fix it with the section \(2,2\) generating positive trees, which introduces one \(l\) node and one \(s\) by extending the tree with \(2\) nodes where \(s\) is parent of \(l\).
 
 
 \subsection{The cheat}%
