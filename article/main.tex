@@ -5,6 +5,7 @@
 
 \RequirePackage[utf8]{inputenc}
 \DeclareUnicodeCharacter{00A0}{ }
+\DeclareUnicodeCharacter{25CF}{\(\n\)}
 
 \RequirePackage{color}
 \definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
@@ -22,6 +23,7 @@
 }
 
 \RequirePackage{geometry}
+\RequirePackage{tabularx}
 \RequirePackage{graphicx}
 \RequirePackage{svg}
 
@@ -228,36 +230,40 @@ ie.\ stands for Latin id est, which means \textit{that is}.
 
 We will be analyzing structures that can be expressed using recursive expressions. Eg.\ we can define full binary tree recursively as a node having no children (ie.\ being a leaf) or having exactly two subtrees being full binary trees. To express the alternative in the construction rule, we use \(+\). The reason will become obvious soon.
 
-\begin{center}
-    \begin{minipage}[t]{.2\textwidth}
-        \begin{center}
-            \(B\)\\
-            \includesvg[scale=0.5]{binary_tree_def_1}%
-        \end{center}
-    \end{minipage}%
-    \begin{minipage}[t]{.05\textwidth}
-        \begin{center}
-            \(=\)\\
-        \end{center}
-    \end{minipage}%
-    \begin{minipage}[t]{.2\textwidth}
-        \begin{center}
-            \(\text{leaf}\)\\
-            \includesvg[scale=0.5]{binary_tree_def_2}%
-        \end{center}
-    \end{minipage}%
-    \begin{minipage}[t]{.05\textwidth}
-        \begin{center}
-            \(+\)\\
-        \end{center}
-    \end{minipage}%
-    \begin{minipage}[t]{.2\textwidth}
-        \begin{center}
-            \(B^2\)\\
-            \includesvg[scale=0.5]{binary_tree_def_3}%
-        \end{center}
-    \end{minipage}%
-\end{center}
+\begin{figure}[h]
+    \begin{center}
+        \begin{minipage}[t]{.2\textwidth}
+            \begin{center}
+                \(B\)\\
+                \includesvg[scale=0.5]{binary_tree_def_1}%
+            \end{center}
+        \end{minipage}%
+        \begin{minipage}[t]{.05\textwidth}
+            \begin{center}
+                \(=\)\\
+            \end{center}
+        \end{minipage}%
+        \begin{minipage}[t]{.2\textwidth}
+            \begin{center}
+                \(\text{leaf}\)\\
+                \includesvg[scale=0.5]{binary_tree_def_2}%
+            \end{center}
+        \end{minipage}%
+        \begin{minipage}[t]{.05\textwidth}
+            \begin{center}
+                \(+\)\\
+            \end{center}
+        \end{minipage}%
+        \begin{minipage}[t]{.2\textwidth}
+            \begin{center}
+                \(B^2\)\\
+                \includesvg[scale=0.5]{binary_tree_def_3}%
+            \end{center}
+        \end{minipage}%
+    \end{center}
+    \caption{Binary tree recursive definition}
+    \label{fig:binary_recursion}
+\end{figure}
 
 \subsection{Generating functions}%
 \label{sub:generating_functions}
@@ -391,14 +397,14 @@ In order to make notation easier and unambiguous, we also introduce pre-order no
     Pre-order notation of \(n\)-ary tree \(T\), \(\enc{T}\), is defined recursively as \(\enc{\troot(T)} \prod_{i=1}^{n} \enc{i\text{-th subtree of } \troot(T)}\), ie.\ catenation of identifier of the root of the tree with encoded its subtrees from left to right.
 \end{definition}
 
-\begin{example}
-    \(\n \n \no \n \no \no \no\)
-    \begin{center}
-        \includesvg[scale=.7]{oononnn}
-    \end{center}
-\end{example}
+\begin{figure}[h]
+    \centering
+    \includesvg[scale=.7]{oononnn}
+    \caption{\(\n \n \no \n \no \no \no\)}
+    \label{fig:oononnn}
+\end{figure}
 
-We also can define prefix and suffix of \(T\).
+We can also define prefix and suffix of \(T\).
 
 \begin{definition}
     Let \(k\) be the index of its identifier in \enc{T}. Notation of prefix of \(T\) in relation to \(v\), \(\enc{\tPre(T, v)}\), is defined as a prefix of \enc{T} of size \(k - 1\).
@@ -454,7 +460,23 @@ Let's define two local operations: \(R_l(T, v)\) and \(R_r(T, v)\). The term \te
     \(\enc{R_r(T, v)} = \enc{\tPre(T, v)} \n \enc{\tSub(v)} \pointed{\n} \no \no \enc{\tSuf(T, v)} \)
 \end{definition}
 
-\todo{Add some illustration}
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{remy_base}\end{minipage}%
+    \(\Rightarrow\)
+    \begin{minipage}{.4\textwidth}\includesvg[scale=0.5]{remy_left}\end{minipage}%
+    \caption{\(\enc{R_l(T, v)}\)}
+    \label{fig:remy_left}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{remy_base}\end{minipage}%
+    \(\Rightarrow\)
+    \begin{minipage}{.4\textwidth}\includesvg[scale=0.5]{remy_right}\end{minipage}%
+    \caption{\(\enc{R_r(T, v)}\)}
+    \label{fig:remy_right}
+\end{figure}
 
 We can now take the bijective interpretation of \((2n + 1) B(n)\), ie. trees of size \(n\) with single node pointed. For each of such trees, \(T\) we create new one by applying \(R_l\) and \(R_r\) to the pair \(T', v\), where \(T'\) is \(T\) with removed pointers and \(v\) is a node that is pointed in \(T\). Therefore we generate \(2(2n + 1) B(n)\) trees of size \(n + 1\)
 
@@ -506,11 +528,18 @@ The next step is to make binary trees full. Let's just define virtual leaves.
 
 As we have added \(n + 2\) virtual nodes, we have added as much virtual edges.
 
-\todo{image of transformation unary-binary to full-binary}
+\begin{figure}[h]
+    \centering
+    \includeinlinesvg{.2}{unary_binary_base}%
+    \(\Rightarrow\)%
+    \includeinlinesvg{.3}{unary_binary_full}
+    \caption{Unary-binary tree to full-binary tree transformation}
+    \label{fig:unary_binary_transformation}
+\end{figure}
 
 Please note that \(n + 2\) matches the multiplier of \(U(n)\). Let's point the virtual leaves then.
 
-To present the interpretation in bijective language, we will have to introduce several types of the the virtual leaves (you may want to revisit section \ref{sub:notation} Notation):
+To present the interpretation in bijective language, we will have to introduce several types of the the nodes (you may want to revisit section \ref{sub:notation} Notation):
 
 \begin{enumerate}
     \item Vro - virtual leaf being right virtual-oneling;
@@ -524,8 +553,9 @@ To present the interpretation in bijective language, we will have to introduce s
         \begin{enumerate}
             \item VltUrv - Vlt which uncle is a right virtual leaf;
             \item VltUra - Vlt which uncle is a right actual node;
-            \item VltUla - Vlt which uncle is a left actual node.
+            \item VltUla - Vlt which uncle is a left actual node;
         \end{enumerate}
+    \item I - Internal node.
 \end{enumerate}
 
 Note that it covers all possible cases of pointing virtual leaf and all the cases are mutually disjoint.
@@ -536,7 +566,23 @@ Let's start from \(U(n-1)\). Its multiplier is \(2n + 1\). It suggests that we c
 
 In case of \(U(n-2)\), the multiplier is \(3(n-1)\), that suggests that we should perform \(3\) transformations on the trees with a pointed actual node.
 
-\todo{draw the transformations}
+\begin{center}
+    \begin{tabular}{| c | c | c |}
+        \hline
+
+        \(U(n-2)\) &
+        \(U(n-1)\) &
+        \(U(n)\)\\
+        \hline
+
+        &
+        I \includesvg[scale=0.4]{ub_1si} &
+        Vro \includesvg[scale=0.4]{ub_0fid} \\
+        \hline
+    \end{tabular}
+\end{center}
+\todo{finish the table}
+
 
 As you can see, we have satisfied all of the cases of \(U(n)\) with no repetitions, which concludes the construction.
 
@@ -551,7 +597,16 @@ The next case we will show is case of Schröder trees\cite{schroder}.
 
 Simply speaking, node can have zero or strictly more than one children.
 
-\todo{example}
+\begin{figure}[h]
+    \centering
+    \includesvg[scale=0.4]{schroder_1}
+    \includesvg[scale=0.4]{schroder_2}
+    \includesvg[scale=0.4]{schroder_3}
+    \includesvg[scale=0.4]{schroder_4}
+    \(\ldots\)
+    \caption{Schröder tree node}
+    \label{fig:schroder_trees}
+\end{figure}
 
 This definition is quite precise, but is difficult to implement as a structural recursion. Let's transform it into something more manageable, ie.~of finite arity.
 

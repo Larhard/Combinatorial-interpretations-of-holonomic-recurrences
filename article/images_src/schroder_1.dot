@@ -1,0 +1,16 @@
+graph {
+	size="4,4"
+    graph [splines=false]
+
+	r [label="" shape=none]
+
+	0 [label="\\(\\n\\)" shape=none]
+
+    1 [label="" shape=triangle style=invis]
+
+	rr [label="" shape=none]
+    r -- 0 [style=dashed]
+    r -- rr [style=invis]
+
+    0 -- 1 [headport=n style=invis]
+}

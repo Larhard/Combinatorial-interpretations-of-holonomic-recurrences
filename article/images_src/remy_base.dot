@@ -1,0 +1,10 @@
+graph {
+	size="4,4"
+    graph [splines=false]
+	r [label="" shape=none]
+    v [label="\\(\\tSub(v)\\)" shape=triangle height=2.5]
+	rr [label="" shape=none]
+
+    r -- v [style=dashed headport=n]
+    r -- rr [style=invis]
+}
