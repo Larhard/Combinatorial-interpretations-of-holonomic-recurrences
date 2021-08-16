@@ -1,0 +1,8 @@
+graph {
+	size="4,4"
+	0 [label="" shape=none]
+	B [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	1 [label="" shape=none]
+    0 -- B [style=dashed]
+    0 -- 1 [style=invis]
+}

@@ -1,0 +1,8 @@
+graph {
+	size="4,4"
+	0 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	1 [label="" height=0 width=0 shape=none]
+	2 [label="" height=0 width=0 shape=none]
+    0 -- 1 [color=lightgreen]
+    0 -- 2 [color=lightgreen]
+}

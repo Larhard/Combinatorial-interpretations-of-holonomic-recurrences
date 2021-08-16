@@ -8,8 +8,11 @@ LATEXMKFLAGS = -pdf
 
 all: compile
 
-images::
-	$(MAKE) -C images
+images:: images_src
+	$(MAKE) -C $@
+
+images_src::
+	$(MAKE) -C $@
 
 ready::
 	$(RM) ready/*
@@ -46,8 +49,11 @@ clean:
 	$(RM) *.toc
 	$(RM) *.vrb
 	$(RM) $(TARGETS)
+	$(MAKE) -C images
 
 .PHONY: all
 .PHONY: clean
 .PHONY: compile
 .PHONY: watch
+.PHONY: images
+.PHONY: images_src

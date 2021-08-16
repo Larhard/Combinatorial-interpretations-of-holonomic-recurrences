@@ -10,10 +10,15 @@
 \definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
 \definecolor{blue(pigment)}{rgb}{0.2, 0.2, 0.6}
 \definecolor{egyptianblue}{rgb}{0.06, 0.2, 0.65}
+\definecolor{lightgray}{gray}{0.60}
 
 \RequirePackage{listings}
 \lstset{
-    basicstyle=\small
+    basicstyle=\footnotesize\ttfamily,
+    comment=[l]{\#},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{lightgray}\ttfamily,
+    escapeinside={<@}{@>}
 }
 
 \RequirePackage{geometry}
@@ -190,6 +195,12 @@ Leaf is a node which has no children.
 
 \(\no\) is implicitly defined as a identifier of non-existing node (eg.\ if \(v\) is a leaf, \(\tleft(v) = \n\)).
 
+Green edges 
+\begin{minipage}{1.5em}
+\includesvg[width=\textwidth]{green_edge}
+\end{minipage}
+depict edges to \(\no\) nodes.
+
 Virtual node is artificially defined node that does not affect the structure definition (eg.\ we can define virtual leafs that are children of actual leaves of the binary tree. Such virtual leaves are not included when counting number of children of the node, so the actual leaves are still called leaves).
 
 Actual node is a node that is not virtual.
@@ -217,9 +228,36 @@ ie.\ stands for Latin id est, which means \textit{that is}.
 
 We will be analyzing structures that can be expressed using recursive expressions. Eg.\ we can define full binary tree recursively as a node having no children (ie.\ being a leaf) or having exactly two subtrees being full binary trees. To express the alternative in the construction rule, we use \(+\). The reason will become obvious soon.
 
-\[B = \text{leaf} + B^2\]
-
-\todo{Add some image}
+\begin{center}
+    \begin{minipage}[t]{.2\textwidth}
+        \begin{center}
+            \(B\)\\
+            \includesvg[scale=0.5]{binary_tree_def_1}%
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.05\textwidth}
+        \begin{center}
+            \(=\)\\
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.2\textwidth}
+        \begin{center}
+            \(\text{leaf}\)\\
+            \includesvg[scale=0.5]{binary_tree_def_2}%
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.05\textwidth}
+        \begin{center}
+            \(+\)\\
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.2\textwidth}
+        \begin{center}
+            \(B^2\)\\
+            \includesvg[scale=0.5]{binary_tree_def_3}%
+        \end{center}
+    \end{minipage}%
+\end{center}
 
 \subsection{Generating functions}%
 \label{sub:generating_functions}
@@ -251,7 +289,9 @@ In order to get some intuition on how it works unbeneath, let's take a look on h
 
 The highlighted terms are describing following tree:
 
-iilll\todo{Add image}
+\begin{center}
+    \includesvg[scale=.7]{iilll}
+\end{center}
 \end{example}
 
 There exist multiple well-known methods and tools that allow us to work with generating functions without need of digging into details. The tool we will be using extensively in this work is Maple package called GFUN\cite{gfun}.
@@ -309,7 +349,7 @@ Equivalence of these two definitions assures us that if we find generating funct
 > algeqtodiffeq(%, B(z));
                               2      /d      \
     1 + (-1 + 2 z) B(z) + (4 z  - z) |-- B(z)|
-                                               \dz     /
+                                     \dz     /
 
 > rec := diffeqtorec(%, B(z), B(n));
     rec := {(2 + 4 n) B(n) + (-2 - n) B(n + 1), B(0) = 1}
@@ -353,7 +393,9 @@ In order to make notation easier and unambiguous, we also introduce pre-order no
 
 \begin{example}
     \(\n \n \no \n \no \no \no\)
-    \todo{Add image}
+    \begin{center}
+        \includesvg[scale=.7]{oononnn}
+    \end{center}
 \end{example}
 
 We also can define prefix and suffix of \(T\).
@@ -824,6 +866,7 @@ We also created a framework, called transformator, that may help visualize our w
 \begin{itemize}
     \item node has no children, ie.~is a virtual leaf (which corresponds to the size of the tree, \(n\));
     \item node has has children, ie.~is not a virtual leaf (which corresponds to \(n - 1\));
+    \item node is a root (which corresponds to \(1\));
     \item node has its parent on the left, ie.~is right child of its parent;
     \item node has its parent on the right, ie.~is left child of its parent.
 \end{itemize}
@@ -872,11 +915,11 @@ For the problem of interpreting trees of lambda terms we define following sectio
         S_{0,0} &=& (& (k + 1) C_k,& \emptyset &)\\
         S_{1,0} &=& (& - (2 k + 1) C_k,& \{l\} &)\\
         S_{1,1} &=& (& - 2 (k + 1) C_k,& \{s\} &)\\
-        S_{2,0} &=& (& - (4 k) C_k,& \{aou\} &)\\
+        S_{2,0} &=& (& - (4 k) C_k,& \{ao\} &)\\
         S_{2,1} &=& (& (k) C_k,& \{ll\} &)\\
         S_{2,2} &=& (& (4 k + 2) C_k,& \{ls\} &)\\
         S_{2,3} &=& (& (k + 1) C_k,& \{ss\} &)\\
-        S_{3,0} &=& (& 2 (2 k + 1) C_k,& \{aosu\} &)\\
+        S_{3,0} &=& (& 2 (2 k + 1) C_k,& \{aos\} &)\\
         S_{3,1} &=& (& - (2 k) C_k,& \{lls\} &)\\
         S_{3,2} &=& (& - (2 k + 1) C_k,& \{lss\} &)\\
         S_{4,0} &=& (& k C_k,& \{llss\} &)\\
@@ -899,11 +942,11 @@ Our brains like small examples, so we will consider small \(n = 3\). This will c
 [ ]  0,0:       0 of      16 | (k + 1) * Ck              []
 [ ]  1,0:       0 of     -10 | - (2 * k + 1) * Ck        [l]
 [ ]  1,1:       0 of     -12 | - 2 * (k + 1) * Ck        [s]
-[ ]  2,0:       0 of      -4 | - (4 * k) * Ck            [aou]
+[ ]  2,0:       0 of      -4 | - (4 * k) * Ck            [ao]
 [ ]  2,1:       0 of       1 | (k) * Ck                  [ll]
 [ ]  2,2:       0 of       6 | (4 * k + 2) * Ck          [ls]
 [ ]  2,3:       0 of       2 | (k + 1) * Ck              [ss]
-[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Ck      [aosu]
+[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Ck      [aos]
 [x]  3,1:       0 of       0 | - (2 * k) * Ck            [lls]
 [ ]  3,2:       0 of      -1 | - (2 * k + 1) * Ck        [lss]
 [x]  4,0:       0 of       0 | k * Ck                    [llss]
@@ -932,11 +975,11 @@ c.append_r_class_subtree_visitor(1,       # we define positive trees
 [x]  0,0:      16 of      16 | (k + 1) * Ck              []
 [ ]  1,0:       0 of     -10 | - (2 * k + 1) * Ck        [l]
 [ ]  1,1:       0 of     -12 | - 2 * (k + 1) * Ck        [s]
-[ ]  2,0:       0 of      -4 | - (4 * k) * Ck            [aou]
+[ ]  2,0:       0 of      -4 | - (4 * k) * Ck            [ao]
 [ ]  2,1:       0 of       1 | (k) * Ck                  [ll]
 [ ]  2,2:       0 of       6 | (4 * k + 2) * Ck          [ls]
 [ ]  2,3:       0 of       2 | (k + 1) * Ck              [ss]
-[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Ck      [aosu]
+[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Ck      [aos]
 [x]  3,1:       0 of       0 | - (2 * k) * Ck            [lls]
 [ ]  3,2:       0 of      -1 | - (2 * k + 1) * Ck        [lss]
 [x]  4,0:       0 of       0 | k * Ck                    [llss]
@@ -946,34 +989,34 @@ c.append_r_class_subtree_visitor(1,       # we define positive trees
 
 The framework informs us that we have generated all trees for section \(0,0\) for \(n = 3\). It also can provide us with the visualization of the trees we have generated. For example:
 
-\includeinlinesvg{.19}{trees_00__4_base.svg}%
+\includeinlinesvg{.19}{trees_00__4_base}%
 \(\Rightarrow\)
-\includeinlinesvg{.19}{trees_00__4.svg}%
-\includeinlinesvg{.19}{trees_00__5.svg}%
-\includeinlinesvg{.19}{trees_00__6.svg}%
-\includeinlinesvg{.19}{trees_00__7.svg}%
+\includeinlinesvg{.19}{trees_00__4}%
+\includeinlinesvg{.19}{trees_00__5}%
+\includeinlinesvg{.19}{trees_00__6}%
+\includeinlinesvg{.19}{trees_00__7}%
 
 If we take a look at more examples from class \(0\), we can start seeing some patterns:
 
-\includeinlinesvg{.33}{trees_00__2.svg}%
-\includeinlinesvg{.33}{trees_00__3.svg}%
-\includeinlinesvg{.33}{trees_00__7.svg}%
+\includeinlinesvg{.33}{trees_00__2}%
+\includeinlinesvg{.33}{trees_00__3}%
+\includeinlinesvg{.33}{trees_00__7}%
 
-\includeinlinesvg{.33}{trees_00__4.svg}%
-\includeinlinesvg{.33}{trees_00__12.svg}%
-\includeinlinesvg{.33}{trees_00__13.svg}%
+\includeinlinesvg{.33}{trees_00__4}%
+\includeinlinesvg{.33}{trees_00__12}%
+\includeinlinesvg{.33}{trees_00__13}%
 
-\includeinlinesvg{.20}{trees_00__0.svg}%
-\includeinlinesvg{.20}{trees_00__1.svg}%
-\includeinlinesvg{.20}{trees_00__5.svg}%
-\includeinlinesvg{.20}{trees_00__6.svg}%
-\includeinlinesvg{.20}{trees_00__8.svg}%
+\includeinlinesvg{.16}{trees_00__0}%
+\includeinlinesvg{.16}{trees_00__1}%
+\includeinlinesvg{.16}{trees_00__5}%
+\includeinlinesvg{.16}{trees_00__6}%
+\includeinlinesvg{.16}{trees_00__14}%
+\includeinlinesvg{.16}{trees_00__15}%
 
-\includeinlinesvg{.20}{trees_00__9.svg}%
-\includeinlinesvg{.20}{trees_00__10.svg}%
-\includeinlinesvg{.20}{trees_00__11.svg}%
-\includeinlinesvg{.20}{trees_00__14.svg}%
-\includeinlinesvg{.20}{trees_00__15.svg}%
+\includeinlinesvg{.25}{trees_00__8}%
+\includeinlinesvg{.25}{trees_00__9}%
+\includeinlinesvg{.25}{trees_00__10}%
+\includeinlinesvg{.25}{trees_00__11}%
 
 The order may be a bit suggestive. Section \(1,0\) adds single \(l\) node, whereas section \(1,1\) adds single \(s\) node. It actually suggests how can we can try to generate first and second line of the trees above. The first one is simple. Let's add \(l\) node with pointed right virtual node to each actual node:
 
@@ -993,25 +1036,435 @@ c.append_r_class_subtree_visitor(-1,                # negative node
 
 It creates following trees:
 
-\includeinlinesvg{.24}{trees_100__0_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__0.svg}%
-\includeinlinesvg{.24}{trees_100__1_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__1.svg}%
+\includeinlinesvg{.24}{trees_100__0_base}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__0}%
+\includeinlinesvg{.24}{trees_100__1_base}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__1}%
 
-\includeinlinesvg{.24}{trees_100__2_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__2.svg}%
-\includeinlinesvg{.24}{trees_100__3_base.svg}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__3.svg}%
+\includeinlinesvg{.24}{trees_100__2_base}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__2}%
+\includeinlinesvg{.24}{trees_100__3_base}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__3}%
 
 It addresses all cases from the first line, but also introduces incorrect lambda tree in which \(s\) is parent of \(l\), which can not happen. We will fix it with the section \(2,2\) generating positive trees, which introduces one \(l\) node and one \(s\) by extending the tree with \(2\) nodes where \(s\) is parent of \(l\).
 
+Next, we can take care of the later cases of section \(0, 0\). It can be also expressed using sections \(1, 0\) and \(1, 1\):
+
+\begin{lstlisting}
+c.define_class(1)
+
+c.define_section(0)
+
+# old visitior
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["l", kind] + left + right + [(None, "*")]
+)
+
+# new visitior
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["l", parent_kind] + [left[0] + ("*",)] + left[1:] + right + [None]
+)
+
+# new visitior
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["l", parent_kind] + left + [right[0] + ("*",)] + right[1:] + [None]
+)
+
+c.define_section(1)
+
+# old visitior
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", (None, "*"), parent_kind] + left + right
+)
+
+# new visitior
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, parent_kind] + left + [right[0] + ("*",)] + right[1:]
+)
+
+# new visitior
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, parent_kind] + [left[0] + ("*",)] + left[1:] + right
+)
+\end{lstlisting}
+
+Basicaly, for each virtual node not being root (ie.\ having left or right parent), we point it and add \(l\) or \(s\) respectively above the parent.
+
+\includeinlinesvg{.32}{trees_111__1_base}%
+\(\Rightarrow\)
+\includeinlinesvg{.32}{trees_101__0}%
+\includeinlinesvg{.32}{trees_112__0}%
+
+The last row can be generated using section \(2, 0\):
+
+\begin{lstlisting}
+c.define_class(2)
+
+c.define_section(0)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", "o", (None, "*"), None, kind] + left + right
+)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", "o", None, (None, "*"), kind] + left + right
+)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", kind] + left + right + ["o", (None, "*"), None]
+)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", kind] + left + right + ["o", None, (None, "*")]
+)
+\end{lstlisting}
+
+For each actual vertex, we add \(a\) node as its left or right parent and add as a second child \(o\) node as its siblig. We then point left or right virtual child of newly created \(o\) node.
+
+\includeinlinesvg{.20}{trees_200__0_base}%
+\(\Rightarrow\)
+\includeinlinesvg{.20}{trees_200__0}%
+\includeinlinesvg{.20}{trees_201__0}%
+\includeinlinesvg{.20}{trees_202__0}%
+\includeinlinesvg{.20}{trees_203__0}%
+
+After such transformations, we get following statistics:
+
+\begin{lstlisting}
+=== Classes stats ===
+[x]  0,0:      16 of      16 | (k + 1) * Ck              []
+[x]  1,0:     -10 of     -10 | - (2 * k + 1) * Ck        [l]
+[ ]  1,1:      -9 of     -12 | - 2 * (k + 1) * Ck        [s]
+[x]  2,0:      -4 of      -4 | - (4 * k) * Ck            [ao]
+[ ]  2,1:       0 of       1 | (k) * Ck                  [ll]
+[ ]  2,2:       0 of       6 | (4 * k + 2) * Ck          [ls]
+[ ]  2,3:       0 of       2 | (k + 1) * Ck              [ss]
+[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Ck      [aos]
+[x]  3,1:       0 of       0 | - (2 * k) * Ck            [lls]
+[ ]  3,2:       0 of      -1 | - (2 * k + 1) * Ck        [lss]
+[x]  4,0:       0 of       0 | k * Ck                    [llss]
+=== Diff stats ===
+1,0:     4     0
+1,1:     3     0
+\end{lstlisting}
+
+This construction works also for bigger \(N\):
+
+\begin{lstlisting}
+=== Classes stats ===
+[x]  0,0:   39050 of   39050 | (k + 1) * Ck              []
+[x]  1,0:  -23237 of  -23237 | - (2 * k + 1) * Ck        [l]
+[ ]  1,1:  -17799 of  -24460 | - 2 * (k + 1) * Ck        [s]
+[x]  2,0:  -13728 of  -13728 | - (4 * k) * Ck            [ao]
+[ ]  2,1:       0 of    3432 | (k) * Ck                  [ll]
+[ ]  2,2:       0 of   14586 | (4 * k + 2) * Ck          [ls]
+[ ]  2,3:       0 of    3861 | (k + 1) * Ck              [ss]
+[ ]  3,0:       0 of    4620 | 2 * (2 * k + 1) * Ck      [aos]
+[ ]  3,1:       0 of   -2156 | - (2 * k) * Ck            [lls]
+[ ]  3,2:       0 of   -2310 | - (2 * k + 1) * Ck        [lss]
+[ ]  4,0:       0 of     342 | k * Ck                    [llss]
+=== Diff stats ===
+1,0:  7602     0
+1,1:  5832     0
+2,0:  2280     0
+\end{lstlisting}
+
+The process can then be repeated for each section. We have chosen lexicographical order (ie. \(0,0\); \(1,0\); \(1,1\); \(2,0\); \(\ldots\)).
+
+\subsection{Final result}%
+\label{sub:final_result}
+
+After multiple iterations, we managed to come up with following construction:
+
+\begin{lstlisting}
+c.define_class(0)
+
+c.define_section(0)
+
+c.append_r_class_subtree_visitor(1,
+    lambda kind, left, right:
+        None if kind[0] is not None else
+        [kind + ("*", )] + left + right
+)
+
+
+c.define_class(1)
+
+c.define_section(0)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["l", kind] + left + right + [(None, "*")]
+)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["l", parent_kind] + [left[0] + ("*",)] + left[1:] + right + [None]
+)
+
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["l", parent_kind] + left + [right[0] + ("*",)] + right[1:] + [None]
+)
+
+c.define_section(1)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", (None, "*"), parent_kind] + left + right
+)
+
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, parent_kind] + left + [right[0] + ("*",)] + right[1:]
+)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, parent_kind] + [left[0] + ("*",)] + left[1:] + right
+)
+
+
+c.define_class(2)
+
+c.define_section(0)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", "o", (None, "*"), None, kind] + left + right
+)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", "o", None, (None, "*"), kind] + left + right
+)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", kind] + left + right + ["o", (None, "*"), None]
+)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", kind] + left + right + ["o", None, (None, "*")]
+)
+
+c.define_section(1)
+
+c.append_r_class_subtree_visitor(1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["l", "l", kind] + left + right + [(None, "*"), None]
+)
+
+c.define_section(2)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["l", "s", (None, "*"), parent_kind] + left + right + [None]
+)
+
+c.append_r_class_subtree_visitor(1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["s", None, "l", kind] + left + right + [(None, "*")]
+)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "l", parent_kind] + left + right + [(None, "*")]
+)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "l", parent_kind] + [left[0] + ("*", )] + left[1:] + right + [None]
+)
+
+c.append_r_class_left_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "l", parent_kind] + left + [right[0] + ("*", )] + right[1:] + [None]
+)
+
+
+c.define_section(3)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "s", (None, "*"), parent_kind] + left + right
+)
+
+
+c.define_class(3)
+
+c.define_section(0)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "a", "o", (None, "*"), None, parent_kind] + left + right
+)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "a", "o", None, (None, "*"), parent_kind] + left + right
+)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "a", parent_kind] + left + right + ["o", (None, "*"), None]
+)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "a", parent_kind] + left + right + ["o", None, (None, "*")]
+)
+
+c.define_section(1)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "l", "l", parent_kind] + left + right + [(None, "*"), None]
+)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        ["s", None, "l", "l", parent_kind] + left + right + [(None, "*"), None]
+)
+
+
+c.define_section(2)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "s", None, "l", parent_kind] + left + right + [(None, "*")]
+)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "l", "s", (None, "*"), parent_kind] + left + right + [None]
+)
+
+
+c.define_class(4)
+
+c.define_section(0)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "s", None, "l", "l", parent_kind] + left + right + [(None, "*"), None]
+)
+\end{lstlisting}
+
+It resulted in final statistics:
+
+\begin{lstlisting}
+=== Classes stats ===
+[x]  0,0:   39050 of   39050 | (k + 1) * Ck              []
+[x]  1,0:  -23237 of  -23237 | - (2 * k + 1) * Ck        [l]
+[ ]  1,1:  -17799 of  -24460 | - 2 * (k + 1) * Ck        [s]
+[x]  2,0:  -13728 of  -13728 | - (4 * k) * Ck            [ao]
+[x]  2,1:    3432 of    3432 | (k) * Ck                  [ll]
+[ ]  2,2:   10833 of   14586 | (4 * k + 2) * Ck          [ls]
+[ ]  2,3:    1770 of    3861 | (k + 1) * Ck              [ss]
+[ ]  3,0:    2280 of    4620 | 2 * (2 * k + 1) * Ck      [aos]
+[ ]  3,1:   -1648 of   -2156 | - (2 * k) * Ck            [lls]
+[ ]  3,2:   -1140 of   -2310 | - (2 * k + 1) * Ck        [lss]
+[ ]  4,0:     187 of     342 | k * Ck                    [llss]
+=== Diff stats ===
+\end{lstlisting}
+
+As you can see, diff stats are empty, so we managed to generate expected trees on both sides of the equation.
+
+You may also note that we didn't generate all trees suggested by the recurrence. This is due to one cheat we used.
 
 \subsection{The cheat}%
 \label{sub:the_cheat}
 
-You may ask how we achieved such partial result.
+You may remember our assumptions in section \ref{sub:the_framework} about the discrimination cases. We allowed ourselves to apply visitors only to one of left and right child, which isn't handled by our holonomic recurrence as number of such vertices do not depend only on \(n\).
+
+To fix this, one can for example add construction for section \(1, 0\) to generate all expected trees from it and then repeat the iteration in order to generate matching trees on the other side of the equation. We can see that we used \(2\) constructions visiting node with right parent and only one visiting node having left parent, so our missing construction should also visit nodes with left parent.
+
+\begin{lstlisting}
+c.define_class(1)
+
+c.define_section(0)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", (None, "*"), parent_kind] + left + right
+)
+
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, parent_kind] + left + [right[0] + ("*",)] + right[1:]
+)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, parent_kind] + [left[0] + ("*",)] + left[1:] + right
+)
+
+# example missing construction
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", (None, "*"), parent_kind] + left + right
+)
+\end{lstlisting}
+
+Please note that it is only an example of missing construction. It is just the simplest one we could think about, and in that case, simple solution is most often the correct one.
 
 \section{Further work}%
 \label{sec:further_work}
 
-\todo{finish interpretation}
-\todo{missing formal proof}
+First thing to be done, that comes to mind immediately, is to finish the construction eliminating the cheat mentioned in section \ref{sub:the_cheat}.
+
+You may also note that we are operating on specific \(N\). The probability that we miss some corner case is low, but even if we check large \(N\) values, it is always present. The formal algebraic proof would make us sure that the construction works. We woulr prioritize finishing the construction first.
+
+The framework also isn't perfect. It highly depends on the operator's intuition. We believe that the solving process can be automated. The simplest method that comes to mind is simply creating heuristic rules that then will be used by the framework to guess at least partial solution.
+
+We believe that one day all of that will be done.
 
 \clearpage
 

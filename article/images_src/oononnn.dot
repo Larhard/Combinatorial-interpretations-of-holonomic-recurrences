@@ -1,0 +1,16 @@
+graph {
+	size="4,4"
+	0 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	1 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	2 [label="" height=0.1 shape=circle style=invis]
+	3 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	4 [label="" height=0.1 shape=circle style=invis]
+	5 [label="" height=0.1 shape=circle style=invis]
+	6 [label="" height=0.1 shape=circle style=invis]
+    0 -- 1
+    1 -- 2 [color=lightgreen]
+    1 -- 3
+    3 -- 4 [color=lightgreen]
+    3 -- 5 [color=lightgreen]
+    0 -- 6 [color=lightgreen]
+}
