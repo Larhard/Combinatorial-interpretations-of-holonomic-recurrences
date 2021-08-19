@@ -173,11 +173,11 @@ In order to make reading of this article easier, let's fix some notation and mak
 
 \(\tright(v)\) is implicitly defined as a right child of node \(v\).
 
-\(\tSub(v)\) is implicitly defined as a whole subree rooted with node \(v\).
+\(\tSub(v)\) is implicitly defined as a whole subtree rooted with node \(v\).
 
-\(\tLeft(v)\) is implicitly defined as a left subree of node \(v\).
+\(\tLeft(v)\) is implicitly defined as a left subtree of node \(v\).
 
-\(\tRight(v)\) is implicitly defined as a right subree of node \(v\).
+\(\tRight(v)\) is implicitly defined as a right subtree of node \(v\).
 
 Sibling of node \(v\) is defined as node \(u\) having the same parent as \(v\).
 
@@ -285,7 +285,7 @@ Note that in order to compute \(k\)-th element of the sequence, \(a_k\), we just
 
 Note that we used \(z\) to count internal nodes and left the leaf part as \(1\).
 
-In order to get some intuition on how it works unbeneath, let's take a look on how we can find number of the full binary trees of size \(2\). We can expand the recurrence a bit:
+In order to get some intuition on how it works underneath, let's take a look on how we can find number of the full binary trees of size \(2\). We can expand the recurrence a bit:
 
 \[\begin{array}{rcl}
         \gf{B}(z) &=& 1 + z\gf{B}^2(z)\\
@@ -323,7 +323,7 @@ Note that the sum can only take finite number of subsequent elements of the sequ
 \end{example}
 
 \begin{example}
-    Sequences \(a_n = \sqrt{n}\), \(b_n = n^n\) are \textbf{not} holonomic, ie. none of them satisifies a linear recurrence equation with polynomial coefficients\cite{nonholo}.
+    Sequences \(a_n = \sqrt{n}\), \(b_n = n^n\) are \textbf{not} holonomic, ie. none of them satisfies a linear recurrence equation with polynomial coefficients\cite{nonholo}.
 \end{example}
 
 \begin{definition}
@@ -376,7 +376,7 @@ Equivalence of these two definitions assures us that if we find generating funct
 
 Combinatorial interpretation is just fancy name for something you probably know and use. Eg.\ if you know the binomial coefficient \(\binom{n}{k}\), I bet it was introduced to you as something like: "let's assume you have \(n\) distinguishable balls. If you want to choose \(k\) from them, then you can do it in \(\binom{n}{k}\) ways" and now, whenever you see the term \(\binom{n}{k}\) you interpret it as number of ways to choose \(k\) objects from the set of size \(n\). This is the combinatorial interpretation of the binomial coefficient.
 
-Holonomic recurrences are very useful if we want to count objects of given size. Of course, size can be defined in more complex ways, eg.\ we may want to find number of trees with \(n\) internal nodes having exactly \(m\) nodes beging left child of its parent.
+Holonomic recurrences are very useful if we want to count objects of given size. Of course, size can be defined in more complex ways, eg.\ we may want to find number of trees with \(n\) internal nodes having exactly \(m\) nodes being left child of its parent.
 
 Unfortunately, as for the most of auto-generated code, they almost never come with intuitive interpretation. They are just some recurrences, but there is no commonly known method to find, how they correspond to the structures they describe.
 
@@ -436,7 +436,7 @@ After a quick transformation, we get following holonomic recurrence:
 
 This recurrence describes also Catalan numbers.
 
-It is easy to see that tree of size \(n\) (\(n\) internal nodes) has \(n + 1\) leaves and therefore \(2n + 1\) nodes in total. Analogically the tree of size \(n + 1\) has \(n + 2\) leaves and \(2n + 3\) nodes in total. If you see some resemblence to our holonomic recurrence, you are perfectly right.
+It is easy to see that tree of size \(n\) (\(n\) internal nodes) has \(n + 1\) leaves and therefore \(2n + 1\) nodes in total. Analogically the tree of size \(n + 1\) has \(n + 2\) leaves and \(2n + 3\) nodes in total. If you see some resemblance to our holonomic recurrence, you are perfectly right.
 
 We are going to create bijection between left and right side of the recurrence. We will be using term \textit{bijective language} to describe talking about the recurrence using the objects it describes and their transformations.
 
@@ -492,7 +492,7 @@ First case can be also split into 2 subcases. Without loss of the generality we 
     \item for some trees \(T \neq S\), \(R_l(T, u) = R_l(S, v)\). Let \(i_u, i_v\) be the indices of respectively \(\enc{u}\) in \(\enc{T}\) and \(\enc{v}\) in \(\enc{S}\). Let \(\pointed{i}_u, \pointed{i}_v\) be the indices of pointed node respectively in \(\enc{R_l(T, u)}\) and \(\enc{R_l(S, v)}\). If \(\pointed{i}_u \neq \pointed{i}_v\), this case is trivially false, so we can assume that \(\pointed{i}_u = \pointed{i}_v\). Therefore, again from the definition of \(R_l\), we have that \(i_u = i_v\). That implies that \(\enc{\tPre(T, u)} \enc{\tSub(u)} \enc{\tSuf(T, u)} = \enc{\tPre(S, v)} \enc{\tSub(v)} \enc{\tSuf(S, v)} \), which then sums up to \(\enc{T} = \enc{S}\), which we assumed false.
 \end{itemize}
 
-In the second case it is enough to noitice that \(R_l\) generates trees with pointed node being a left child, and \(R_r\) generates trees with pointed node being right child. That immediately provides us with conclusion that we are generating no duplicates.
+In the second case it is enough to notice that \(R_l\) generates trees with pointed node being a left child, and \(R_r\) generates trees with pointed node being right child. That immediately provides us with conclusion that we are generating no duplicates.
 
 \subsection{Unary-binary trees}%
 \label{sub:unary_binary_trees}
@@ -511,7 +511,7 @@ And with a bit of Maple magic, we immediately get following recurrence:
 
 \[(n + 2)U(n) = (2n + 1)U(n - 1) + 3(n - 1)U(n - 2)\]
 
-The definition above is precise, but introduces a new kind of vertice that we would have to take care of. We can avoid it by using a trick to make the tree recall binary tree. We don't change the structure, just the notation.
+The definition above is precise, but introduces a new kind of node that we would have to take care of. We can avoid it by using a trick to make the tree recall binary tree. We don't change the structure, just the notation.
 
 \begin{definition}
     \label{def:unary_binary_2}
@@ -705,7 +705,7 @@ When \(s\) is a leaf, we will look at the \(s\)'s parent. It can fall into one o
 
 where \(t'\) can be any tree and \(t''\) can not be a leaf.
 
-When aplying \(L_2\) we achieve following cases respectively:
+When applying \(L_2\) we achieve following cases respectively:
 
 \todo{images}
 
@@ -715,7 +715,7 @@ In case 1. and 2. we can just swap the labels as follows:
 
 It is easy to show that it constructs bijection between \((n + 1) T(n + 1)\) and subset of \(\{L_1, L_2, R_1\} \times (2 n - 1) T(n)\) not falling into case 3.
 
-To achive trees from \((n - 2) T(n - 1)\), we can simply take trees from case 3. and replace the father of the \(s\) with \(t''\) and point root of \(t''\). In this way, we will loose \(2\) leaves and obtain each tree from \((n - 2) T(n - 1)\).
+To achieve trees from \((n - 2) T(n - 1)\), we can simply take trees from case 3. and replace the father of the \(s\) with \(t''\) and point root of \(t''\). In this way, we will loose \(2\) leaves and obtain each tree from \((n - 2) T(n - 1)\).
 
 \todo{image}
 
@@ -725,12 +725,12 @@ To achive trees from \((n - 2) T(n - 1)\), we can simply take trees from case 3.
 \subsection{Introduction}%
 \label{sub:introduction}
 
-As you could see in the examples above, most of the solutions base on the simple analysis of number of laves, internal nodes and other similar properties. In this section, we've gathered some methods that may be helpful when trying to analyze the problem of interpreting combinatorically some holonomic recurrence.
+As you could see in the examples above, most of the solutions base on the simple analysis of number of laves, internal nodes and other similar properties. In this section, we've gathered some methods that may be helpful when trying to analyze the problem of interpreting combinatorially some holonomic recurrence.
 
 \subsection{Defining the size carefully}%
 \label{sub:defining_the_size_carefully}
 
-First thing that we have to select is defining the size carrefully. We have few standard choices of computing tree sizes:
+First thing that we have to select is defining the size carefully. We have few standard choices of computing tree sizes:
 \begin{itemize}
     \item counting all existing nodes,
     \item counting internal nodes,
@@ -781,7 +781,7 @@ The method itself has proven to be helpful in order to divide the problem into s
 
 If all elaborate methods has failed and the problem is still too big to interpret it by hand, a computer comes handy.
 
-As the main field of our interest was analyzis of terms of lambda trees in unary de Bruijn notation, we will use it as an example to describe the method.\todo{Add definition}
+As the main field of our interest was analysis of terms of lambda trees in unary de Bruijn notation, we will use it as an example to describe the method.\todo{Add definition}
 
 \subsection{Lambda terms}%
 \label{sub:lambda_terms}
@@ -791,7 +791,7 @@ As the main field of our interest was analyzis of terms of lambda trees in unary
     \begin{itemize}
         \item if \(x\) is a variable, \(x \in \Lambda\)
         \item if \(M, N \in \Lambda\), then \((M N) \in \Lambda\) (application of function \(M\) to an argument \(N\))
-        \item if \(x\) is a variable and \(M \in \Lambda\), then \((\lambda x . M) \in \Lambda\) (abstraction, ie.\ creating a function with an argument \(x\) and binding each occurence of \(x\) in \(M\) to this argument)
+        \item if \(x\) is a variable and \(M \in \Lambda\), then \((\lambda x . M) \in \Lambda\) (abstraction, ie.\ creating a function with an argument \(x\) and binding each occurrence of \(x\) in \(M\) to this argument)
     \end{itemize}
 \end{definition}
 
@@ -846,7 +846,7 @@ To simplify the interpretation, we can introduce several kinds of the nodes: \(o
     \(a\) is a node with both children.
 \end{definition}
 
-Which leads to following interpreation of \(\Phi\):
+Which leads to following interpretation of \(\Phi\):
 
 \begin{itemize}
     \item \(\Phi(0) = o\; \no\; \no\)
@@ -866,7 +866,7 @@ To see that, we can take a look at this tree with our node kinds used:
 
 \(s\) represents successor which can be applied only to \(n \in \N\), but is applied to lambda-abstracted term.
 
-\subsection{Enhanced holonomic reccurence}%
+\subsection{Enhanced holonomic recurrence}%
 \label{sub:enhanced_holonomic_reccurence}
 
 As we have our structure defined, let's create generating functions that will keep track of more than just number of nodes, but also counts of each kind of nodes in the tree. The generating function will be parameterized then using following arguments:
@@ -926,7 +926,7 @@ We also created a framework, called transformator, that may help visualize our w
     \item node has its parent on the right, ie.~is left child of its parent.
 \end{itemize}
 
-The latest two are intruduced in order to make the analysis simpler, but do not have immediate interpretation in the world of holonomic recurrences. If we use them both, it sums up to all nodes except root (as root is neither left nor right child).
+The latest two are introduced in order to make the analysis simpler, but do not have immediate interpretation in the world of holonomic recurrences. If we use them both, it sums up to all nodes except root (as root is neither left nor right child).
 
 
 \subsection{Transformation classes}%
@@ -1106,21 +1106,21 @@ c.define_class(1)
 
 c.define_section(0)
 
-# old visitior
+# old visitor
 c.append_r_class_subtree_visitor(-1,
     lambda kind, left, right:
         None if kind[0] is None else
         ["l", kind] + left + right + [(None, "*")]
 )
 
-# new visitior
+# new visitor
 c.append_r_class_right_parent_subtree_visitor(-1,
     lambda kind, parent_kind, left, right:
         None if kind[0] is not None else
         ["l", parent_kind] + [left[0] + ("*",)] + left[1:] + right + [None]
 )
 
-# new visitior
+# new visitor
 c.append_r_class_left_parent_subtree_visitor(-1,
     lambda kind, parent_kind, left, right:
         None if kind[0] is not None else
@@ -1129,21 +1129,21 @@ c.append_r_class_left_parent_subtree_visitor(-1,
 
 c.define_section(1)
 
-# old visitior
+# old visitor
 c.append_r_class_right_parent_subtree_visitor(-1,
     lambda kind, parent_kind, left, right:
         None if kind[0] is not None else
         ["s", (None, "*"), parent_kind] + left + right
 )
 
-# new visitior
+# new visitor
 c.append_r_class_left_parent_subtree_visitor(-1,
     lambda kind, parent_kind, left, right:
         None if kind[0] is not None else
         ["s", None, parent_kind] + left + [right[0] + ("*",)] + right[1:]
 )
 
-# new visitior
+# new visitor
 c.append_r_class_right_parent_subtree_visitor(-1,
     lambda kind, parent_kind, left, right:
         None if kind[0] is not None else
@@ -1151,7 +1151,7 @@ c.append_r_class_right_parent_subtree_visitor(-1,
 )
 \end{lstlisting}
 
-Basicaly, for each virtual node not being root (ie.\ having left or right parent), we point it and add \(l\) or \(s\) respectively above the parent.
+Basically, for each virtual node not being root (ie.\ having left or right parent), we point it and add \(l\) or \(s\) respectively above the parent.
 
 \includeinlinesvg{.32}{trees_111__1_base}%
 \(\Rightarrow\)
@@ -1190,7 +1190,7 @@ c.append_r_class_subtree_visitor(-1,
 )
 \end{lstlisting}
 
-For each actual vertex, we add \(a\) node as its left or right parent and add as a second child \(o\) node as its siblig. We then point left or right virtual child of newly created \(o\) node.
+For each actual vertex, we add \(a\) node as its left or right parent and add as a second child \(o\) node as its sibling. We then point left or right virtual child of newly created \(o\) node.
 
 \includeinlinesvg{.20}{trees_200__0_base}%
 \(\Rightarrow\)
@@ -1515,7 +1515,7 @@ Please note that it is only an example of missing construction. It is just the s
 
 First thing to be done, that comes to mind immediately, is to finish the construction eliminating the cheat mentioned in section \ref{sub:the_cheat}.
 
-You may also note that we are operating on specific \(N\). The probability that we miss some corner case is low, but even if we check large \(N\) values, it is always present. The formal algebraic proof would make us sure that the construction works. We woulr prioritize finishing the construction first.
+You may also note that we are operating on specific \(N\). The probability that we miss some corner case is low, but even if we check large \(N\) values, it is always present. The formal algebraic proof would make us sure that the construction works. We would prioritize finishing the construction first.
 
 The framework also isn't perfect. It highly depends on the operator's intuition. We believe that the solving process can be automated. The simplest method that comes to mind is simply creating heuristic rules that then will be used by the framework to guess at least partial solution.
 
