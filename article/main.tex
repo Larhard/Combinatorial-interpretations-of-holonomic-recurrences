@@ -22,6 +22,15 @@
     escapeinside={<@}{@>}
 }
 
+\RequirePackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    filecolor=black,
+    urlcolor=black
+}
+
 \RequirePackage{geometry}
 \RequirePackage{tabularx}
 \RequirePackage{longtable}
@@ -1042,7 +1051,7 @@ You may notice that some potentially trivial terms are more complex that it seem
 \subsection{The Transformator framework}%
 \label{sub:the_framework}
 
-We also created a framework, called transformator, that may help visualize our work. It is based on the idea that every transformation described using bijective language can be translated to a function transforming node and finite number of its surrounding nodes. This function can not discriminate nodes on the grounds of their kind. The only discrimination that may occur may be connected to the following cases:
+We also created a framework\cite{transformator}, called transformator, that may help visualize our work. It is based on the idea that every transformation described using bijective language can be translated to a function transforming node and finite number of its surrounding nodes. This function can not discriminate nodes on the grounds of their kind. The only discrimination that may occur may be connected to the following cases:
 \begin{itemize}
     \item node has no children, ie.~is a virtual leaf (which corresponds to the size of the tree, \(n\));
     \item node has has children, ie.~is not a virtual leaf (which corresponds to \(n - 1\));
@@ -1715,6 +1724,12 @@ We believe that one day all of that will be done.
     \textit{Combinatorial sequences: Non-holonomicity and inequalities. Ph.D. thesis},
     RISC-Linz, Johannes Kepler Universitat Linz,
     2005
+
+    \bibitem{transformator}
+    Bartłomiej Puget,
+    \textit{Transformator framework},
+    \url{https://github.com/Larhard/transformator},
+    2021
 
 \end{thebibliography}
 
