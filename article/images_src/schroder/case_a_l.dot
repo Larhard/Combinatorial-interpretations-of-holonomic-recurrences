@@ -1,0 +1,28 @@
+graph {
+	size="4,4"
+    graph [splines=false]
+	r [label="" shape=none]
+
+    1 [label="\\(1\\)" shape=none]
+
+    t [label="\\(t'\\)" shape=none]
+    tl [label="" shape=none]
+    tr [label="" shape=none]
+
+    2 [label="\\(2\\)" shape=none]
+    3 [label="\\(\\pointed{}\\)" shape=none]
+
+    s [label="\\(s\\)" shape=none]
+
+	rr [label="" shape=none]
+    r -- rr [style=invis]
+
+    r -- 1 [style=dashed]
+    1 -- t
+    1 -- 2
+    2 -- 3
+    2 -- s
+
+    t -- tl [style=dashed]
+    t -- tr [style=dashed]
+}

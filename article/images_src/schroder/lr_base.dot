@@ -1,0 +1,16 @@
+graph {
+	size="4,4"
+    graph [splines=false]
+	r [label="" shape=none]
+
+    s [label="\\(\\pointed{s}\\)" shape=none]
+    sl [label="" shape=none]
+    sr [label="" shape=none]
+
+	rr [label="" shape=none]
+    r -- rr [style=invis]
+
+    r -- s [style=dashed]
+    s -- sl [style=dashed]
+    s -- sr [style=dashed]
+}

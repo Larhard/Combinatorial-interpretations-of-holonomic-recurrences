@@ -1,0 +1,19 @@
+graph {
+	size="4,4"
+    graph [splines=false]
+	r [label="" shape=none]
+
+    v [label="\\(\\pointed{\\n}\\)" shape=none]
+    vl [label="" shape=triangle]
+    vr [label="" shape=triangle]
+
+	rr [label="" shape=none]
+    r -- rr [style=invis]
+
+    r -- v [style=dashed]
+    v -- vl [headport=n]
+    v -- vr [headport=n]
+
+    000 [style=invis]
+    vl -- 000 [style=invis]
+}

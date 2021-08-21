@@ -1,0 +1,23 @@
+graph {
+	size="4,4"
+    graph [splines=false]
+	r [label="" shape=none]
+
+    1 [label="\\(2\\)" shape=none]
+
+    s [label="\\(\\pointed{s}\\)" shape=none]
+
+    t [label="\\(t''\\)" shape=none]
+    tl [label="" shape=none]
+    tr [label="" shape=none]
+
+	rr [label="" shape=none]
+    r -- rr [style=invis]
+
+    r -- 1 [style=dashed]
+    1 -- s
+    1 -- t
+
+    t -- tl [style=dashed]
+    t -- tr [style=dashed]
+}

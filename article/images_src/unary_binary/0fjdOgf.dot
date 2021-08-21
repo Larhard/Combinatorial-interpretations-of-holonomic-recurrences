@@ -1,0 +1,21 @@
+graph {
+	size="4,4"
+    graph [splines=false]
+	r [label="" shape=none]
+
+    1 [label="\\(\\n\\)" shape=none]
+    2 [label="\\(\\n\\)" shape=none]
+
+    3 [label="" shape=none]
+    4 [label="\\(\\pointed{}\\)" shape=none]
+    5 [label="" shape=none]
+
+	rr [label="" shape=none]
+    r -- rr [style=invis]
+
+    r -- 1 [style=dashed]
+    1 -- 2
+    2 -- 3 [color=lightgreen]
+    2 -- 4 [color=lightgreen]
+    1 -- 5 [color=lightgreen]
+}

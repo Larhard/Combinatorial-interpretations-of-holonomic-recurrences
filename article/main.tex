@@ -24,6 +24,7 @@
 
 \RequirePackage{geometry}
 \RequirePackage{tabularx}
+\RequirePackage{longtable}
 \RequirePackage{graphicx}
 \RequirePackage{svg}
 
@@ -31,6 +32,7 @@
 
 \RequirePackage{amsthm}
 \RequirePackage{amsmath}
+\RequirePackage{mathtools}
 \RequirePackage{amsfonts}
 \RequirePackage{soul}
 \RequirePackage{xspace}
@@ -197,9 +199,15 @@ Leaf is a node which has no children.
 
 \(\no\) is implicitly defined as a identifier of non-existing node (eg.\ if \(v\) is a leaf, \(\tleft(v) = \n\)).
 
+Dashed edges 
+\begin{minipage}{1.5em}
+\includesvg[width=\textwidth]{intro__dashed_edge}
+\end{minipage}
+depict edges that may or may not exist (eg.\ when we describe transformations and we don't care if the node is root or if it has children).
+
 Green edges 
 \begin{minipage}{1.5em}
-\includesvg[width=\textwidth]{green_edge}
+\includesvg[width=\textwidth]{intro__green_edge}
 \end{minipage}
 depict edges to \(\no\) nodes.
 
@@ -235,7 +243,7 @@ We will be analyzing structures that can be expressed using recursive expression
         \begin{minipage}[t]{.2\textwidth}
             \begin{center}
                 \(B\)\\
-                \includesvg[scale=0.5]{binary_tree_def_1}%
+                \includesvg[scale=0.5]{binary__def_1}%
             \end{center}
         \end{minipage}%
         \begin{minipage}[t]{.05\textwidth}
@@ -246,7 +254,7 @@ We will be analyzing structures that can be expressed using recursive expression
         \begin{minipage}[t]{.2\textwidth}
             \begin{center}
                 \(\text{leaf}\)\\
-                \includesvg[scale=0.5]{binary_tree_def_2}%
+                \includesvg[scale=0.5]{binary__def_2}%
             \end{center}
         \end{minipage}%
         \begin{minipage}[t]{.05\textwidth}
@@ -257,7 +265,7 @@ We will be analyzing structures that can be expressed using recursive expression
         \begin{minipage}[t]{.2\textwidth}
             \begin{center}
                 \(B^2\)\\
-                \includesvg[scale=0.5]{binary_tree_def_3}%
+                \includesvg[scale=0.5]{binary__def_3}%
             \end{center}
         \end{minipage}%
     \end{center}
@@ -296,7 +304,7 @@ In order to get some intuition on how it works underneath, let's take a look on 
 The highlighted terms are describing following tree:
 
 \begin{center}
-    \includesvg[scale=.7]{iilll}
+    \includesvg[scale=.7]{intro__iilll}
 \end{center}
 \end{example}
 
@@ -394,12 +402,14 @@ In order to make notation easier and unambiguous, we also introduce pre-order no
 \end{definition}
 
 \begin{definition}
-    Pre-order notation of \(n\)-ary tree \(T\), \(\enc{T}\), is defined recursively as \(\enc{\troot(T)} \prod_{i=1}^{n} \enc{i\text{-th subtree of } \troot(T)}\), ie.\ catenation of identifier of the root of the tree with encoded its subtrees from left to right.
+    Pre-order notation of \(n\)-ary tree \(T\), \(\enc{T}\), is defined recursively as:
+    \[\enc{T} = \enc{\troot(T)} \prod_{i=1}^{n} \enc{i\text{-th subtree of } \troot(T)}\]
+    ie.\ catenation of identifier of the root of the tree with encoded its subtrees from left to right.
 \end{definition}
 
 \begin{figure}[h]
     \centering
-    \includesvg[scale=.7]{oononnn}
+    \includesvg[scale=.7]{intro__oononnn}
     \caption{\(\n \n \no \n \no \no \no\)}
     \label{fig:oononnn}
 \end{figure}
@@ -462,18 +472,18 @@ Let's define two local operations: \(R_l(T, v)\) and \(R_r(T, v)\). The term \te
 
 \begin{figure}[h]
     \centering
-    \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{remy_base}\end{minipage}%
+    \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{binary__remy_base}\end{minipage}%
     \(\Rightarrow\)
-    \begin{minipage}{.4\textwidth}\includesvg[scale=0.5]{remy_left}\end{minipage}%
+    \begin{minipage}{.4\textwidth}\includesvg[scale=0.5]{binary__remy_left}\end{minipage}%
     \caption{\(\enc{R_l(T, v)}\)}
     \label{fig:remy_left}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{remy_base}\end{minipage}%
+    \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{binary__remy_base}\end{minipage}%
     \(\Rightarrow\)
-    \begin{minipage}{.4\textwidth}\includesvg[scale=0.5]{remy_right}\end{minipage}%
+    \begin{minipage}{.4\textwidth}\includesvg[scale=0.5]{binary__remy_right}\end{minipage}%
     \caption{\(\enc{R_r(T, v)}\)}
     \label{fig:remy_right}
 \end{figure}
@@ -530,9 +540,9 @@ As we have added \(n + 2\) virtual nodes, we have added as much virtual edges.
 
 \begin{figure}[h]
     \centering
-    \includeinlinesvg{.2}{unary_binary_base}%
+    \includeinlinesvg{.2}{unary_binary__base}%
     \(\Rightarrow\)%
-    \includeinlinesvg{.3}{unary_binary_full}
+    \includeinlinesvg{.3}{unary_binary__full}
     \caption{Unary-binary tree to full-binary tree transformation}
     \label{fig:unary_binary_transformation}
 \end{figure}
@@ -567,7 +577,7 @@ Let's start from \(U(n-1)\). Its multiplier is \(2n + 1\). It suggests that we c
 In case of \(U(n-2)\), the multiplier is \(3(n-1)\), that suggests that we should perform \(3\) transformations on the trees with a pointed actual node.
 
 \begin{center}
-    \begin{tabular}{| c | c | c |}
+    \begin{longtable}{| c | c | c |}
         \hline
 
         \(U(n-2)\) &
@@ -576,12 +586,41 @@ In case of \(U(n-2)\), the multiplier is \(3(n-1)\), that suggests that we shoul
         \hline
 
         &
-        I \includesvg[scale=0.4]{ub_1si} &
-        Vro \includesvg[scale=0.4]{ub_0fid} \\
+        I \includesvg[scale=0.4]{unary_binary__1si} &
+        Vro \includesvg[scale=0.4]{unary_binary__0fid} \\
         \hline
-    \end{tabular}
+
+        &
+        Vlt \includesvg[scale=0.4]{unary_binary__1fjg} &
+        VrtUrv \includesvg[scale=0.4]{unary_binary__0fjdOgf} \\
+        \hline
+
+        I \includesvg[scale=0.4]{unary_binary__2i} &
+        &
+        VrtUra \includesvg[scale=0.4]{unary_binary__0fjdOdi} \\
+        \hline
+
+        &
+        Vro \includesvg[scale=0.4]{unary_binary__1fid} &
+        VrtUla \includesvg[scale=0.4]{unary_binary__0fjdOgi} \\
+        \hline
+
+        &
+        Vrt \includesvg[scale=0.4]{unary_binary__1fjd} &
+        VltUrv \includesvg[scale=0.4]{unary_binary__0fjgOdf} \\
+        \hline
+
+        I \includesvg[scale=0.4]{unary_binary__2i} &
+        &
+        VltUra \includesvg[scale=0.4]{unary_binary__0fjgOdi} \\
+        \hline
+
+        I \includesvg[scale=0.4]{unary_binary__2i} &
+        &
+        VltUla \includesvg[scale=0.4]{unary_binary__0fjgOgi} \\
+        \hline
+    \end{longtable}
 \end{center}
-\todo{finish the table}
 
 
 As you can see, we have satisfied all of the cases of \(U(n)\) with no repetitions, which concludes the construction.
@@ -599,10 +638,10 @@ Simply speaking, node can have zero or strictly more than one children.
 
 \begin{figure}[h]
     \centering
-    \includesvg[scale=0.4]{schroder_1}
-    \includesvg[scale=0.4]{schroder_2}
-    \includesvg[scale=0.4]{schroder_3}
-    \includesvg[scale=0.4]{schroder_4}
+    \includesvg[scale=0.4]{schroder__example_1}
+    \includesvg[scale=0.4]{schroder__example_2}
+    \includesvg[scale=0.4]{schroder__example_3}
+    \includesvg[scale=0.4]{schroder__example_4}
     \(\ldots\)
     \caption{Schröder tree node}
     \label{fig:schroder_trees}
@@ -695,29 +734,104 @@ We will show the bijection between two sides of the recursion. We will transform
 
 Let's define 3 transformations: \(L_1\), \(L_2\) and \(R_1\).
 
-\todo{image of the transformations}
+\begin{figure}[h]
+    \begin{center}
+    \includeinlinesvg{.16}{schroder__lr_base}%
+    \(\xRightarrow{L_1}\)%
+    \includeinlinesvg{.16}{schroder__l1}%
+    \hspace{.1\textwidth}%
+    \includeinlinesvg{.16}{schroder__lr_base}%
+    \(\xRightarrow{L_2}\)%
+    \includeinlinesvg{.16}{schroder__l2}%
+
+    \includeinlinesvg{.16}{schroder__lr_base}%
+    \(\xRightarrow{R_1}\)%
+    \includeinlinesvg{.16}{schroder__r1}%
+    \end{center}
+    \caption{Transformations \(L_1\), \(L_2\) and \(R_1\)}
+    \label{fig:transformations_L1_L2_R1}
+\end{figure}
+
 
 You can see that trees generated by \(L_1\) and \(R_1\) are always well-weighted. The problem appears when applying \(L_2\) when \(s\) is a leaf.
 
 When \(s\) is a leaf, we will look at the \(s\)'s parent. It can fall into one of following cases:
 
-\todo{image of the problematic cases}
+\begin{center}
+    \begin{minipage}[t]{.3\textwidth}
+        \begin{center}
+            \includesvg[scale=0.5]{schroder__case_a}\\
+            Case 1.
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.3\textwidth}
+        \begin{center}
+            \includesvg[scale=0.5]{schroder__case_b}\\
+            Case 2.
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.3\textwidth}
+        \begin{center}
+            \includesvg[scale=0.5]{schroder__case_c}\\
+            Case 3.
+        \end{center}
+    \end{minipage}%
+\end{center}
 
 where \(t'\) can be any tree and \(t''\) can not be a leaf.
 
 When applying \(L_2\) we achieve following cases respectively:
 
-\todo{images}
+\begin{center}
+    \begin{minipage}[t]{.3\textwidth}
+        \begin{center}
+            \includesvg[scale=0.45]{schroder__case_a_l}\\
+            Case 1.
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.3\textwidth}
+        \begin{center}
+            \includesvg[scale=0.45]{schroder__case_b_l}\\
+            Case 2.
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.3\textwidth}
+        \begin{center}
+            \includesvg[scale=0.45]{schroder__case_c_l}\\
+            Case 3.
+        \end{center}
+    \end{minipage}%
+\end{center}
 
-In case 1. and 2. we can just swap the labels as follows:
+In case 1.\ and 2.\ we can just swap the labels as follows:
 
-\todo{images}
+\begin{center}
+    \begin{minipage}[t]{.3\textwidth}
+        \begin{center}
+            \includesvg[scale=0.45]{schroder__case_a_l_fixed}\\
+            Case 1.
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.3\textwidth}
+        \begin{center}
+            \includesvg[scale=0.45]{schroder__case_b_l_fixed}\\
+            Case 2.
+        \end{center}
+    \end{minipage}%
+\end{center}
 
 It is easy to show that it constructs bijection between \((n + 1) T(n + 1)\) and subset of \(\{L_1, L_2, R_1\} \times (2 n - 1) T(n)\) not falling into case 3.
 
-To achieve trees from \((n - 2) T(n - 1)\), we can simply take trees from case 3. and replace the father of the \(s\) with \(t''\) and point root of \(t''\). In this way, we will loose \(2\) leaves and obtain each tree from \((n - 2) T(n - 1)\).
+To achieve trees from \((n - 2) T(n - 1)\), we can simply take trees from case 3.\ and replace whole subtree with subtree of \(t''\) with its root pointed. In this way, we will loose \(2\) leaves and obtain each tree from \((n - 2) T(n - 1)\):
 
-\todo{image}
+\begin{center}
+    \begin{minipage}[t]{.3\textwidth}
+        \begin{center}
+            \includesvg[scale=0.45]{schroder__case_c_l_fixed}\\
+            Case 3.
+        \end{center}
+    \end{minipage}%
+\end{center}
 
 \section{Approaches}%
 \label{sec:approaches}
@@ -772,9 +886,20 @@ Unfortunately, decreasing size of the classes increases number of the sizes we n
 
 Another method that may help finding the interpretation is inductive translation\cite{doron}. The method is based on the idea that most of the time there is easy to find some natural induction (not necessarily holonomic) that has trivial interpretation in bijective language.
 
-\todo{describe binary trees example}
+For case of binary trees with size defined as number of leaves, we can define 2 recurrences:
 
-The method itself has proven to be helpful in order to divide the problem into smaller parts. Unfortunately It does not give any immediate interpretation for applying the inductive step.
+\[\text{Holonomic} := nB(n) = 2 (2n - 3)B(n - 1)\]
+\[\text{Non-linear} := B(n) = \sum_{i=1}^{n - 1} B(i) B(n - i)\]
+
+The non-linear one has very simple interpretation. We can take 2 smaller trees and join them using newly created common root.
+
+We can multiply both sides of Non-linear recurrence by \(n\) and break up \(n = i + (n - i)\) to get two similar sigmas:
+
+\[n B(n) = \sum_{i=1}^{n - 1} i B(i) B(n - i) + \sum_{i=1}^{n - 1} (n - i) B(n - i) B(i)\]
+
+Using our inductive hypothesis, ie.\ holonomic recurrence and moving problematic cases out from the sums (in that case \(B(1)\) needs to be analyzed separately, as we did not define binary trees with no leaves), we can get the right side to use \(B(n - 1)\) and prove that the holonomic recurrence using non-linear one. The only part that is left is to translate this proof to the bijective language, which in such simple case as binay trees is almost trivial, especially if one has seen the solution once.
+
+The method itself has proven to be helpful in order to divide the problem into smaller parts and find some corner cases. Unfortunately, it does not give any immediate interpretation for applying the inductive step.
 
 \section{Brutal iterative approach}%
 \label{sec:brutal_iterative_approach}
@@ -1044,34 +1169,34 @@ c.append_r_class_subtree_visitor(1,       # we define positive trees
 
 The framework informs us that we have generated all trees for section \(0,0\) for \(n = 3\). It also can provide us with the visualization of the trees we have generated. For example:
 
-\includeinlinesvg{.19}{trees_00__4_base}%
+\includeinlinesvg{.19}{lambda__trees_00__4_base}%
 \(\Rightarrow\)
-\includeinlinesvg{.19}{trees_00__4}%
-\includeinlinesvg{.19}{trees_00__5}%
-\includeinlinesvg{.19}{trees_00__6}%
-\includeinlinesvg{.19}{trees_00__7}%
+\includeinlinesvg{.19}{lambda__trees_00__4}%
+\includeinlinesvg{.19}{lambda__trees_00__5}%
+\includeinlinesvg{.19}{lambda__trees_00__6}%
+\includeinlinesvg{.19}{lambda__trees_00__7}%
 
 If we take a look at more examples from class \(0\), we can start seeing some patterns:
 
-\includeinlinesvg{.33}{trees_00__2}%
-\includeinlinesvg{.33}{trees_00__3}%
-\includeinlinesvg{.33}{trees_00__7}%
+\includeinlinesvg{.33}{lambda__trees_00__2}%
+\includeinlinesvg{.33}{lambda__trees_00__3}%
+\includeinlinesvg{.33}{lambda__trees_00__7}%
 
-\includeinlinesvg{.33}{trees_00__4}%
-\includeinlinesvg{.33}{trees_00__12}%
-\includeinlinesvg{.33}{trees_00__13}%
+\includeinlinesvg{.33}{lambda__trees_00__4}%
+\includeinlinesvg{.33}{lambda__trees_00__12}%
+\includeinlinesvg{.33}{lambda__trees_00__13}%
 
-\includeinlinesvg{.16}{trees_00__0}%
-\includeinlinesvg{.16}{trees_00__1}%
-\includeinlinesvg{.16}{trees_00__5}%
-\includeinlinesvg{.16}{trees_00__6}%
-\includeinlinesvg{.16}{trees_00__14}%
-\includeinlinesvg{.16}{trees_00__15}%
+\includeinlinesvg{.16}{lambda__trees_00__0}%
+\includeinlinesvg{.16}{lambda__trees_00__1}%
+\includeinlinesvg{.16}{lambda__trees_00__5}%
+\includeinlinesvg{.16}{lambda__trees_00__6}%
+\includeinlinesvg{.16}{lambda__trees_00__14}%
+\includeinlinesvg{.16}{lambda__trees_00__15}%
 
-\includeinlinesvg{.25}{trees_00__8}%
-\includeinlinesvg{.25}{trees_00__9}%
-\includeinlinesvg{.25}{trees_00__10}%
-\includeinlinesvg{.25}{trees_00__11}%
+\includeinlinesvg{.25}{lambda__trees_00__8}%
+\includeinlinesvg{.25}{lambda__trees_00__9}%
+\includeinlinesvg{.25}{lambda__trees_00__10}%
+\includeinlinesvg{.25}{lambda__trees_00__11}%
 
 The order may be a bit suggestive. Section \(1,0\) adds single \(l\) node, whereas section \(1,1\) adds single \(s\) node. It actually suggests how can we can try to generate first and second line of the trees above. The first one is simple. Let's add \(l\) node with pointed right virtual node to each actual node:
 
@@ -1091,11 +1216,11 @@ c.append_r_class_subtree_visitor(-1,                # negative node
 
 It creates following trees:
 
-\includeinlinesvg{.24}{trees_100__0_base}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__0}%
-\includeinlinesvg{.24}{trees_100__1_base}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__1}%
+\includeinlinesvg{.24}{lambda__trees_100__0_base}\(\Rightarrow\)\includeinlinesvg{.24}{lambda__trees_100__0}%
+\includeinlinesvg{.24}{lambda__trees_100__1_base}\(\Rightarrow\)\includeinlinesvg{.24}{lambda__trees_100__1}%
 
-\includeinlinesvg{.24}{trees_100__2_base}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__2}%
-\includeinlinesvg{.24}{trees_100__3_base}\(\Rightarrow\)\includeinlinesvg{.24}{trees_100__3}%
+\includeinlinesvg{.24}{lambda__trees_100__2_base}\(\Rightarrow\)\includeinlinesvg{.24}{lambda__trees_100__2}%
+\includeinlinesvg{.24}{lambda__trees_100__3_base}\(\Rightarrow\)\includeinlinesvg{.24}{lambda__trees_100__3}%
 
 It addresses all cases from the first line, but also introduces incorrect lambda tree in which \(s\) is parent of \(l\), which can not happen. We will fix it with the section \(2,2\) generating positive trees, which introduces one \(l\) node and one \(s\) by extending the tree with \(2\) nodes where \(s\) is parent of \(l\).
 
@@ -1153,10 +1278,10 @@ c.append_r_class_right_parent_subtree_visitor(-1,
 
 Basically, for each virtual node not being root (ie.\ having left or right parent), we point it and add \(l\) or \(s\) respectively above the parent.
 
-\includeinlinesvg{.32}{trees_111__1_base}%
+\includeinlinesvg{.32}{lambda__trees_111__1_base}%
 \(\Rightarrow\)
-\includeinlinesvg{.32}{trees_101__0}%
-\includeinlinesvg{.32}{trees_112__0}%
+\includeinlinesvg{.32}{lambda__trees_101__0}%
+\includeinlinesvg{.32}{lambda__trees_112__0}%
 
 The last row can be generated using section \(2, 0\):
 
@@ -1192,12 +1317,12 @@ c.append_r_class_subtree_visitor(-1,
 
 For each actual vertex, we add \(a\) node as its left or right parent and add as a second child \(o\) node as its sibling. We then point left or right virtual child of newly created \(o\) node.
 
-\includeinlinesvg{.20}{trees_200__0_base}%
+\includeinlinesvg{.20}{lambda__trees_200__0_base}%
 \(\Rightarrow\)
-\includeinlinesvg{.20}{trees_200__0}%
-\includeinlinesvg{.20}{trees_201__0}%
-\includeinlinesvg{.20}{trees_202__0}%
-\includeinlinesvg{.20}{trees_203__0}%
+\includeinlinesvg{.20}{lambda__trees_200__0}%
+\includeinlinesvg{.20}{lambda__trees_201__0}%
+\includeinlinesvg{.20}{lambda__trees_202__0}%
+\includeinlinesvg{.20}{lambda__trees_203__0}%
 
 After such transformations, we get following statistics:
 

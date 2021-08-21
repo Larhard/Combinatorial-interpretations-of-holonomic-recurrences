@@ -15,7 +15,7 @@
 <!-- 1 -->
 <g id="node2" class="node">
 <title>1</title>
-<text text-anchor="middle" x="114" y="-158.3" font-family="Times,serif" font-size="14.00">\(\n\)</text>
+<text text-anchor="middle" x="114" y="-158.3" font-family="Times,serif" font-size="14.00">\(2\)</text>
 </g>
 <!-- r&#45;&#45;1 -->
 <g id="edge2" class="edge">
@@ -27,14 +27,14 @@
 <title>rr</title>
 </g>
 <!-- r&#45;&#45;rr -->
-<!-- v -->
+<!-- s -->
 <g id="node3" class="node">
-<title>v</title>
-<text text-anchor="middle" x="63" y="-86.3" font-family="Times,serif" font-size="14.00">\(v\)</text>
+<title>s</title>
+<text text-anchor="middle" x="63" y="-86.3" font-family="Times,serif" font-size="14.00">\(s\)</text>
 </g>
-<!-- 1&#45;&#45;v -->
+<!-- 1&#45;&#45;s -->
 <g id="edge3" class="edge">
-<title>1&#45;&#45;v</title>
+<title>1&#45;&#45;s</title>
 <path fill="none" stroke="black" d="M101.39,-143.7C93.49,-132.85 83.34,-118.92 75.46,-108.1"/>
 </g>
 <!-- 2 -->
@@ -43,29 +43,27 @@
 <text text-anchor="middle" x="165" y="-86.3" font-family="Times,serif" font-size="14.00">\(\pointed{}\)</text>
 </g>
 <!-- 1&#45;&#45;2 -->
-<g id="edge4" class="edge">
-<title>1&#45;&#45;2</title>
-<path fill="none" stroke="lightgreen" d="M126.61,-143.7C134.51,-132.85 144.66,-118.92 152.54,-108.1"/>
-</g>
-<!-- vl -->
-<g id="node4" class="node">
-<title>vl</title>
-<polygon fill="none" stroke="black" points="27,-36 0,-9 54,-9 27,-36"/>
-</g>
-<!-- v&#45;&#45;vl -->
-<g id="edge5" class="edge">
-<title>v&#45;&#45;vl:n</title>
-<path fill="none" stroke="black" d="M51.41,-71.94C40.89,-56.45 27,-36 27,-36"/>
-</g>
-<!-- vr -->
-<g id="node5" class="node">
-<title>vr</title>
-<polygon fill="none" stroke="black" points="99,-36 72,-9 126,-9 99,-36"/>
-</g>
-<!-- v&#45;&#45;vr -->
 <g id="edge6" class="edge">
-<title>v&#45;&#45;vr:n</title>
-<path fill="none" stroke="black" d="M74.59,-71.94C85.11,-56.45 99,-36 99,-36"/>
+<title>1&#45;&#45;2</title>
+<path fill="none" stroke="black" d="M126.61,-143.7C134.51,-132.85 144.66,-118.92 152.54,-108.1"/>
+</g>
+<!-- sl -->
+<g id="node4" class="node">
+<title>sl</title>
+</g>
+<!-- s&#45;&#45;sl -->
+<g id="edge4" class="edge">
+<title>s&#45;&#45;sl</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M54.1,-71.7C48.52,-60.85 41.36,-46.92 35.8,-36.1"/>
+</g>
+<!-- sr -->
+<g id="node5" class="node">
+<title>sr</title>
+</g>
+<!-- s&#45;&#45;sr -->
+<g id="edge5" class="edge">
+<title>s&#45;&#45;sr</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M71.9,-71.7C77.48,-60.85 84.64,-46.92 90.2,-36.1"/>
 </g>
 </g>
 </svg>

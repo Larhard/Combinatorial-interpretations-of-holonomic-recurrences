@@ -1,0 +1,15 @@
+graph {
+	size="4,4"
+	r [label="" height=0 width=0 shape=none]
+
+	0 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	1 [label="" height=0 width=0 shape=none]
+	2 [label="" height=0 width=0 shape=none]
+
+	rr [label="" height=0 width=0 shape=none]
+    r -- rr [style=invis]
+
+    r -- 0 [style=dashed]
+    0 -- 1 [style=dashed]
+    0 -- 2 [style=dashed]
+}
