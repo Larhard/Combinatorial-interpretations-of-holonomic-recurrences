@@ -1,0 +1,13 @@
+graph {
+	size="4,4"
+    graph [splines=false]
+	0 [label="" shape=none]
+	o [label="\\(o\\)" shape=none]
+	1 [label="" shape=none]
+	2 [label="" shape=none]
+	3 [label="" shape=none]
+    0 -- o [style=dashed]
+    0 -- 1 [style=invis]
+    o -- 2 [color=lightgreen]
+    o -- 3 [color=lightgreen]
+}

@@ -1,0 +1,13 @@
+graph {
+	size="4,4"
+    graph [splines=false]
+	0 [label="" shape=none]
+	a [label="\\(a\\)" shape=none]
+	L1 [label="\\(L\\)" shape=triangle height=1]
+	L2 [label="\\(L\\)" shape=triangle height=1]
+	1 [label="" shape=none]
+    0 -- a [style=dashed]
+    a -- L1 [headport=n]
+    a -- L2 [headport=n]
+    0 -- 1 [style=invis]
+}

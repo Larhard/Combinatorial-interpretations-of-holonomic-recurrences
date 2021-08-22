@@ -97,6 +97,7 @@
 \DeclareMathOperator{\no}{\o}
 
 \newcommand{\includeinlinesvg}[2]{\begin{minipage}{#1\textwidth}\includesvg[width=\textwidth]{#2}\end{minipage}}
+\newcommand{\includeinlinescaledsvg}[3]{\begin{minipage}{#1\textwidth}\begin{center}\includesvg[scale=#2]{#3}\end{center}\end{minipage}}
 
 \begin{document}
 
@@ -867,7 +868,7 @@ It may seem counter-intuitive at first, that this changes anything crucial, but 
 There are 2 most common symptoms that we may want to choose different method of counting the size:
 \begin{itemize}
     \item we get empty classes of the objects, eg.\ if we analyze problem of full binary trees and define size as number of all existing nodes, we can not generate tree of even size, therefore half of our classes are empty;
-    \item we want to join trees using common root and we get many \(\pm1\) in our notes. Note that if you count internal nodes, such catenation creates tree of size being sum of sizes of the components increases by 1. If you had defined the size as number of leaves or null-nodes, the size would be just plain sum of sizes of the smaller trees. \todo{Add some example}
+    \item we want to join trees using common root and we get many \(\pm1\) in our notes. Note that if you count internal nodes, such catenation creates tree of size being sum of sizes of the components increases by 1. If you had defined the size as number of leaves or null-nodes, the size would be just plain sum of sizes of the smaller trees.
 \end{itemize}
 
 \subsection{Tree binarization}%
@@ -888,7 +889,196 @@ Another benefit of this method is decreasing the sizes of particular classes, so
 
 Unfortunately, decreasing size of the classes increases number of the sizes we need to analyze to get full result.
 
-\todo{Add some example}
+In section \ref{sub:lambda_terms} we will define trees of lambda terms. If we would assign following weights to nodes:
+
+\[\begin{array}{rcl}
+        a &:& 7\\
+        l &:& 5\\
+        s &:& 3\\
+        o &:& 2\\
+\end{array}\]
+
+we would get significantly smaller classes
+
+\begin{longtable}{| c | c |}
+    \hline
+
+    Size & Trees
+    \\\hline
+    
+    2 &
+    \begin{minipage}{.9\textwidth}\centering
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_002_000000}
+    \end{minipage}
+    \\\hline
+
+    5 &
+    \begin{minipage}{.9\textwidth}\centering
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_005_000000}
+    \end{minipage}
+    \\\hline
+
+    7 &
+    \begin{minipage}{.9\textwidth}\centering
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_007_000000}
+    \end{minipage}
+    \\\hline
+
+    8 &
+    \begin{minipage}{.9\textwidth}\centering
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_008_000000}
+    \end{minipage}
+    \\\hline
+
+    10 &
+    \begin{minipage}{.9\textwidth}\centering
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_010_000000}
+    \end{minipage}
+    \\\hline
+
+    11 &
+    \begin{minipage}{.9\textwidth}\centering
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_011_000000}
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_011_000001}
+    \end{minipage}
+    \\\hline
+
+    12 &
+    \begin{minipage}{.9\textwidth}\centering
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_012_000000}
+    \end{minipage}
+    \\\hline
+
+    14 &
+    \begin{minipage}{.9\textwidth}\centering
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_014_000000}
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_014_000001}
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_014_000002}
+    \end{minipage}
+    \\\hline
+
+    15 &
+    \begin{minipage}{.9\textwidth}\centering
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_015_000000}
+    \end{minipage}
+    \\\hline
+
+    16 &
+    \begin{minipage}{.9\textwidth}\centering
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_016_000000}
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_016_000001}
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_016_000002}
+    \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_016_000003}
+    \end{minipage}
+    \\\hline
+
+    % 17 &
+    % \begin{minipage}{.9\textwidth}\centering
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_017_000000}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_017_000001}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_017_000002}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_017_000003}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_017_000004}
+    % \end{minipage}
+    % \\\hline
+
+    % 18 &
+    % \begin{minipage}{.9\textwidth}\centering
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_018_000000}
+    % \end{minipage}
+    % \\\hline
+
+    % 19 &
+    % \begin{minipage}{.9\textwidth}\centering
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_019_000000}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_019_000001}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_019_000002}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_019_000003}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_019_000004}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_019_000005}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_019_000006}
+    % \end{minipage}
+    % \\\hline
+
+    % 20 &
+    % \begin{minipage}{.9\textwidth}\centering
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_020_000000}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_020_000001}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_020_000002}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_020_000003}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_020_000004}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_020_000005}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_020_000006}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_020_000007}
+    % \end{minipage}
+    % \\\hline
+
+    % 21 &
+    % \begin{minipage}{.9\textwidth}\centering
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_021_000000}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_021_000001}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_021_000002}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_021_000003}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_021_000004}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_021_000005}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_021_000006}
+    % \end{minipage}
+    % \\\hline
+
+    % 22 &
+    % \begin{minipage}{.9\textwidth}\centering
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_022_000000}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_022_000001}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_022_000002}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_022_000003}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_022_000004}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_022_000005}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_022_000006}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_022_000007}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_022_000008}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_022_000009}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_022_000010}
+    % \end{minipage}
+    % \\\hline
+
+    % 23 &
+    % \begin{minipage}{.9\textwidth}\centering
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000000}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000001}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000002}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000003}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000004}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000005}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000006}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000007}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000008}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000009}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000010}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000011}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_023_000012}
+    % \end{minipage}
+    % \\\hline
+
+    % 24 &
+    % \begin{minipage}{.9\textwidth}\centering
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000000}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000001}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000002}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000003}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000004}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000005}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000006}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000007}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000008}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000009}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000010}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000011}
+    % \includeinlinescaledsvg{.19}{.5}{lambda__2357__lambda2357_024_000012}
+    % \end{minipage}
+    % \\\hline
+\end{longtable}
+
+Analyzing such small cases is much easier, but on the other side, there are many more classes that have to be considered to get full interpretation.
 
 \subsection{Inductive translation}%
 \label{sub:inductive_translation}
@@ -915,7 +1105,7 @@ The method itself has proven to be helpful in order to divide the problem into s
 
 If all elaborate methods has failed and the problem is still too big to interpret it by hand, a computer comes handy.
 
-As the main field of our interest was analysis of terms of lambda trees in unary de Bruijn notation, we will use it as an example to describe the method.\todo{Add definition}
+As the main field of our interest was analysis of terms of lambda trees in unary de Bruijn notation, we will use it as an example to describe the method.
 
 \subsection{Lambda terms}%
 \label{sub:lambda_terms}
@@ -1013,9 +1203,85 @@ As we have our structure defined, let's create generating functions that will ke
 \end{itemize}
 
 In order to make the image cleaner, we will drop the arguments of generating functions, ie. \(\gf{L} := \gf{L}(z, o, l, a, s)\)
-\[\gf{L} = z a \gf{L}^2 + z l \gf{L} + \frac{o z}{1 - z s}\]
-\todo{add some image}
-\todo{describe how the frac is generated}
+
+
+\begin{center}
+    \begin{minipage}[t]{.2\textwidth}
+        \begin{center}
+            \(\gf{L}\)\\
+            \includesvg[scale=0.5]{lambda__def__1}%
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.05\textwidth}
+        \begin{center}
+            \(=\)\\
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.2\textwidth}
+        \begin{center}
+            \(z a \gf{L}^2\)\\
+            \includesvg[scale=0.5]{lambda__def__2}%
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.05\textwidth}
+        \begin{center}
+            \(+\)\\
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.2\textwidth}
+        \begin{center}
+            \(z l \gf{L}\)\\
+            \includesvg[scale=0.5]{lambda__def__3}%
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.05\textwidth}
+        \begin{center}
+            \(+\)\\
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.2\textwidth}
+        \begin{center}
+            \(\gf{L'}\)\\
+            \includesvg[scale=0.5]{lambda__def__4}%
+        \end{center}
+    \end{minipage}%
+\end{center}
+
+where:
+
+\begin{center}
+    \begin{minipage}[t]{.2\textwidth}
+        \begin{center}
+            \(\gf{L'}\)\\
+            \includesvg[scale=0.5]{lambda__def__5}%
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.05\textwidth}
+        \begin{center}
+            \(=\)\\
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.2\textwidth}
+        \begin{center}
+            \(z s \gf{L'}\)\\
+            \includesvg[scale=0.5]{lambda__def__4}%
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.05\textwidth}
+        \begin{center}
+            \(+\)\\
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}[t]{.2\textwidth}
+        \begin{center}
+            \(z o\)\\
+            \includesvg[scale=0.5]{lambda__def__6}%
+        \end{center}
+    \end{minipage}%
+\end{center}
+
+After solving the equation for \(\gf{L'}\), we get:
+\[\gf{L} = z a \gf{L}^2 + z l \gf{L} + \frac{z o}{1 - z s}\]
 
 Using a little bit of Maple magic, we can easily achieve following holonomic recurrence.
 
@@ -1653,60 +1919,13 @@ You may also note that we are operating on specific \(N\). The probability that 
 
 The framework also isn't perfect. It highly depends on the operator's intuition. We believe that the solving process can be automated. The simplest method that comes to mind is simply creating heuristic rules that then will be used by the framework to guess at least partial solution.
 
-We believe that one day all of that will be done.
+With the proper interpretation, it may be possible to create sampling algorithm similar to Remy's one for binary trees\cite{remy,note}. It would have to take under consideration that some trees are being removed by other classes, so the probabilities would have to be set carrefuly.
+
+We believe that one day all of that will be done or proven to be impossible.
 
 \clearpage
 
 \begin{thebibliography}{9}
-    \bibitem{remy}
-    Laurent Alonso Alonso, Jean-Luc Remy, and René Schott,
-    \textit{A Linear-Time Algorithm for the Generation of Trees},
-    Algorithmica 17,
-    1997,
-    p. 162-182
-
-    \bibitem{motzkin}
-    Serge Dulucq, Jean-Guy Penaud,
-    \textit{Interprétation bijective d'une récurrence des nombres de Motzkin},
-    Discrete Mathematics,
-    Volume 256, Issue 3,
-    2002,
-    p. 671-676
-
-    \bibitem{schroder}
-    Dominique Foata, Doron Zeilberger,
-    \textit{A Classic Proof of a Recurrence for a Very Classical Sequence}
-    J. Comb., Ser. A, 80,
-    1997, 380-384
-
-    \bibitem{binary}
-    Jean-Luc Rémy,
-    \textit{Un procédé itératif de dénombrement d’arbres binaires et son application à leur génération aléatoire}
-    Informatique théorique, tome 19, no 2, 
-    1985,
-    p. 179-195
-
-    \bibitem{doron}
-    Doron Zeilberger,
-    \textit{e-mail conversation},
-    2020
-
-    \bibitem{note}
-    Jarmo Siltaneva, Erkki Mäkinen,
-    \textit{A Note on Rémy's Algorithm for Generating Random Binary Trees},
-    Missouri Journal of Mathematical Sciences. 15. 103-109. 10.35834/2003/1502103,
-    2003 
-
-    \bibitem{bodini}
-    Axel Bacher, Olivier Bodini, Alice Jacquot,
-    Efficient random sampling of binary and unary-binary trees via holonomic equations,
-    2014
-
-    \bibitem{complexity}
-    Igor Pak,
-    \textit{Complexity problems in enumerative combinatorics},
-    2018
-
     \bibitem{gfun}
     Bruno Salvy, Paul Zimmermann,
     \textit{GFUN : a maple package for the manipulation of generating and holonomic functions in one variable}
@@ -1724,6 +1943,59 @@ We believe that one day all of that will be done.
     \textit{Combinatorial sequences: Non-holonomicity and inequalities. Ph.D. thesis},
     RISC-Linz, Johannes Kepler Universitat Linz,
     2005
+
+    \bibitem{complexity}
+    Igor Pak,
+    \textit{Complexity problems in enumerative combinatorics},
+    2018
+
+    \bibitem{binary}
+    Jean-Luc Rémy,
+    \textit{Un procédé itératif de dénombrement d’arbres binaires et son application à leur génération aléatoire}
+    Informatique théorique, tome 19, no 2, 
+    1985,
+    p. 179-195
+
+    \bibitem{motzkin}
+    Serge Dulucq, Jean-Guy Penaud,
+    \textit{Interprétation bijective d'une récurrence des nombres de Motzkin},
+    Discrete Mathematics,
+    Volume 256, Issue 3,
+    2002,
+    p. 671-676
+
+    \bibitem{schroder}
+    Dominique Foata, Doron Zeilberger,
+    \textit{A Classic Proof of a Recurrence for a Very Classical Sequence}
+    J. Comb., Ser. A, 80,
+    1997, 380-384
+
+    \bibitem{doron}
+    Doron Zeilberger,
+    \textit{e-mail conversation},
+    2020
+
+    % Non-cited
+
+    \bibitem{remy}
+    Laurent Alonso Alonso, Jean-Luc Remy, and René Schott,
+    \textit{A Linear-Time Algorithm for the Generation of Trees},
+    Algorithmica 17,
+    1997,
+    p. 162-182
+
+    \bibitem{note}
+    Jarmo Siltaneva, Erkki Mäkinen,
+    \textit{A Note on Rémy's Algorithm for Generating Random Binary Trees},
+    Missouri Journal of Mathematical Sciences. 15. 103-109. 10.35834/2003/1502103,
+    2003 
+
+    \bibitem{bodini}
+    Axel Bacher, Olivier Bodini, Alice Jacquot,
+    Efficient random sampling of binary and unary-binary trees via holonomic equations,
+    2014
+
+    % Additional
 
     \bibitem{transformator}
     Bartłomiej Puget,

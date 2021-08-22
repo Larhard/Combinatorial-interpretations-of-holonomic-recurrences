@@ -1,0 +1,11 @@
+graph {
+	0 [label=l shape=plain]
+	1 [label=a shape=plain]
+	0 -- 1
+	2 [label=l shape=plain]
+	1 -- 2
+	3 [label=o shape=plain]
+	2 -- 3
+	4 [label=o shape=plain]
+	1 -- 4
+}
