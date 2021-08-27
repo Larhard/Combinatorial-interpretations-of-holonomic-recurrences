@@ -41,6 +41,8 @@ watch: $(MAIN_TARGET)
 
 compile: $(TARGETS)
 
+$(DIFF_TARGET): LATEXMKFLAGS+=-interaction=nonstopmode -f
+
 %.pdf: %.tex
 	$(LATEXMK) $(LATEXMKFLAGS) $<
 
