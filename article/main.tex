@@ -154,8 +154,22 @@ We also try to find a combinatorial interpretation of the holonomic recurrence f
 \clearpage
 
 \section{Overview}%
-Initial inspiration for the thesis came from \textit{A natural counting of lambda terms}\cite{zigzag} publication, which shows bijection between seemingly different tree structures, which are lambda trees, black-white trees nad zigzag free trees.
-\todo{Finish the overview section}
+
+Every recursive structure can be described using generating function, which then can be transformed into holonomic recurrences. It allows us to quickly compute number of objects of given structure with of given size. At first glance, the recurrence seems to be closely related to the structure itself. It just seems like it should describe simple transformations, like adding some vertices to the smaller trees. Although, there is no known way of interpreting it in the language of the combinatorial structures.
+
+Initial inspiration for the thesis came from publication \textit{A natural counting of lambda terms}\cite{zigzag}, which shows bijection between seemingly different tree structures, which are lambda trees, black-white trees nad zigzag free trees. They share the same holonomic recurrence, but there is no known immediate connection between the holonomic recurrence and the structure itself.
+
+In the thesis we try to accumulate known results and techniques that may help solving the problem of finding combinatorial interpretations. We also propose approach that helped us to find intermediate solution for the problem of finding combinatorial interpretation for holonomic recurrence of lambda trees in the unary de Bruijn notation.
+
+In the section\ \ref{sec:introduction} we establish notation nad introduce concepts that will be using throughout the thesis.
+
+Next, in the section \ref{sec:known_results}, we present known results. They demonstrate combinatorial interpretations that resemble different approaches.
+
+In the section\ \ref{sec:approaches} we show approaches to the problem that helped people achieving their results. All of them were tried in order to find the answer to the original problem of interpreting holonomic recurrence of trees of lambda terms in the unary de Bruijn notation. Unfortunately none of them helped us enough to get the final result. They are proven to be helpful when we were stuck though as most of them are able to divide problem into smaller parts and detect corner cases.
+
+Section\ \ref{sec:brutal_iterative_approach} presents our final approach to the original problem, ie.\ computer-aided iterative approach that allowed us to find the intermediate solution. We belive that it is able to provide us with the full solution, but we were not able to achieve that due to the limited time that was available to us.
+
+At last, in section\ \ref{sec:further_work}, we present our view on what can be done with the problem in the future. We belive that one day the problem will be fully solved and more generic approach to interpreting holonomic recurrences will emerge.
 
 \clearpage
 
@@ -324,7 +338,7 @@ The highlighted terms are describing following tree:
 \end{center}
 \end{example}
 
-There exist multiple well-known methods and tools that allow us to work with generating functions without the need of digging into details. The tool we will be using extensively in this work is Maple package called GFUN\cite{gfun}.
+There exist multiple well-known methods and tools that allow us to work with generating functions without the need of digging into details. The tool we will be using extensively in this work is Maple package called GFUN\cite{gfun}. If you want to learn more about algorithms used in the package, we strongly encourage reading the referenced article.
 
 \subsection{Holonomic recurrences}%
 \label{sub:holonomic_recurrences}
@@ -533,7 +547,7 @@ We can easily derive the generating function:
 
 \[\gf{U}(z) = 1 + z\gf{U}(z) + z^2 \gf{U}^2(z)\]
 
-And with a bit of Maple magic, we immediately get following recurrence:
+And with a bit of Maple magic\cite{gfun}, we immediately get following recurrence:
 
 \[(n + 2)U(n) = (2n + 1)U(n - 1) + 3(n - 1)U(n - 2)\]
 
@@ -1284,7 +1298,7 @@ where:
 After solving the equation for \(\gf{L'}\), we get:
 \[\gf{L} = z a \gf{L}^2 + z l \gf{L} + \frac{z o}{1 - z s}\]
 
-Using a little bit of Maple magic, we can easily achieve following holonomic recurrence.
+Using a little bit of Maple magic\cite{gfun}, we can easily achieve following holonomic recurrence.
 
 \[\begin{array}{rl}
         0 =& (n - 4) l^2 s^2 L(n - 4)\\
