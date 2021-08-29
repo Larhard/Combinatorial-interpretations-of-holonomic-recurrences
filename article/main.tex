@@ -306,6 +306,7 @@ We will be analyzing structures that can be expressed using recursive formulas. 
 
 \subsection{Generating functions}%
 \label{sub:generating_functions}
+\todo{Make the section simpler}
 
 Throughout the thesis we use ordinary generating functions to describe and count structures.
 
@@ -314,15 +315,15 @@ The ordinary generating function of sequence \(A = (a_i)_{i=0}^{\infty}\) is def
 \[\gf{A}(z) = \sum_{i=0}^{\infty} a_i z^i\]
 \end{definition}
 
-Note that in order to compute \(k\)-th element of the sequence, \(a_k\), we just need to find a constant corresponding to indeterminate \(z^k\).
+Note that in order to compute the \(k\)-th element of the sequence, namely \(a_k\), we just need to find a constant corresponding to indeterminate \(z^k\).
 
 \begin{example}
     \label{ex:bin_gf}
-    Having our recursive definition of the object, we can easily construct a generating function for it. Let's create a generating function that will count the number of full binary trees consisting of exactly \(k\) internal nodes.
+    Having our recursive definition of the object, we can easily construct a generating function for it. Let's create a generating function that will count the number of full binary trees consisting of exactly \(k\) internal nodes.\todo{define sequence for the structure}
 
 \[\gf{B}(z) = 1 + z\gf{B}^2(z)\]
 
-Note that we used \(z\) to count internal nodes and left the leaf part as \(1\).
+Note that we used \(z\) to mark internal nodes. Leaves are of size \(0\), so they are marked using \(z^0 = 1\).
 
 In order to get some intuition on how it works underneath, let's take a look at how we can find the number of full binary trees of size \(2\). We can expand the recurrence a bit:
 
@@ -343,6 +344,7 @@ There exist multiple well-known methods and tools that allow us to work with gen
 
 \subsection{Holonomic recurrences}%
 \label{sub:holonomic_recurrences}
+\todo{Extend the section}
 
 Most of the time we will be working with holonomic recurrences, let's introduce them.
 
@@ -356,7 +358,7 @@ Most of the time we will be working with holonomic recurrences, let's introduce 
 Note that the sum can only take a finite number of subsequent elements of the sequence \(A\) into the relation.
 
 \begin{example}
-    \(a_n = \frac{5n - 3}{3n + 5}\) is holonomic, because:
+    The sequence \(a_n = \frac{5n - 3}{3n + 5}\) is holonomic, because it satisifies:
     \[(3n + 5)(5n + 2) a_n - (5n - 3)(3n + 8) a_{n+1} = 0\]
 \end{example}
 
@@ -366,12 +368,12 @@ Note that the sum can only take a finite number of subsequent elements of the se
 
 \begin{definition}[\cite{complexity}]
     \label{def:holo_2}
-    Equivalently to definition\ \ref{def:holo_1}, \(A = (a_i)_{i=0}^{\infty}\) is holonomic \(\textiff\) there exists generating function in the following form:
+    Equivalently to definition\ \ref{def:holo_1}, \(A = (a_i)_{i=0}^{\infty}\) is holonomic \(\textiff\) there exists a generating function in the following form:
     \[\sum_{i=0}^{r} p_i(z) \gf{A}^{(i)}(z) = b(z)\]
     for some fixed \(r \in \N\); \(b, p_0, \ldots, p_r \in \poly\) not all identical to zero.
 \end{definition}
 
-Equivalence of these two definitions assures us that if we find generating function describing the desired objects satisfying definition\ \ref{def:holo_2}, we will be able to find holonomic recurrence mentioned in definition\ \ref{def:holo_1}.\cite{complexity}
+The equivalence of these two definitions assures us that if we find generating function describing the desired objects satisfying definition\ \ref{def:holo_2}, we will be able to find holonomic recurrence mentioned in definition\ \ref{def:holo_1}.\cite{complexity}
 
 \begin{example}
     \label{ex:gfun-rec}
