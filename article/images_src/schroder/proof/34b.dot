@@ -3,7 +3,7 @@ graph {
     graph [splines=false]
 	r [label="" shape=none]
 
-    t [label="\\(t''\\)" shape=none]
+    t [label="\\(\\pointed{t''}\\)" shape=none]
     tl [label="" shape=none]
     tr [label="" shape=none]
 

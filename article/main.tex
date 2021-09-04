@@ -72,6 +72,10 @@
 \newcounter{highlightid}
 \newcommand{\mhl}[1]{{\tikzmarkin[set fill color=red!30,set border color=red]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
 
+\newcommand{\mhlr}[1]{{\tikzmarkin[set fill color=red!30,set border color=red]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
+\newcommand{\mhlg}[1]{{\tikzmarkin[set fill color=green!30,set border color=green]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
+\newcommand{\mhlb}[1]{{\tikzmarkin[set fill color=blue!30,set border color=blue]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
+
 \newcommand{\ols}[1]{\mskip.5\thinmuskip\overline{\mskip-.5\thinmuskip {#1} \mskip-.5\thinmuskip}\mskip.5\thinmuskip} % overline short
 \newcommand{\olsi}[1]{\,\overline{\!{#1}}} % overline short italic
 
@@ -608,46 +612,54 @@ Let's start from \(U(n-1)\). Its multiplier is \(2n + 1\). It suggests that we c
 In case of \(U(n-2)\), the multiplier is \(3(n-1)\), that suggests that we should perform \(3\) transformations on the trees with a pointed actual node.
 
 \begin{center}
-    \begin{longtable}{| c | c | c |}
+    \begin{longtable}{| c | c | c | c |}
         \hline
 
         \(U(n-2)\) &
         \(U(n-1)\) &
+               &
         \(U(n)\)\\
         \hline
 
         &
         I \includesvg[scale=0.4]{unary_binary__1si} &
+        \(\Rightarrow\)&
         Vro \includesvg[scale=0.4]{unary_binary__0fid} \\
         \hline
 
         &
         Vlt \includesvg[scale=0.4]{unary_binary__1fjg} &
+        \(\Rightarrow\)&
         VrtUrv \includesvg[scale=0.4]{unary_binary__0fjdOgf} \\
         \hline
 
         I \includesvg[scale=0.4]{unary_binary__2i} &
         &
+        \(\Rightarrow\)&
         VrtUra \includesvg[scale=0.4]{unary_binary__0fjdOdi} \\
         \hline
 
         &
         Vro \includesvg[scale=0.4]{unary_binary__1fid} &
+        \(\Rightarrow\)&
         VrtUla \includesvg[scale=0.4]{unary_binary__0fjdOgi} \\
         \hline
 
         &
         Vrt \includesvg[scale=0.4]{unary_binary__1fjd} &
+        \(\Rightarrow\)&
         VltUrv \includesvg[scale=0.4]{unary_binary__0fjgOdf} \\
         \hline
 
         I \includesvg[scale=0.4]{unary_binary__2i} &
         &
+        \(\Rightarrow\)&
         VltUra \includesvg[scale=0.4]{unary_binary__0fjgOdi} \\
         \hline
 
         I \includesvg[scale=0.4]{unary_binary__2i} &
         &
+        \(\Rightarrow\)&
         VltUla \includesvg[scale=0.4]{unary_binary__0fjgOgi} \\
         \hline
     \end{longtable}
@@ -862,85 +874,96 @@ To achieve trees from \((n - 2) T(n - 1)\), we can simply take trees from case 3
 To see the bijection, we can just draw all possible cases:
 
 \begin{center}
-    \begin{longtable}{| c || c | c | c |}
+    \begin{longtable}{| c | c | c | c | c |}
         \hline
         &
+        \(\Rightarrow\)&
         \(R_1\) &
         \(L_1\) &
         \(L_2\) \\
         \hline
 
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__11} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__12} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__13} &
-        \begin{minipage}{.25\textwidth}
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__21} &
+        \(\Rightarrow\)&
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__23} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__22} &
+        \begin{minipage}{.23\textwidth}
             \begin{center}
-                \includeinlinescaledsvg{1}{.4}{schroder__proof__14}
+                \includeinlinescaledsvg{1}{.35}{schroder__proof__24}
                 \(\Downarrow\)
-                \includeinlinescaledsvg{1}{.4}{schroder__proof__14b}
+                \includeinlinescaledsvg{1}{.35}{schroder__proof__24b}
             \end{center}
         \end{minipage}
         \\
         \hline
 
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__21} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__22} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__23} &
-        \begin{minipage}{.25\textwidth}
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__11} &
+        \(\Rightarrow\)&
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__13} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__12} &
+        \begin{minipage}{.23\textwidth}
             \begin{center}
-                \includeinlinescaledsvg{1}{.4}{schroder__proof__24}
+                \includeinlinescaledsvg{1}{.35}{schroder__proof__14}
                 \(\Downarrow\)
-                \includeinlinescaledsvg{1}{.4}{schroder__proof__24b}
+                \includeinlinescaledsvg{1}{.35}{schroder__proof__14b}
             \end{center}
         \end{minipage}
         \\
         \hline
 
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__31} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__32} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__33} &
-        \begin{minipage}{.25\textwidth}
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__31} &
+        \(\Rightarrow\)&
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__33} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__32} &
+        \begin{minipage}{.23\textwidth}
             \begin{center}
-                \includeinlinescaledsvg{1}{.4}{schroder__proof__34}
+                \includeinlinescaledsvg{1}{.35}{schroder__proof__34}
                 \(\Downarrow\)
-                \includeinlinescaledsvg{1}{.4}{schroder__proof__34b}
+                \includeinlinescaledsvg{1}{.35}{schroder__proof__34b}
             \end{center}
         \end{minipage}
         \\
         \hline
 
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__41} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__42} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__43} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__44} \\
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__51} &
+        \(\Rightarrow\)&
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__53} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__52} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__54} \\
         \hline
 
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__51} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__52} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__53} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__54} \\
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__41} &
+        \(\Rightarrow\)&
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__43} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__42} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__44} \\
         \hline
 
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__61} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__62} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__63} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__64} \\
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__61} &
+        \(\Rightarrow\)&
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__63} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__62} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__64} \\
         \hline
 
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__71} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__72} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__73} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__74} \\
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__71} &
+        \(\Rightarrow\)&
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__73} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__72} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__74} \\
         \hline
 
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__81} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__82} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__83} &
-        \includeinlinescaledsvg{.25}{.4}{schroder__proof__84} \\
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__81} &
+        \(\Rightarrow\)&
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__83} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__82} &
+        \includeinlinescaledsvg{.23}{.35}{schroder__proof__84} \\
         \hline
 
     \end{longtable}
 \end{center}
+
+In the left column you can see all possibilities of selecting \(s\) from a tree of size \(n\). In \(R_1\), \(L_1\) and \(L_2\) columns we show how they are then transformed. It covers all possible cases of selecting leaf from a tree of size \(n + 1\) and selecting an internal from a tree of size \(n - 1\).
 
 \section{Approaches}%
 \label{sec:approaches}
