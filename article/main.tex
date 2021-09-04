@@ -39,6 +39,9 @@
 
 \svgpath{images/}
 
+\RequirePackage[maxbibnames=99]{biblatex}
+\addbibresource{bibliography.bib}
+
 \RequirePackage{amsthm}
 \RequirePackage{amsmath}
 \RequirePackage{mathtools}
@@ -166,7 +169,7 @@ We also try to find a combinatorial interpretation of the holonomic recurrence f
 
 Every recursive structure can be described using a generating function, which can be then transformed into a holonomic recurrence. It allows us to quickly count objects of given structure with given size. At first glance, the recurrence seems to be closely related to the structure itself. It just seems like it should describe simple transformations resulting in constructing bigger objects from slightly smaller ones. In case of trees it could be for example adding vertices. However, there is no known method of interpreting it in the language of the combinatorial structures.
 
-The initial inspiration for the thesis came from the publication \textit{A natural counting of lambda terms}~\cite{zigzag}, which shows bijections among seemingly different tree structures, which are lambda trees, black-white trees\todo{cite} and zigzag free trees\todo{cite}. They share the same holonomic recurrence, but there is no known immediate connection between the holonomic recurrence and the structures itself.
+The initial inspiration for the thesis came from the publication \textit{A natural counting of lambda terms}~\cite{inspiration}, which shows bijections among seemingly different tree structures, which are lambda trees, black-white trees~\cite{blackwhite} and zigzag free trees\todo{cite}. They share the same holonomic recurrence, but there is no known immediate connection between the holonomic recurrence and the structures itself.
 
 Throughout the thesis we try to accumulate known results and techniques that may help solving the problem of finding combinatorial interpretations. We also propose an approach that helped us to find an intermediate solution for the problem of finding combinatorial interpretation for holonomic recurrence of lambda trees in the unary de Bruijn notation. We use the de Bruijn indices in order to get rid of letter-based variable names. Unary notation allows us to connect size of the tree to the values of the de Bruijn indices.
 
@@ -2052,89 +2055,6 @@ We believe that one day all of that will be done or proven to be impossible.
 
 \clearpage
 
-\begin{thebibliography}{9}
-    \bibitem{zigzag}
-    Maciej Bendkowski, Katarzyna Grygiel, Pierre Lescanne, Marek Zaionc,
-    \textit{A natural counting of lambda terms},
-    2016
-
-    \bibitem{gfun}
-    Bruno Salvy, Paul Zimmermann,
-    \textit{GFUN : a maple package for the manipulation of generating and holonomic functions in one variable},
-    [Research Report] RT-0143, INRIA. 1992, pp.14. ffinria-00070025f
-
-    \bibitem{holotoolkit}
-    Manuel Kauers,
-    \textit{The Holonomic Toolkit},
-    in: Carsten Schneider, Johannes Blümlein (eds) Computer Algebra in Quantum Field Theory. Texts \& Monographs in Symbolic Computation (A Series of the Research Institute for Symbolic Computation, Johannes Kepler University, Linz, Austria),
-    Springer, Vienna,
-    2013
-
-    \bibitem{nonholo}
-    Stefan Gerhold,
-    \textit{Combinatorial sequences: Non-holonomicity and inequalities. Ph.D. thesis},
-    RISC-Linz, Johannes Kepler Universitat Linz,
-    2005
-
-    \bibitem{complexity}
-    Igor Pak,
-    \textit{Complexity problems in enumerative combinatorics},
-    2018
-
-    \bibitem{binary}
-    Jean-Luc Rémy,
-    \textit{Un procédé itératif de dénombrement d’arbres binaires et son application à leur génération aléatoire}
-    Informatique théorique, tome 19, no 2, 
-    1985,
-    p. 179-195
-
-    \bibitem{motzkin}
-    Serge Dulucq, Jean-Guy Penaud,
-    \textit{Interprétation bijective d'une récurrence des nombres de Motzkin},
-    Discrete Mathematics,
-    Volume 256, Issue 3,
-    2002,
-    p. 671-676
-
-    \bibitem{schroder}
-    Dominique Foata, Doron Zeilberger,
-    \textit{A Classic Proof of a Recurrence for a Very Classical Sequence}
-    J. Comb., Ser. A, 80,
-    1997, 380-384
-
-    \bibitem{doron}
-    Doron Zeilberger,
-    \textit{e-mail conversation},
-    2020
-
-    % Non-cited
-
-    \bibitem{remy}
-    Laurent Alonso Alonso, Jean-Luc Rémy, and René Schott,
-    \textit{A Linear-Time Algorithm for the Generation of Trees},
-    Algorithmica 17,
-    1997,
-    p. 162-182
-
-    \bibitem{note}
-    Jarmo Siltaneva, Erkki Mäkinen,
-    \textit{A Note on Rémy's Algorithm for Generating Random Binary Trees},
-    Missouri Journal of Mathematical Sciences. 15. 103-109. 10.35834/2003/1502103,
-    2003 
-
-    \bibitem{bodini}
-    Axel Bacher, Olivier Bodini, Alice Jacquot,
-    Efficient random sampling of binary and unary-binary trees via holonomic equations,
-    2014
-
-    % Additional
-
-    \bibitem{transformator}
-    Bartłomiej Puget,
-    \textit{Transformator framework},
-    \url{https://github.com/Larhard/transformator},
-    2021
-
-\end{thebibliography}
+\printbibliography
 
 \end{document}
