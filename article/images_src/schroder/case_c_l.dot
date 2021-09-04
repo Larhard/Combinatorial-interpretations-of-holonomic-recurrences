@@ -23,6 +23,6 @@ graph {
     2 -- 3
     2 -- s
 
-    t -- tl [style=dashed]
-    t -- tr [style=dashed]
+    t -- tl
+    t -- tr
 }

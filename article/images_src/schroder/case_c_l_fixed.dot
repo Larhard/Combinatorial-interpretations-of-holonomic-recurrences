@@ -11,6 +11,6 @@ graph {
     r -- rr [style=invis]
 
     r -- t [style=dashed]
-    t -- tl [style=dashed]
-    t -- tr [style=dashed]
+    t -- tl
+    t -- tr
 }

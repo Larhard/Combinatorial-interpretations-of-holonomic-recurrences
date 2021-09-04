@@ -74,7 +74,7 @@
 <!-- t&#45;&#45;tl -->
 <g id="edge7" class="edge">
 <title>t&#45;&#45;tl</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M230.5,-71.7C230.5,-60.85 230.5,-46.92 230.5,-36.1"/>
+<path fill="none" stroke="black" d="M230.5,-71.7C230.5,-60.85 230.5,-46.92 230.5,-36.1"/>
 </g>
 <!-- tr -->
 <g id="node7" class="node">
@@ -83,7 +83,7 @@
 <!-- t&#45;&#45;tr -->
 <g id="edge8" class="edge">
 <title>t&#45;&#45;tr</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M248.3,-71.7C259.46,-60.85 273.79,-46.92 284.91,-36.1"/>
+<path fill="none" stroke="black" d="M248.3,-71.7C259.46,-60.85 273.79,-46.92 284.91,-36.1"/>
 </g>
 </g>
 </svg>

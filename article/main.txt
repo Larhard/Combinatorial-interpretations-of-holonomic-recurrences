@@ -1,0 +1,1597 @@
+
+
+[utf8]inputenc
+00A0 
+25CF
+
+color
+
+listings
+
+    basicstyle=,
+    comment=[l],
+    morecomment=[s]/**/,
+    commentstyle=,
+    escapeinside=<@@>
+
+
+hyperref
+
+
+
+
+
+
+
+geometry
+tabularx
+longtable
+graphicx
+svg
+
+images/
+
+amsthm
+amsmath
+mathtools
+amsfonts
+soul
+xspace
+bussproofs
+[customcolors]hf-tikz
+
+tikz
+setspace
+
+multicol
+lipsum
+textpos
+
+
+Combinatorial interpretations of holonomic recurrences
+Bartłomiej Puget
+
+
+
+definition
+definitionDefinition[subsection]
+
+remark
+exampleExample[subsection]
+
+
+ 
+ 
+
+
+iff
+N
+P
+root
+left
+right
+Left
+Right
+Sub
+Pre
+Suf
+
+o
+
+
+
+	
+	Jagiellonian University
+
+	Faculty of Mathematics and Computer Science
+
+	Theoretical Computer Science
+
+	
+	
+		
+
+        
+    
+	
+	
+	
+    	
+    
+	
+    
+	Master Thesis
+
+	Advisor: Katarzyna Grygiel
+
+	
+            	
+Abstract
+
+We analyze the problem of finding combinatorial interpretations of holonomic recurrences and show some techniques that were used to achieve known results.
+
+We also try to find a combinatorial interpretation of the holonomic recurrence for trees of lambda terms in the de Bruijn notation.
+
+
+
+Overview
+
+Every recursive structure can be described using generating function, which can be then transformed into holonomic recurrence. It allows us to quickly compute number of objects of given structure with of given size. At first glance, the recurrence seems to be closely related to the structure itself. It just seems like it should describe simple transformations, like adding some vertices to the smaller trees. Although, there is no known way of interpreting it in the language of the combinatorial structures.
+
+Initial inspiration for the thesis came from publication A natural counting of lambda terms, which shows bijection between seemingly different tree structures, which are lambda trees, black-white trees nad zigzag free trees. They share the same holonomic recurrence, but there is no known immediate connection between the holonomic recurrence and the structure itself.
+
+In the thesis we try to accumulate known results and techniques that may help solving the problem of finding combinatorial interpretations. We also propose approach that helped us to find intermediate solution for the problem of finding combinatorial interpretation for holonomic recurrence of lambda trees in the unary de Bruijn notation.
+
+In the section  we establish notation nad introduce concepts that will be using throughout the thesis.
+
+Next, in the section , we present known results. They demonstrate combinatorial interpretations that resemble different approaches.
+
+In the section  we show approaches to the problem that helped people achieving their results. All of them were tried in order to find the answer to the original problem of interpreting holonomic recurrence of trees of lambda terms in the unary de Bruijn notation. Unfortunately none of them helped us enough to get the final result. They are proven to be helpful when we were stuck though as most of them are able to divide problem into smaller parts and detect corner cases.
+
+Section  presents our final approach to the original problem, ie. computer-aided iterative approach that allowed us to find the intermediate solution. We belive that it is able to provide us with the full solution, but we were not able to achieve that due to the limited time that was available to us.
+
+At last, in section , we present our view on what can be done with the problem in the future. We belive that one day the problem will be fully solved and more generic approach to interpreting holonomic recurrences will emerge.
+
+
+Introduction
+
+Notation
+
+In order to make reading of this article easier, let's fix some notation and make some assumptions. Any deviation from this will be clearly stated. If you have trouble guessing what some letter or word means, this should be your primary place to look for the answer.
+
+ means if and only if.
+
+ is a set of all polynomials.
+
+ are implicitly assumed to be natural numbers.
+
+ are implicitly assumed to be functions.
+
+ is implicitly defined as -th derivative of function .
+
+ is implicitly defined as a set of nodes of the tree .
+
+ is implicitly defined as a set of edges of the tree .
+
+ are implicitly assumed to be nodes.
+
+ is implicitly assumed to be an edge.
+
+ is implicitly defined as a root of tree .
+
+ is implicitly defined as a left child of node .
+
+ is implicitly defined as a right child of node .
+
+ is implicitly defined as a whole subtree rooted with node .
+
+ is implicitly defined as a left subtree of node .
+
+ is implicitly defined as a right subtree of node .
+
+Sibling of node  is defined as node  having the same parent as .
+
+Uncle of node  is defined as sibling of the parent of .
+
+We say that node  is an oneling   has no siblings. Note that the root is oneling even if it has no parent.
+
+We say that node  is twinling   has at least one sibling.
+
+Leaf is a node which has no children.
+
+ is implicitly defined as a default identifier of a node.
+
+ is implicitly defined as an identifier of non-existing node (eg. if  is a leaf, ).
+
+Dashed edges 
+[width=]intro__dashed_edge
+depict edges that may or may not exist (eg. when we describe transformations and we don't care if the node is root or if it has children).
+
+Green edges 
+[width=]intro__green_edge
+depict edges to  nodes.
+
+Virtual node is artificially defined node that does not affect the structure definition (eg. we can define virtual leafs that are children of actual leaves of the binary tree. Such virtual leaves are not included when counting number of children of the node, so the actual leaves are still called leaves).
+
+Actual node is a node that is not virtual.
+
+We say that node  is an virtual-oneling   has no siblings being virtual nodes.
+
+We say that node  is virtual-twinling   has at least one sibling being virtual node.
+
+For binary tree, we say that node  is right (left)   is a right (left) child of its parent.
+
+For binary tree, we say that node  has a right (left) parent    is a left (right) child of .
+
+ is implicitly defined as a pointed node . We can treat it as node with additional label .
+
+ is implicitly defined as a weighted node  with weight .
+
+ is implicitly assumed to be an -th element of the sequence , where  can be any lower-case letter and  is upper-case .
+
+Calligraphic  is implicitly assumed to be a generating function of the sequence  where  is any upper-case letter.
+
+ is implicitly defined as a size of the object .
+
+eg. stands for Latin exampli gratia, which means for example.
+
+ie. stands for Latin id est, which means that is.
+
+Structurally recursive objects
+
+We will be analyzing structures that can be expressed using recursive formulas. Eg. we can define full binary tree recursively as a node having no children (ie. being a leaf) or having exactly two subtrees being full binary trees. To express the alternative in the construction rule, we use . The reason will become obvious soon.
+
+
+    
+                    
+                
+
+                [scale=0.5]binary__def_1
+                    
+                    
+                
+
+                    
+                    
+                
+
+                [scale=0.5]binary__def_2
+                    
+                    
+                
+
+                    
+                    
+                
+
+                [scale=0.5]binary__def_3
+                    
+        Binary tree recursive definition
+    
+Generating functions
+
+In the article we use ordinary generating functions to describe and count structures.
+
+
+The ordinary generating function of sequence  is defined as:
+
+
+Note that in order to compute -th element of the sequence, , we just need to find constant corresponding to indeterminate .
+
+
+        Having our recursive definition of the object, we can easily construct a generating function for it. Let's create generating function that will count number of full binary trees consisting of exactly  internal nodes.
+
+
+
+Note that we used  to count internal nodes and left the leaf part as .
+
+In order to get some intuition on how it works underneath, let's take a look on how we can find number of the full binary trees of size . We can expand the recurrence a bit:
+
+
+
+
+
+
+
+The highlighted terms are describing following tree:
+
+
+    [scale=.7]intro__iilll
+
+There exist multiple well-known methods and tools that allow us to work with generating functions without the need of digging into details. The tool we will be using extensively in this work is Maple package called GFUN. If you want to learn more about algorithms used in the package, we strongly encourage reading the referenced article.
+
+Holonomic recurrences
+
+Most of the time we will be working with holonomic recurrences, let's introduce them.
+
+
+           An infinite sequence  is holonomic (aka. P-finite, P-recursive or D-recursive)  exists holonomic recurrence for it, ie.:
+
+
+
+Note that the sum can only take finite number of subsequent elements of the sequence  into the relation.
+
+
+     is holonomic, because:
+    
+
+
+    Sequences ,  are not holonomic, ie. none of them satisfies a linear recurrence equation with polynomial coefficients.
+
+
+           Equivalently to definition ,  is holonomic  there exists generating function in the following form:
+    
+    for some fixed ;  not all identical to zero.
+
+Equivalence of these two definitions assures us that if we find generating function describing the desired objects satisfying definition , we will be able to find holonomic recurrence mentioned in definition .
+
+        For generating function full binary trees defined in example , ie.:
+    
+    we can use GFUN to immediately find holonomic recurrence of our interest:
+
+    
+> with(gfun):
+> RootOf(B = B^2*z + 1, B);
+             2
+    RootOf(_Z  z - _Z + 1)
+
+> algfuntoalgeq(
+     2
+    B  z - B + 1
+
+> algeqtodiffeq(
+                              2      /d      
+    1 + (-1 + 2 z) B(z) + (4 z  - z) - B(z)
+                                     /
+
+> rec := diffeqtorec(
+    rec := (2 + 4 n) B(n) + (-2 - n) B(n + 1), B(0) = 1
+    
+    Our holonomic recurrence is then:
+    
+
+
+
+
+    For our purposes we will often ignore the initial conditions, as they can be easily described by exact number of the objects. The most interesting part for us is the relation between the finite number consecutive elements.
+
+
+Combinatorial interpretations
+
+Combinatorial interpretation is just fancy name for something you probably know and use. Eg. if you know the binomial coefficient , I bet it was introduced to you as something like: "let's assume you have  distinguishable balls. If you want to choose  from them, then you can do it in  ways" and now, whenever you see the term  you interpret it as number of ways to choose  objects from the set of size . This is the combinatorial interpretation of the binomial coefficient.
+
+Holonomic recurrences are very useful if we want to count objects of given size. Of course, size can be defined in more complex ways, eg. we may want to find number of trees with  internal nodes having exactly  nodes being left child of its parent.
+
+Unfortunately, as for the most of auto-generated code, they almost never come with intuitive interpretation. They are just some recurrences, but there is no commonly known method to find, how they correspond to the structures they describe.
+
+In the article we try to gather methods and results that may be helpful for anyone trying to find such interpretation, as we believe that such interpretation may give better insight into the nature of the structure and make it easier to study its behaviour.
+
+Pre-order notation
+
+
+
+In order to make notation easier and unambiguous, we also introduce pre-order notation of -ary tree.
+
+
+     is an identifier of node . 
+
+
+    Pre-order notation of -ary tree , , is defined recursively as:
+    
+    ie. catenation of identifier of the root of the tree with encoded its subtrees from left to right.
+
+
+        [scale=.7]intro__oononnn
+    
+    
+We can also define prefix and suffix of .
+
+
+    Let  be the index of its identifier in T. Notation of prefix of  in relation to , , is defined as a prefix of T of size .
+
+
+    Let  be the size of T. Notation of suffix of  in relation to , , is defined as a suffix of T of size .
+
+In the article we define some operations using its notation. As pre-order notation is bijective, you can obtain the structure the notation describe by reversing the process of encoding.
+
+Known results
+
+Binary trees
+
+
+
+Let's start with probably the most known result, full binary trees.
+
+We define the size of a tree as a number of internal nodes (ie. nodes that are not leaves). Our generating function is therefore:
+
+
+
+After a quick transformation, we get following holonomic recurrence:
+
+
+
+This recurrence also describes Catalan numbers.
+
+It is easy to see that tree of size  (ie. with  internal nodes) has  leaves and therefore  nodes in total. Analogically the tree of size  has  leaves and  nodes in total. If you see some resemblance to our holonomic recurrence, you are perfectly right.
+
+We are going to create bijection between left and right side of the recurrence. We will be using term bijective language to describe talking about the recurrence using the objects it describes and their transformations.
+
+Let's translate the recurrence to the bijective language then.
+
+     is simply set of all full binary trees of size ,
+     is set of all full binary trees of size  with one of the leaves pointed,
+     is set of all full binary trees of size  with one of the nodes pointed (remember that the node can be internal node or leaf),
+     at the beginning of  means that we will be using  copies of the set defined in previous bullet.
+
+At the moment left side of the recurrence describe set of trees of size , the right, on the other hand, of size . Therefore, we need to apply some transformation to make the sets equal.
+
+Let's define two local operations:  and . The term local means that the operation can operate on just some finite fragment of tree with predefined size (eg. node and its 2 children, but can not traverse the whole tree).
+
+
+    
+
+
+    
+
+
+        [scale=0.35]binary__remy_base
+    
+    [scale=0.5]binary__remy_left
+    
+    
+
+        [scale=0.35]binary__remy_base
+    
+    [scale=0.5]binary__remy_right
+    
+    
+We can now take the bijective interpretation of , ie. trees of size  with single node pointed. For each of such trees,  we create new one by applying  and  to the pair , where  is  with removed pointers and  is a node that is pointed in . Therefore we generate  trees of size 
+
+The only thing that's left for us to verify is if we generate all trees of size  with pointed leaf. As from the recursion, we know that  is total number of trees with single leaf pointed, it is enough to check if we do not generate any duplicate using  and . It can happen in 2 ways:
+
+    operation itself generates duplicates or
+    2 different operations generate the same tree.
+
+First case can also be split into 2 subcases. Without loss of the generality we can analyze just one of the operations, let it be . The second case is symmetric.
+
+    for some nodes , . Let  be the indices of respectively  and  in . Let  be the indices of pointed node respectively in  and . Due to the definition of , we get that  and , which implies that  what we assumed false.
+    for some trees , . Let  be the indices of respectively  in  and  in . Let  be the indices of pointed node respectively in  and . If , this case is trivially false, so we can assume that . Therefore, again from the definition of , we have that . That implies that , which then sums up to , which we assumed false.
+
+In the second case it is enough to notice that  generates trees with pointed node being a left child, and  generates trees with pointed node being right child. That immediately provides us with conclusion that we are generating no duplicates.
+
+Unary-binary trees
+
+Let's think, what would have changed if we introduce unary nodes to the binary case. We will be counting edges. Note that tree having  edges has exactly  nodes.
+
+
+    Unary-binary tree is such tree of which any node can have either 0, 1 or 2 children.
+
+We can easily derive the generating function:
+
+
+
+And with a bit of Maple magic, we immediately get following recurrence:
+
+
+
+The definition above is precise, but introduces a new kind of node that we would have to take care of. We can avoid it by using a trick to make the tree recall binary tree. We don't change the structure, just the notation.
+
+
+        Left-leaning binary treefind official name; skewed binary tree is something different is a binary tree with following constraint added: if a node has right child, it also have a left child.
+
+The bijection between unary-binary and left-leaning binary trees is very simple. We just represent unary nodes as nodes with just left child of left-leaning binary tree. The other cases translate immediately to corresponding ones. Please note that this transformation keeps the size of the tree (ie. number of edges).
+
+The next step is to make binary trees full. Let's just define virtual leaves.
+
+
+    Virtual leaf is a virtual node added to the node in place of non-existing child.
+
+As we have added  virtual nodes, we have added as much virtual edges.
+
+
+        .2unary_binary__base
+    
+    .3unary_binary__full
+    Unary-binary tree to full-binary tree transformation
+    
+Please note that  matches the multiplier of . Let's point the virtual leaves then.
+
+To present the interpretation in bijective language, we will have to introduce several types of the the nodes (you may want to revisit section  Notation):
+
+
+    Vro - virtual leaf being right virtual-oneling;
+    Vrt - virtual leaf being right virtual-twinling. We will divide this case into:
+        
+            VrtUrv - Vri which uncle is a right virtual leaf;
+            VrtUra - Vri which uncle is a right actual node;
+            VrtUla - Vri which uncle is a left actual node.
+            Vlt - virtual leaf left virtual-twinling. Note that from definition , left virtual leave can not have sibling being a actual node. We can divide also this case into:
+        
+            VltUrv - Vlt which uncle is a right virtual leaf;
+            VltUra - Vlt which uncle is a right actual node;
+            VltUla - Vlt which uncle is a left actual node;
+            I - Internal node.
+
+Note that it covers all possible cases of pointing virtual leaf and all the cases are mutually disjoint.
+
+All we need to show are the transformations from the smaller cases, ie.  and .
+
+Let's start from . Its multiplier is . It suggests that we can point any node, as in a tree having  edges, we have  actual and  virtual ones.
+
+In case of , the multiplier is , that suggests that we should perform  transformations on the trees with a pointed actual node.
+
+
+    
+
+
+As you can see, we have satisfied all of the cases of  with no repetitions, which concludes the construction.
+
+Schröder trees
+
+The next case we will show is the case of Schröder trees.
+
+
+    Schröder tree is a tree with no unary nodes.
+
+Simply speaking, node can have zero or strictly more than one children.
+
+
+        [scale=0.4]schroder__example_1
+    [scale=0.4]schroder__example_2
+    [scale=0.4]schroder__example_3
+    [scale=0.4]schroder__example_4
+    
+    Schröder tree node
+    
+This definition is quite precise, but is difficult to implement as a structural recursion. Let's transform it into something more manageable, ie. of finite arity.
+
+
+    Well-weighted binary plane tree is a weighted tree such that:
+    
+        leaves are unweighted;
+        internal nodes can have weight either  or ;
+        if internal node has weight 2, then its right child is not a leaf.
+    
+We can easily define the bijection  between these two models using pre-order notation:
+
+
+
+
+
+
+Let's define size as a number of leaves. Note that the size is independent from which construction we use, as the leaf is translated to leaf and the internal node to internal nodes.
+
+The generating function equation is then:
+
+
+
+
+
+
+
+To be able to use Maple to generate the recurrence, we need to transform this system of equations to a single one. We can eliminate  first.
+
+
+
+
+
+
+
+
+
+
+
+As we can not use division to get , let's multiply the first equation by .
+
+
+
+It can be actually used now to generate the holonomic recurrence.
+
+
+> with(gfun):
+> RootOf(T*(1 - T) = T^2*(1 - T) + T^3 + z*(1 - T),  T);
+               2
+    RootOf(2 _Z  + (-z - 1) _Z + z)
+
+> algfuntoalgeq(
+       2
+    2 T  + (-z - 1) T + z
+
+> algeqtodiffeq(
+                               2            /d                          2
+    z - 1 + (-z + 3) T(z) + (z  - 6 z + 1) - T(z), T(0) = RootOf(2 _Z  - _Z)
+                                            /
+
+> diffeqtorec(
+
+    (n - 1) T(n) + (-3 - 6 n) T(n + 1) + (n + 2) T(n + 2), ...
+
+> subs(n = n - 1, 
+
+    (-2 + n) T(n - 1) + (3 - 6 n) T(n) + (n + 1) T(n + 1), ...
+
+We can also move  to the other side, ie.:
+
+
+
+This may seem counterintuitive, as by default we want to describe how to generate larger case from the smaller ones, but it will make the interpretation simpler.
+
+Let's translate the recurrence to the bijective language then.
+
+     describes well-weighted binary plane trees of size  (ie. with  leaves) with some node pointed (internal or leaf),
+     describes well-weighted binary plane trees of size  with some leaf pointed,
+     describes well-weighted binary plane trees of size  with some internal node pointed.
+
+We will show the bijection between two sides of the recursion. We will transform each tree from  in three ways in order to achieve all trees from . We will get some extra ones which are not well-weighted, but we will deal with them in a minute.
+
+Let's define 3 transformations, ,  and :
+
+
+    .16schroder__lr_base
+    
+    .16schroder__l1
+    .1
+    .16schroder__lr_base
+    
+    .16schroder__l2
+
+    .16schroder__lr_base
+    
+    .16schroder__r1
+
+You can see that trees generated by  and  are always well-weighted. The problem appears when applying  when  is a leaf.
+
+When  is a leaf, we will look at the 's parent. It can fall into one of following cases:
+
+
+            
+            [scale=0.5]schroder__case_a
+
+            Case 1.
+            
+            
+            [scale=0.5]schroder__case_b
+
+            Case 2.
+            
+            
+            [scale=0.5]schroder__case_c
+
+            Case 3.
+            
+
+where  can be any tree and  can not be a leaf.
+
+When applying  we achieve following cases respectively:
+
+
+            
+            [scale=0.45]schroder__case_a_l
+
+            Case 1.
+            
+            
+            [scale=0.45]schroder__case_b_l
+
+            Case 2.
+            
+            
+            [scale=0.45]schroder__case_c_l
+
+            Case 3.
+            
+
+In case 1. and 2. we can just swap the labels as follows:
+
+
+            
+            [scale=0.45]schroder__case_a_l_fixed
+
+            Case 1.
+            
+            
+            [scale=0.45]schroder__case_b_l_fixed
+
+            Case 2.
+            
+
+It is easy to show that it constructs bijection between  and subset of  not falling into case 3.
+
+To achieve trees from , we can simply take trees from case 3. and replace whole subtree with subtree of  with its root pointed. In this way, we will loose  leaves and obtain each tree from :
+
+
+            
+            [scale=0.45]schroder__case_c_l_fixed
+
+            Case 3.
+            
+
+Approaches
+
+Introduction
+
+As you could see in the examples above, most of the solutions are based on the simple analysis of number of laves, internal nodes and other similar properties. In this section, we've gathered some methods that may be helpful when trying to analyze the problem of interpreting combinatorially some holonomic recurrence.
+
+Defining the size carefully
+
+First thing that we have to select is defining the size carefully. We have few standard choices of computing tree sizes:
+
+    counting all existing nodes,
+    counting internal nodes,
+    counting leaves,
+    counting null-nodes (ie. children of the leaves),
+    counting edges.
+
+It may seem counter-intuitive at first, that this changes anything crucial, but with a change of the size definition, the holonomic recurrence may complicate itself drastically making the problem more difficult than it should be.
+
+There are 2 most common symptoms that we may want to choose different method of counting the size:
+
+    we get empty classes of the objects, eg. if we analyze problem of full binary trees and define size as number of all existing nodes, we can not generate tree of even size, therefore half of our classes are empty;
+    we want to join trees using common root and we get many  in our notes. Note that if you count internal nodes, such catenation creates tree of size being sum of sizes of the components increased by 1. If you had defined the size as number of leaves or null-nodes, the size would be just plain sum of sizes of the smaller trees.
+
+Tree binarization
+
+If we describe some structure we may be tempted to use multiple kinds of nodes, eg. unary and binary nodes. Having multiple kinds of nodes may cause problems, both in creating holonomic recurrence and finding the interpretation, as we have to keep track of how they can transform.
+
+As the most common trees are binary ones, it may be worth an effort to find the some structure based on binary trees that can represent original structure (see section ).
+
+Weights variablization
+
+Most of the time we are operating on trees with some nodes of weight  and some of weight . We may as well try to make them variable or assign some other values (eg. small prime numbers).
+
+This method gives us some suggestion which kind of nodes are being modified in the operation
+
+Another benefit of this method is decreasing the sizes of particular classes, so we have less objects to look at.
+
+Unfortunately, decreasing size of the classes increases number of the sizes we need to analyze to get full result.
+
+In section  we will define trees of lambda terms. If we would assign following weights to nodes:
+
+
+
+
+
+
+
+
+we would get significantly smaller classes
+
+
+
+Analyzing such small cases is much easier, but on the other side, there are many more classes that have to be considered to get full interpretation.
+
+Inductive translation
+
+Another method that may help finding the interpretation is inductive translation. The method is based on the idea that most of the time there is an easy way to find some natural induction (not necessarily holonomic) that has trivial interpretation in bijective language.
+
+For case of binary trees with size defined as number of leaves, we can define 2 recurrences:
+
+
+
+
+The non-linear one has very simple interpretation. We can take 2 smaller trees and join them using newly created common root.
+
+We can multiply both sides of Non-linear recurrence by  and break up  to get two similar sigmas:
+
+
+
+Using our inductive hypothesis, ie. holonomic recurrence and moving problematic cases out from the sums (in that case  needs to be analyzed separately, as we did not define binary trees with no leaves), we can get the right side to use  and prove that the holonomic recurrence using non-linear one. The only part that is left is to translate this proof to the bijective language, which in such simple case as binary trees is almost trivial, especially if one has seen the solution once.
+
+The method itself has proven to be helpful in order to divide the problem into smaller parts and find some corner cases. Unfortunately, it does not give any immediate interpretation for applying the inductive step.
+
+Brutal iterative approach
+
+If all elaborate methods has failed and the problem is still too big to interpret it by hand, a computer comes in handy.
+
+As the main field of our interest was analysis of terms of lambda trees in unary de Bruijn notation, we will use it as an example to describe the method.
+
+Lambda terms
+
+
+    Set of lambda terms  is defined recursively:
+    
+        if  is a variable, 
+        if , then  (application of function  to an argument )
+        if  is a variable and , then  (abstraction, ie. creating a function with an argument  and binding each occurrence of  in  to this argument)
+    
+The definition above is quite popular, but introduces several problems. One of them is a problem of potential collision of lambda-abstracted variables and difficulty of finding to which lambda abstraction is the variable bound (or is it even free variable, ie. not bound). To address that, we can use de Bruijn indices.
+
+
+    Set of lambda terms  is defined recursively:
+    
+        if ,  ( is a variable bound to lambda abstraction  levels above)
+        if , then  (application)
+        if , then  (abstraction)
+    
+As you can see, we managed to eliminate the arbitrary variables. We can also easily check if given variable is bound by checking its depth.
+
+
+     is equivalent to 
+
+
+     is equivalent to 
+
+It also allows us to define tree representation of the terms.
+
+
+    Injection from lambda terms in de Bruijn notation to binary trees  is defined as follows:
+    
+        
+        
+        
+        
+    
+To simplify the interpretation, we can introduce several kinds of the nodes: , ,  and . They do not change the structure, but make the reading a bit easier:
+
+
+     is a leaf.
+
+
+     is a node with only right child.
+
+
+     is a node with only left child.
+
+
+     is a node with both children.
+
+Which leads to following interpretation of :
+
+
+    
+    
+    
+    
+
+You can note that not every binary tree represents valid term.
+
+
+     does not represent valid lambda term.
+
+To see that, we can take a look at this tree with our node kinds used:
+    
+
+ represents successor which can be applied only to , but is applied to lambda-abstracted term.
+
+Enhanced holonomic recurrence
+
+As we have our structure defined, let's create generating functions that will keep track of more than just number of nodes, but also counts of each kind of nodes in the tree. The generating function will be parameterized then using following arguments:
+
+     counting total number of virtual leaves
+     counting number of bound variable nodes
+     counting number of lambda abstraction nodes
+     counting number of application nodes
+     counting number of successors of bound variable nodes
+
+In order to make the image cleaner, we will drop the arguments of generating functions, ie. 
+
+
+
+            
+            
+
+            [scale=0.5]lambda__def__1
+            
+            
+            
+
+            
+            
+            
+
+            [scale=0.5]lambda__def__2
+            
+            
+            
+
+            
+            
+            
+
+            [scale=0.5]lambda__def__3
+            
+            
+            
+
+            
+            
+            
+
+            [scale=0.5]lambda__def__4
+            
+
+where:
+
+
+            
+            
+
+            [scale=0.5]lambda__def__5
+            
+            
+            
+
+            
+            
+            
+
+            [scale=0.5]lambda__def__4
+            
+            
+            
+
+            
+            
+            
+
+            [scale=0.5]lambda__def__6
+            
+
+After solving the equation for , we get:
+
+
+Using a little bit of Maple magic, we can easily achieve following holonomic recurrence.
+
+
+
+
+
+
+
+
+
+Appearing in the recurrence node kinds mean that we extend trees of given size using nodes of that kinds.
+
+
+     mean extending each tree of size  pointed in  ways using single  node and two  nodes.
+
+You may notice that some potentially trivial terms are more complex that it seems. If we didn't count different types of nodes, we would achieve following holonomic recurrence:
+
+
+
+
+
+
+
+
+
+
+     is expanded into .
+
+
+The Transformator framework
+
+We also created a framework, called transformator, that may help visualize our work. It is based on the idea that every transformation described using bijective language can be translated to a function transforming node and finite number of its surrounding nodes. This function can not discriminate nodes on the grounds of their kind. The only discrimination criteria that may occur may be connected to the following cases:
+
+    node has no children, ie. is a virtual leaf (which corresponds to the size of the tree, );
+    node has has children, ie. is not a virtual leaf (which corresponds to );
+    node is a root (which corresponds to );
+    node has its parent on the left, ie. is right child of its parent;
+    node has its parent on the right, ie. is left child of its parent.
+
+The latest two are introduced in order to make the analysis simpler, but do not have immediate interpretation in the world of holonomic recurrences. If we use them both, it sums up to all nodes except root (as root is neither left nor right child).
+
+
+Transformation classes
+
+We will be operating on transformation classes, sections and parts. Let's define them:
+
+
+    Class  is defined as set of transformations of trees of size  into trees of size .
+
+
+    Section  is defined as subset of  adding specific set of nodes. We assign  according to the lexicographical order of lexicographically sorted node types.
+
+
+    Part  is defined as single transformation in section .  is assigned according to the order of discovering the transformation.
+
+In order to make interpretation more human readable, we will be using local notation:
+
+
+    In context of ,  is defined as .
+
+
+    In context of ,  is defined as , ie. number of trees transformations from  are working on.
+
+
+    Section equation  is an equation defined in context of  that evaluates to a total number of trees that should be generated by transformations from .
+
+
+    Section expression  is pair of section equation and set of kinds of nodes the transformation introduces.
+
+For the problem of interpreting trees of lambda terms we define following section expressions:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Using context-based variables makes the equation simpler to interpret, as we can immediately see relation between  and multiplier.
+
+Iteration
+
+As we want to make our work kind of organized, we are going to divide the process into iterations. Each iteration should be a small step into direction of solving the original problem.
+
+We are going to generate two kinds of trees. Positive and negative ones. When computing total number of trees, we count positive tree is counted as , negative as . Our goal is to generate  trees for each section .
+
+Our brains like small examples, so we will consider small . This will cause some classes to be empty at the beginning, but it's ok. That's less trees to look at.
+
+
+
+=== Classes stats ===
+[ ]  0,0:       0 of      16  (k + 1) * Ck              []
+[ ]  1,0:       0 of     -10  - (2 * k + 1) * Ck        [l]
+[ ]  1,1:       0 of     -12  - 2 * (k + 1) * Ck        [s]
+[ ]  2,0:       0 of      -4  - (4 * k) * Ck            [ao]
+[ ]  2,1:       0 of       1  (k) * Ck                  [ll]
+[ ]  2,2:       0 of       6  (4 * k + 2) * Ck          [ls]
+[ ]  2,3:       0 of       2  (k + 1) * Ck              [ss]
+[ ]  3,0:       0 of       2  2 * (2 * k + 1) * Ck      [aos]
+[x]  3,1:       0 of       0  - (2 * k) * Ck            [lls]
+[ ]  3,2:       0 of      -1  - (2 * k + 1) * Ck        [lss]
+[x]  4,0:       0 of       0  k * Ck                    [llss]
+
+This statistic tells us for each section, how many trees have been generated of expected total number of trees in that section. [x] means that we generated enough trees for such section.
+
+We start with interpreting . From statistics above, we see that we should generate  trees.  suggests pointing virtual leaf. Let's do so.
+
+
+c.define_class(0)
+
+c.define_section(0)
+
+c.append_r_class_subtree_visitor(1,       # we define positive trees
+                                          # ie. that count as 1
+    lambda kind, left, right:
+        None if kind[0] is not None else  # we ignore all actual nodes
+        [kind + ("*", )] + left + right   # for each virtual node we point it
+)
+
+
+# define 0,0: (k + 1) * Ck []
+=== Classes stats ===
+[x]  0,0:      16 of      16  (k + 1) * Ck              []
+[ ]  1,0:       0 of     -10  - (2 * k + 1) * Ck        [l]
+[ ]  1,1:       0 of     -12  - 2 * (k + 1) * Ck        [s]
+[ ]  2,0:       0 of      -4  - (4 * k) * Ck            [ao]
+[ ]  2,1:       0 of       1  (k) * Ck                  [ll]
+[ ]  2,2:       0 of       6  (4 * k + 2) * Ck          [ls]
+[ ]  2,3:       0 of       2  (k + 1) * Ck              [ss]
+[ ]  3,0:       0 of       2  2 * (2 * k + 1) * Ck      [aos]
+[x]  3,1:       0 of       0  - (2 * k) * Ck            [lls]
+[ ]  3,2:       0 of      -1  - (2 * k + 1) * Ck        [lss]
+[x]  4,0:       0 of       0  k * Ck                    [llss]
+=== Diff stats ===
+0,0:     0    16
+
+The framework informs us that we have generated all trees for section  for . It also can provide us with the visualization of the trees we have generated. For example:
+
+.19lambda__trees_00__4_base
+
+.19lambda__trees_00__4
+.19lambda__trees_00__5
+.19lambda__trees_00__6
+.19lambda__trees_00__7
+
+If we take a look at more examples from class , we can start seeing some patterns:
+
+.33lambda__trees_00__2
+.33lambda__trees_00__3
+.33lambda__trees_00__7
+
+.33lambda__trees_00__4
+.33lambda__trees_00__12
+.33lambda__trees_00__13
+
+.16lambda__trees_00__0
+.16lambda__trees_00__1
+.16lambda__trees_00__5
+.16lambda__trees_00__6
+.16lambda__trees_00__14
+.16lambda__trees_00__15
+
+.25lambda__trees_00__8
+.25lambda__trees_00__9
+.25lambda__trees_00__10
+.25lambda__trees_00__11
+
+The order may be a bit suggestive. Section  adds single  node, whereas section  adds single  node. It actually suggests how can we can try to generate first and second line of the trees above. The first one is simple. Let's add  node with pointed right virtual node to each actual node:
+
+
+c.define_class(1)
+
+c.define_section(0)
+
+c.append_r_class_subtree_visitor(-1,                # negative node
+    lambda kind, left, right:
+        None if kind[0] is None else                # we ignore all virtual nodes
+        ["l", kind] + left + right + [(None, "*")]  # for each actual node we add
+                                                    # l node with right virtual
+                                                    # node pointed as a parent
+)
+
+It creates following trees:
+
+.24lambda__trees_100__0_base.24lambda__trees_100__0
+.24lambda__trees_100__1_base.24lambda__trees_100__1
+
+.24lambda__trees_100__2_base.24lambda__trees_100__2
+.24lambda__trees_100__3_base.24lambda__trees_100__3
+
+It addresses all cases from the first line, but also introduces incorrect lambda tree in which  is parent of , which can not happen. We will fix it with the section  generating positive trees, which introduces one  node and one  by extending the tree with  nodes where  is parent of .
+
+Next, we can take care of the later cases of section . It can be also expressed using sections  and :
+
+
+c.define_class(1)
+
+c.define_section(0)
+
+# old visitor
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["l", kind] + left + right + [(None, "*")]
+)
+
+# new visitor
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["l", parent_kind] + [left[0] + ("*",)] + left[1:] + right + [None]
+)
+
+# new visitor
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["l", parent_kind] + left + [right[0] + ("*",)] + right[1:] + [None]
+)
+
+c.define_section(1)
+
+# old visitor
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", (None, "*"), parent_kind] + left + right
+)
+
+# new visitor
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, parent_kind] + left + [right[0] + ("*",)] + right[1:]
+)
+
+# new visitor
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, parent_kind] + [left[0] + ("*",)] + left[1:] + right
+)
+
+Basically, for each virtual node not being root (ie. having left or right parent), we point it and add  or  respectively above the parent.
+
+.32lambda__trees_111__1_base
+
+.32lambda__trees_101__0
+.32lambda__trees_112__0
+
+The last row can be generated using section :
+
+)
+c.define_class(2)
+
+c.define_section(0)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", "o", (None, "*"), None, kind] + left + right
+)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", "o", None, (None, "*"), kind] + left + right
+)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", kind] + left + right + ["o", (None, "*"), None]
+)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", kind] + left + right + ["o", None, (None, "*")]
+)
+
+For each actual vertex, we add  node as its left or right parent and add as a second child  node as its sibling. We then point left or right virtual child of newly created  node.
+
+.20)lambda__trees_200__0_base)
+
+.20)lambda__trees_200__0)
+.20)lambda__trees_201__0)
+.20)lambda__trees_202__0)
+.20)lambda__trees_203__0)
+
+After such transformations, we get following statistics:
+
+
+=== Classes stats ===
+[x]  0,0:      16 of      16  (k + 1) * Ck              []
+[x]  1,0:     -10 of     -10  - (2 * k + 1) * Ck        [l]
+[ ]  1,1:      -9 of     -12  - 2 * (k + 1) * Ck        [s]
+[x]  2,0:      -4 of      -4  - (4 * k) * Ck            [ao]
+[ ]  2,1:       0 of       1  (k) * Ck                  [ll]
+[ ]  2,2:       0 of       6  (4 * k + 2) * Ck          [ls]
+[ ]  2,3:       0 of       2  (k + 1) * Ck              [ss]
+[ ]  3,0:       0 of       2  2 * (2 * k + 1) * Ck      [aos]
+[x]  3,1:       0 of       0  - (2 * k) * Ck            [lls]
+[ ]  3,2:       0 of      -1  - (2 * k + 1) * Ck        [lss]
+[x]  4,0:       0 of       0  k * Ck                    [llss]
+=== Diff stats ===
+1,0:     4     0
+1,1:     3     0
+
+This construction works also for bigger :
+
+
+=== Classes stats ===
+[x]  0,0:   39050 of   39050  (k + 1) * Ck              []
+[x]  1,0:  -23237 of  -23237  - (2 * k + 1) * Ck        [l]
+[ ]  1,1:  -17799 of  -24460  - 2 * (k + 1) * Ck        [s]
+[x]  2,0:  -13728 of  -13728  - (4 * k) * Ck            [ao]
+[ ]  2,1:       0 of    3432  (k) * Ck                  [ll]
+[ ]  2,2:       0 of   14586  (4 * k + 2) * Ck          [ls]
+[ ]  2,3:       0 of    3861  (k + 1) * Ck              [ss]
+[ ]  3,0:       0 of    4620  2 * (2 * k + 1) * Ck      [aos]
+[ ]  3,1:       0 of   -2156  - (2 * k) * Ck            [lls]
+[ ]  3,2:       0 of   -2310  - (2 * k + 1) * Ck        [lss]
+[ ]  4,0:       0 of     342  k * Ck                    [llss]
+=== Diff stats ===
+1,0:  7602     0
+1,1:  5832     0
+2,0:  2280     0
+
+The process can then be repeated for each section. We have chosen lexicographical order (ie. ; ; ; ; ).
+
+Final result
+
+After multiple iterations, we managed to come up with following construction:
+
+
+c.define_class(0)
+
+c.define_section(0)
+
+c.append_r_class_subtree_visitor(1,
+    lambda kind, left, right:
+        None if kind[0] is not None else
+        [kind + ("*", )] + left + right
+)
+
+
+c.define_class(1)
+
+c.define_section(0)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["l", kind] + left + right + [(None, "*")]
+)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["l", parent_kind] + [left[0] + ("*",)] + left[1:] + right + [None]
+)
+
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["l", parent_kind] + left + [right[0] + ("*",)] + right[1:] + [None]
+)
+
+c.define_section(1)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", (None, "*"), parent_kind] + left + right
+)
+
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, parent_kind] + left + [right[0] + ("*",)] + right[1:]
+)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, parent_kind] + [left[0] + ("*",)] + left[1:] + right
+)
+
+
+c.define_class(2)
+
+c.define_section(0)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", "o", (None, "*"), None, kind] + left + right
+)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", "o", None, (None, "*"), kind] + left + right
+)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", kind] + left + right + ["o", (None, "*"), None]
+)
+
+c.append_r_class_subtree_visitor(-1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["a", kind] + left + right + ["o", None, (None, "*")]
+)
+
+c.define_section(1)
+
+c.append_r_class_subtree_visitor(1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["l", "l", kind] + left + right + [(None, "*"), None]
+)
+
+c.define_section(2)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["l", "s", (None, "*"), parent_kind] + left + right + [None]
+)
+
+c.append_r_class_subtree_visitor(1,
+    lambda kind, left, right:
+        None if kind[0] is None else
+        ["s", None, "l", kind] + left + right + [(None, "*")]
+)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "l", parent_kind] + left + right + [(None, "*")]
+)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "l", parent_kind] + [left[0] + ("*", )] + left[1:] + right + [None]
+)
+
+c.append_r_class_left_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "l", parent_kind] + left + [right[0] + ("*", )] + right[1:] + [None]
+)
+
+
+c.define_section(3)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "s", (None, "*"), parent_kind] + left + right
+)
+
+
+c.define_class(3)
+
+c.define_section(0)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "a", "o", (None, "*"), None, parent_kind] + left + right
+)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "a", "o", None, (None, "*"), parent_kind] + left + right
+)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "a", parent_kind] + left + right + ["o", (None, "*"), None]
+)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "a", parent_kind] + left + right + ["o", None, (None, "*")]
+)
+
+c.define_section(1)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "l", "l", parent_kind] + left + right + [(None, "*"), None]
+)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        ["s", None, "l", "l", parent_kind] + left + right + [(None, "*"), None]
+)
+
+
+c.define_section(2)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "s", None, "l", parent_kind] + left + right + [(None, "*")]
+)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "l", "s", (None, "*"), parent_kind] + left + right + [None]
+)
+
+
+c.define_class(4)
+
+c.define_section(0)
+
+c.append_r_class_right_parent_subtree_visitor(1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, "s", None, "l", "l", parent_kind] + left + right + [(None, "*"), None]
+)
+
+It resulted in final statistics:
+
+
+=== Classes stats ===
+[x]  0,0:   39050 of   39050  (k + 1) * Ck              []
+[x]  1,0:  -23237 of  -23237  - (2 * k + 1) * Ck        [l]
+[ ]  1,1:  -17799 of  -24460  - 2 * (k + 1) * Ck        [s]
+[x]  2,0:  -13728 of  -13728  - (4 * k) * Ck            [ao]
+[x]  2,1:    3432 of    3432  (k) * Ck                  [ll]
+[ ]  2,2:   10833 of   14586  (4 * k + 2) * Ck          [ls]
+[ ]  2,3:    1770 of    3861  (k + 1) * Ck              [ss]
+[ ]  3,0:    2280 of    4620  2 * (2 * k + 1) * Ck      [aos]
+[ ]  3,1:   -1648 of   -2156  - (2 * k) * Ck            [lls]
+[ ]  3,2:   -1140 of   -2310  - (2 * k + 1) * Ck        [lss]
+[ ]  4,0:     187 of     342  k * Ck                    [llss]
+=== Diff stats ===
+
+As you can see, diff stats are empty, so we managed to generate expected trees on both sides of the equation.
+
+You may also note that we didn't generate all trees suggested by the recurrence. This is due to one cheat we used.
+
+The cheat
+
+You may remember our assumptions in section  about the discrimination cases. We allowed ourselves to apply visitors only to one of left and right child, which isn't handled by our holonomic recurrence as number of such vertices do not depend only on .
+
+To fix this, one can for example add construction for section  to generate all expected trees from it and then repeat the iteration in order to generate matching trees on the other side of the equation. We can see that we used  constructions visiting node with right parent and only one visiting node having left parent, so our missing construction should also visit nodes with left parent.
+
+
+c.define_class(1)
+
+c.define_section(0)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", (None, "*"), parent_kind] + left + right
+)
+
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, parent_kind] + left + [right[0] + ("*",)] + right[1:]
+)
+
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", None, parent_kind] + [left[0] + ("*",)] + left[1:] + right
+)
+
+# example missing construction
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["s", (None, "*"), parent_kind] + left + right
+)
+
+Please note that it is only an example of missing construction. It is just the simplest one we could think about, and in that case, simple solution is most often the correct one.
+
+Further work
+
+First thing to be done, that comes to mind immediately, is to finish the construction eliminating the cheat mentioned in section .
+
+You may also note that we are operating on specific . The probability that we miss some corner case is low, but even if we check large  values, it is always present. The formal algebraic proof would make us sure that the construction works. We would prioritize finishing the construction first.
+
+The framework also isn't perfect. It highly depends on the operator's intuition. We believe that the solving process can be automated. The simplest method that comes to mind is simply creating heuristic rules that then will be used by the framework to guess at least partial solution.
+
+With the proper interpretation, it may be possible to create sampling algorithm similar to Rémy's one for binary trees. It would have to take under consideration that some trees are being removed by other classes, so the probabilities would have to be set carefully.
+
+We believe that one day all of that will be done or proven to be impossible.
+
+
+9
+        Maciej Bendkowski, Katarzyna Grygiel, Pierre Lescanne, Marek Zaionc,
+    A natural counting of lambda terms,
+    2016
+
+        Bruno Salvy, Paul Zimmermann,
+    GFUN : a maple package for the manipulation of generating and holonomic functions in one variable,
+    [Research Report] RT-0143, INRIA. 1992, pp.14. ffinria-00070025f
+
+        Manuel Kauers,
+    The Holonomic Toolkit,
+    in: Carsten Schneider, Johannes Blümlein (eds) Computer Algebra in Quantum Field Theory. Texts  Monographs in Symbolic Computation (A Series of the Research Institute for Symbolic Computation, Johannes Kepler University, Linz, Austria),
+    Springer, Vienna,
+    2013
+
+        Stefan Gerhold,
+    Combinatorial sequences: Non-holonomicity and inequalities. Ph.D. thesis,
+    RISC-Linz, Johannes Kepler Universitat Linz,
+    2005
+
+        Igor Pak,
+    Complexity problems in enumerative combinatorics,
+    2018
+
+        Jean-Luc Rémy,
+    Un procédé itératif de dénombrement d’arbres binaires et son application à leur génération aléatoire
+    Informatique théorique, tome 19, no 2, 
+    1985,
+    p. 179-195
+
+        Serge Dulucq, Jean-Guy Penaud,
+    Interprétation bijective d'une récurrence des nombres de Motzkin,
+    Discrete Mathematics,
+    Volume 256, Issue 3,
+    2002,
+    p. 671-676
+
+        Dominique Foata, Doron Zeilberger,
+    A Classic Proof of a Recurrence for a Very Classical Sequence
+    J. Comb., Ser. A, 80,
+    1997, 380-384
+
+        Doron Zeilberger,
+    e-mail conversation,
+    2020
+
+    
+
+        Laurent Alonso Alonso, Jean-Luc Rémy, and René Schott,
+    A Linear-Time Algorithm for the Generation of Trees,
+    Algorithmica 17,
+    1997,
+    p. 162-182
+
+        Jarmo Siltaneva, Erkki Mäkinen,
+    A Note on Rémy's Algorithm for Generating Random Binary Trees,
+    Missouri Journal of Mathematical Sciences. 15. 103-109. 10.35834/2003/1502103,
+    2003 
+
+        Axel Bacher, Olivier Bodini, Alice Jacquot,
+    Efficient random sampling of binary and unary-binary trees via holonomic equations,
+    2014
+
+    
+
+        Bartłomiej Puget,
+    Transformator framework,
+    https://github.com/Larhard/transformator,
+    2021
+
+

@@ -15,75 +15,75 @@
 <!-- 1 -->
 <g id="node2" class="node">
 <title>1</title>
-<text text-anchor="middle" x="194.5" y="-158.3" font-family="Times,serif" font-size="14.00">\(2\)</text>
+<text text-anchor="middle" x="135" y="-158.3" font-family="Times,serif" font-size="14.00">\(2\)</text>
 </g>
 <!-- r&#45;&#45;1 -->
 <g id="edge2" class="edge">
 <title>r&#45;&#45;1</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M221.6,-215.7C216.02,-204.85 208.86,-190.92 203.3,-180.1"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M162.1,-215.7C156.52,-204.85 149.36,-190.92 143.8,-180.1"/>
 </g>
 <!-- rr -->
 <g id="node9" class="node">
 <title>rr</title>
 </g>
 <!-- r&#45;&#45;rr -->
-<!-- 2 -->
-<g id="node3" class="node">
-<title>2</title>
-<text text-anchor="middle" x="158.5" y="-86.3" font-family="Times,serif" font-size="14.00">\(1\)</text>
-</g>
-<!-- 1&#45;&#45;2 -->
-<g id="edge4" class="edge">
-<title>1&#45;&#45;2</title>
-<path fill="none" stroke="black" d="M185.6,-143.7C180.02,-132.85 172.86,-118.92 167.3,-108.1"/>
-</g>
 <!-- t -->
-<g id="node5" class="node">
+<g id="node3" class="node">
 <title>t</title>
-<text text-anchor="middle" x="230.5" y="-86.3" font-family="Times,serif" font-size="14.00">\(t&#39;\)</text>
+<text text-anchor="middle" x="99" y="-86.3" font-family="Times,serif" font-size="14.00">\(t&#39;\)</text>
 </g>
 <!-- 1&#45;&#45;t -->
 <g id="edge3" class="edge">
 <title>1&#45;&#45;t</title>
-<path fill="none" stroke="black" d="M203.4,-143.7C208.98,-132.85 216.14,-118.92 221.7,-108.1"/>
+<path fill="none" stroke="black" d="M126.1,-143.7C120.52,-132.85 113.36,-118.92 107.8,-108.1"/>
 </g>
-<!-- 3 -->
-<g id="node4" class="node">
-<title>3</title>
-<text text-anchor="middle" x="56.5" y="-14.3" font-family="Times,serif" font-size="14.00">\(\pointed{}\)</text>
+<!-- 2 -->
+<g id="node6" class="node">
+<title>2</title>
+<text text-anchor="middle" x="171" y="-86.3" font-family="Times,serif" font-size="14.00">\(1\)</text>
 </g>
-<!-- 2&#45;&#45;3 -->
-<g id="edge5" class="edge">
-<title>2&#45;&#45;3</title>
-<path fill="none" stroke="black" d="M133.55,-71.88C117.74,-61.03 97.37,-47.05 81.55,-36.19"/>
-</g>
-<!-- s -->
-<g id="node8" class="node">
-<title>s</title>
-<text text-anchor="middle" x="158.5" y="-14.3" font-family="Times,serif" font-size="14.00">\(s\)</text>
-</g>
-<!-- 2&#45;&#45;s -->
-<g id="edge6" class="edge">
-<title>2&#45;&#45;s</title>
-<path fill="none" stroke="black" d="M158.5,-71.7C158.5,-60.85 158.5,-46.92 158.5,-36.1"/>
+<!-- 1&#45;&#45;2 -->
+<g id="edge4" class="edge">
+<title>1&#45;&#45;2</title>
+<path fill="none" stroke="black" d="M143.9,-143.7C149.48,-132.85 156.64,-118.92 162.2,-108.1"/>
 </g>
 <!-- tl -->
-<g id="node6" class="node">
+<g id="node4" class="node">
 <title>tl</title>
 </g>
 <!-- t&#45;&#45;tl -->
 <g id="edge7" class="edge">
 <title>t&#45;&#45;tl</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M230.5,-71.7C230.5,-60.85 230.5,-46.92 230.5,-36.1"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M81.2,-71.7C70.04,-60.85 55.71,-46.92 44.59,-36.1"/>
 </g>
 <!-- tr -->
-<g id="node7" class="node">
+<g id="node5" class="node">
 <title>tr</title>
 </g>
 <!-- t&#45;&#45;tr -->
 <g id="edge8" class="edge">
 <title>t&#45;&#45;tr</title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M248.3,-71.7C259.46,-60.85 273.79,-46.92 284.91,-36.1"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M99,-71.7C99,-60.85 99,-46.92 99,-36.1"/>
+</g>
+<!-- s -->
+<g id="node7" class="node">
+<title>s</title>
+<text text-anchor="middle" x="171" y="-14.3" font-family="Times,serif" font-size="14.00">\(s\)</text>
+</g>
+<!-- 2&#45;&#45;s -->
+<g id="edge6" class="edge">
+<title>2&#45;&#45;s</title>
+<path fill="none" stroke="black" d="M171,-71.7C171,-60.85 171,-46.92 171,-36.1"/>
+</g>
+<!-- 3 -->
+<g id="node8" class="node">
+<title>3</title>
+<text text-anchor="middle" x="273" y="-14.3" font-family="Times,serif" font-size="14.00">\(\pointed{}\)</text>
+</g>
+<!-- 2&#45;&#45;3 -->
+<g id="edge5" class="edge">
+<title>2&#45;&#45;3</title>
+<path fill="none" stroke="black" d="M195.95,-71.88C211.76,-61.03 232.13,-47.05 247.95,-36.19"/>
 </g>
 </g>
 </svg>

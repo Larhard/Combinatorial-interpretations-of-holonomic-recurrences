@@ -5,11 +5,11 @@ graph {
 
     1 [label="\\(2\\)" shape=none]
 
+    2 [label="\\(\\pointed{}\\)" shape=none]
+
     s [label="\\(s\\)" shape=none]
     sl [label="" shape=none]
     sr [label="" shape=none]
-
-    2 [label="\\(\\pointed{}\\)" shape=none]
 
 	rr [label="" shape=none]
     r -- rr [style=invis]
