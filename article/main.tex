@@ -70,6 +70,9 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[subsection]
 
+\theoremstyle{definition}
+\newtheorem{interpretation}{Interpretation}[subsection]
+
 \theoremstyle{remark}
 \newtheorem{example}{Example}[subsection]
 
@@ -503,51 +506,68 @@ In other words, prefix of the tree \(T\) in relation to \(v\) describes a part o
 \begin{figure}[H]
     \centering
     \includesvg[scale=.7]{intro__presuf_custom}
-    \caption{Visualization of prefixes and sufixes}
+    \caption{Visualization of prefixes, suffixes and subtrees}
     \label{fig:presuf}
 \end{figure}
 
 Throughout thesis we define some operations using this notation. Valid pre-order notation of \(n\)-ary tree (note that not all sequences are valid pre-order notations) can be easily translated back into a tree. In order to do so, we just take first symbol of the notation and create the root accordingly. Then for each of the \(n\) children of the root, in sequence, we decode it recursively as if it was whole tree. Each such operation consumes some prefix of the notation. At the end we should be left with no symbols in the sequence.
 
+As \(T\) and \(\enc{T}\) describe the same structures, notation of trees \(T\) and its encoding \(\enc{T}\) will be used interchangeably.
+
 \section{Known results}%
 \label{sec:known_results}
+\todo{Add introduction}
 
 \subsection{Binary trees}%
 \label{sub:binary_trees}
 
+Let's start with probably the most known interpretation, full binary trees~\cite{binary}.
 
-
-Let's start with probably the most known result, full binary trees~\cite{binary}.
-
-We define the size of a tree as a number of internal nodes (i.e.\ nodes that are not leaves). Our generating function is therefore:
+We define the size of a tree as the number of its internal nodes (i.e.\ nodes that are not leaves). Our generating function is therefore a solution of the following equation
 
 \[\gf{B}(z) = 1 + z\gf{B}^2(z)\]
 
-After a quick transformation, we get following holonomic recurrence:
+After a quick transformation, we get the following holonomic recurrence:
 
-\[(n + 2)B(n + 1) = 2 (2n + 1)B(n)\]
+\[\left\{\begin{array}{rcl}
+            b_0 &=& 1\\
+            (n + 2)b_{n + 1} &=& 2 (2n + 1)b_n
+\end{array}\right.\]
 
-This recurrence also describes Catalan numbers.
+This equation actually have \(2\) solutions, but we can eliminate one of them due to assumption that we are counting objects, i.e.\ we are interested only in solutions that give us natural numbers.
+
+Numbers defined as above are also known as Catalan numbers.
 
 It is easy to see that a tree of size \(n\) (i.e.\ with \(n\) internal nodes) has \(n + 1\) leaves and therefore \(2n + 1\) nodes in total. Analogically the tree of size \(n + 1\) has \(n + 2\) leaves and \(2n + 3\) nodes in total. If you see some resemblance to our holonomic recurrence, you are perfectly right.
 
 We are going to create a bijection between the left and right side of the recurrence. We will be using the term \textit{bijective language} to talk about the recurrence using the objects it describes and their transformations.
+\todo{rewrite}
 
-Let's translate the recurrence to the bijective language then.
+\begin{interpretation}
+Let's translate the recurrence to the bijective language.
 \begin{itemize}
-    \item \(B(n)\) is simply set of all full binary trees of size \(n\),
-    \item \((n + 2) B(n + 1)\) is set of all full binary trees of size \(n + 1\) with one of the leaves pointed,
-    \item \((2n + 1) B(n)\) is set of all full binary trees of size \(n\) with one of the nodes pointed (remember that the node can be internal node or leaf),
-    \item \(2\) at the beginning of \(2 (2n + 1) B(n)\) means that we will be using \(2\) copies of the set defined in the previous bullet.
+    \item \(b_n\) is simply the set of all full binary trees of size \(n\),
+    \item \((n + 2) b_{n + 1}\) is the set of all full binary trees of size \(n + 1\) with one of the leaves pointed,
+    \item \((2n + 1) b_{n}\) is the set of all full binary trees of size \(n\) with one of the nodes (either internal or a leaf) pointed (i.e.\ distinguished),
+    \item \(2\) at the beginning of \(2 (2n + 1) b_{n}\) indicates that we will be using \(2\) copies of the set defined in the previous bullet.
 \end{itemize}
 
-At the moment the left side of the recurrence describes a set of trees of size \(n + 1\), the right, on the other hand, of size \(n\). Therefore, we need to apply some transformation to make the sets equal.
+At the moment the left side of the recurrence is related to trees of size \(n + 1\), the right, on the other hand, of size \(n\). Therefore, we need to apply some transformations on trees.
 
-Let's define two local operations: \(R_l(T, v)\) and \(R_r(T, v)\). The term \textit{local} means that the operation can operate on just some finite fragment of tree with predefined size (e.g.\ node and its 2 children, but cannot traverse the whole tree).
+Let's define two local operations for tree \(T\) with a single node \(v\) pointed: \(R_l(T, v)\) and \(R_r(T, v)\). The term \textit{local} means that the operation can operate on just some finite fragment of a tree with predefined size (e.g.\ node and its 2 children, but cannot traverse the whole tree).
 
 \begin{definition}
     \(\enc{R_l(T, v)} = \enc{\tPre(T, v)} \n \pointed{\n} \no \no \enc{\tSub(v)} \enc{\tSuf(T, v)}\)
 \end{definition}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{binary__remy_base}\end{minipage}%
+    \(\Rightarrow\)
+    \begin{minipage}{.4\textwidth}\includesvg[scale=0.5]{binary__remy_left}\end{minipage}%
+    \caption{Visualization of \(\enc{R_l(T, v)}\)}
+    \label{fig:remy_left}
+\end{figure}
 
 \begin{definition}
     \(\enc{R_r(T, v)} = \enc{\tPre(T, v)} \n \enc{\tSub(v)} \pointed{\n} \no \no \enc{\tSuf(T, v)} \)
@@ -557,21 +577,13 @@ Let's define two local operations: \(R_l(T, v)\) and \(R_r(T, v)\). The term \te
     \centering
     \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{binary__remy_base}\end{minipage}%
     \(\Rightarrow\)
-    \begin{minipage}{.4\textwidth}\includesvg[scale=0.5]{binary__remy_left}\end{minipage}%
-    \caption{\(\enc{R_l(T, v)}\)}
-    \label{fig:remy_left}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{binary__remy_base}\end{minipage}%
-    \(\Rightarrow\)
     \begin{minipage}{.4\textwidth}\includesvg[scale=0.5]{binary__remy_right}\end{minipage}%
-    \caption{\(\enc{R_r(T, v)}\)}
+    \caption{Visualization of \(\enc{R_r(T, v)}\)}
     \label{fig:remy_right}
 \end{figure}
 
-We can now take the bijective interpretation of \((2n + 1) B(n)\), i.e.\ trees of size \(n\) with a single node pointed. For each of such trees, \(T\) we create new one by applying \(R_l\) and \(R_r\) to the pair \(T', v\), where \(T'\) is \(T\) with removed pointers and \(v\) is a node that is pointed in \(T\). Therefore we generate \(2(2n + 1) B(n)\) trees of size \(n + 1\)
+We can now take the bijective interpretation of \((2n + 1) B(n)\), i.e.\ trees of size \(n\) with a single node pointed. For each of such trees, \(T\) we create new one by applying \(R_l\) and \(R_r\) to the pair \(T', v\), where \(T'\) is \(T\) with removed pointers and \(v\) is a node that is pointed in \(T\). Therefore we generate \(2(2n + 1) B(n)\) trees of size \(n + 1\).
+\todo{rewrite}
 
 The only thing that's left for us to verify is if we generate all trees of size \(n + 1\) with pointed leaves. As from the recursion, we know that \(2 (2n + 1) B(n)\) is total number of trees with single leaf pointed, it is enough to check if we do not generate any duplicate using \(R_l\) and \(R_r\). It can happen in 2 ways:
 \begin{enumerate}
@@ -587,39 +599,61 @@ First case can also be split into 2 subcases. Without loss of generality we can 
 
 In the second case it is enough to notice that \(R_l\) generates trees with pointed nodes being a left child, and \(R_r\) generates trees with pointed nodes being right child. That immediately provides us with the conclusion that we are generating no duplicates.
 
+\qed
+\end{interpretation}
+
 \subsection{Unary-binary trees}%
 \label{sub:unary_binary_trees}
 
-Let's think, what would have changed if we introduce unary nodes to the binary case~\cite{motzkin}. We will be counting edges. Note that a tree having \(n\) edges has exactly \(n + 1\) nodes.
+Let's think, what would have changed if we introduce unary nodes to the binary case~\cite{motzkin}.
 
 \begin{definition}
-    Unary-binary tree is such tree of which any node can have either 0, 1 or 2 children.
+    \label{def:unary_binary_tree}
+    An unary-binary tree is an ordered tree in which any node can have either 0, 1 or 2 children.
 \end{definition}
+
+We do not allow nodes with gaps here, e.g.\ a binary node with just one child or unary node with no children.
+
+We will define size as number of edges. Note that a tree having \(n\) edges has exactly \(n + 1\) nodes.
 
 We can easily derive the generating function:
 
 \[\gf{U}(z) = 1 + z\gf{U}(z) + z^2 \gf{U}^2(z)\]
 
-And with a bit of Maple magic~\cite{gfun}, we immediately get following recurrence:
+And with a bit of Maple magic~\cite{gfun}, we immediately get the following recurrence:
 
-\[(n + 2)U(n) = (2n + 1)U(n - 1) + 3(n - 1)U(n - 2)\]
+\[(n + 2)u_{n} = (2n + 1)u_{n - 1} + 3(n - 1)u_{n - 2}\]
 
-The definition above is precise, but introduces a new kind of node that we would have to take care of. We can avoid it by using a trick to make the tree recall binary trees. We do not change the structure, just the notation.
+\[\left\{\begin{array}{rcl}
+            u_0 &=& 1\\
+            u_1 &=& 1\\
+            (n + 2)u_{n} &=& (2n + 1)u_{n - 1} + 3(n - 1)u_{n - 2}
+\end{array}\right.\]
+
+Definition~\ref{def:unary_binary_tree} is precise, but introduces a new kind of node that we would have to take care of. We can avoid it by using a trick to make unary-binary trees recall binary trees. We do not change the structure, just the notation.
 
 \begin{definition}
     \label{def:unary_binary_2}
-    Left-leaning binary tree\todo{find official name; skewed binary tree is something different} is a binary tree with the following constraint added: if a node has a right child, it also has a left child.
+    A left-leaning binary tree is a binary tree with the following constraint added: if a node has a right child, it also has a left child. It can have just the left child.
 \end{definition}
 
-The bijection between unary-binary and left-leaning binary trees is very simple. We just represent unary nodes as nodes with just the left child of the left-leaning binary tree. The other cases translate immediately to corresponding ones. Please note that this transformation keeps the size of the tree (i.e.~number of edges).
+The bijection between unary-binary trees and left-leaning binary ones is very simple. We just represent unary nodes as nodes with just a left child. The other cases translate immediately to themselves. Please note that this transformation preserves the size of the tree (i.e.~number of edges).
 
-The next step is to make binary trees full. Let's just define virtual leaves.
+The next step is to make binary trees full. Let's define virtual leaves.
 
 \begin{definition}
-    Virtual leaf is a virtual node added to the node in place of a non-existing child.
+    Virtual node is an artificially defined node that does not affect the structure definition (i.e.\ they are not included when counting the number of children of the node).
 \end{definition}
 
-As we have added \(n + 2\) virtual nodes, we have added as many virtual edges.
+\begin{definition}
+    Actual node is a node that is not virtual.
+\end{definition}
+
+\begin{definition}
+    A virtual leaf is a virtual node added to the node in place of a non-existing child.
+\end{definition}
+
+As we have added \(n + 2\) virtual nodes, we have added as many virtual edges.\todo{notes?}
 
 \begin{figure}[H]
     \centering
@@ -630,9 +664,22 @@ As we have added \(n + 2\) virtual nodes, we have added as many virtual edges.
     \label{fig:unary_binary_transformation}
 \end{figure}
 
-Please note that \(n + 2\) matches the multiplier of \(U(n)\). Let's point the virtual leaves then.
+Please note that \(n + 2\) matches the multiplier of \(u_n\) in holonomic equation. The set \((n + 2) U(n)\) corresponds to trees of size \(n\) with single virtual leaf pointed.
 
-To present the interpretation in bijective language, we will have to introduce several types of the the nodes (you may want to revisit Section~\ref{sub:notation} Notation):
+\begin{definition}
+    We say that node \(v\) is an virtual-oneling \(\textiff\) \(v\) has no virtual siblings. Note that the root is oneling even if it has no parent.
+\end{definition}
+
+\begin{definition}
+    We say that node \(v\) is virtual-twinling \(\textiff\) \(v\) has at least one virtual sibling.
+\end{definition}
+
+\begin{definition}
+    If \(u\) is parent of \(v\), we say that sibling of \(u\) is an uncle of \(v\).
+\end{definition}
+
+\begin{interpretation}
+To present the interpretation in bijective language, we will have to introduce several types of the nodes.
 
 \begin{enumerate}
     \item Vro - virtual leaf being right virtual-oneling;
@@ -648,16 +695,18 @@ To present the interpretation in bijective language, we will have to introduce s
             \item VltUra - Vlt which uncle is a right actual node;
             \item VltUla - Vlt which uncle is a left actual node;
         \end{enumerate}
-    \item I - Internal node.
+    \item A - Actual node.
 \end{enumerate}
 
-Note that it covers all possible cases of pointing virtual leaf and all the cases are mutually disjoint.
+Note that it covers all possible cases of nodes and all the cases are mutually disjoint. There is no such thing as VrtUlv, VltUlv nor Vlo due to Definition~\ref{def:unary_binary_2}.
 
-All we need to show are the transformations from the smaller cases, i.e.\ \(U(n-1)\) and \(U(n-2)\).
+All we need to show are transformations from the smaller cases, i.e.\ pointed trees from \(U(n-1)\) and \(U(n-2)\) to \(U(n)\).
 
-Let's start from \(U(n-1)\). Its multiplier is \(2n + 1\). It suggests that we can point to any node, as in a tree having \(n - 1\) edges, we have \(n\) actual and \(n + 1\) virtual ones.
+Let's start from \(U(n-1)\). Its multiplier is \(2n + 1\). It suggests that we can point to any node, as in a tree having \(n - 1\) actual edges, we have \(n\) actual and \(n + 1\) virtual nodes.
 
-In case of \(U(n-2)\), the multiplier is \(3(n-1)\), that suggests that we should perform \(3\) transformations on the trees with a pointed actual node.
+In the case of \(U(n-2)\), the multiplier is \(3(n-1)\), which suggests that we should perform \(3\) distinct types of transformations on the trees with a pointed actual node.
+
+In the table below we show transformations that are applied to trees from \(U(n-1)\) and \(U(n-2)\) in order to achieve trees from \(U(n)\). We mark pointed node with \(\pointed{}\). You can find the case name in the buttom left corners of cells.
 
 \begin{center}
     \begin{longtable}{| c | c | c | c |}
@@ -670,7 +719,7 @@ In case of \(U(n-2)\), the multiplier is \(3(n-1)\), that suggests that we shoul
         \hline
 
         &
-        I \includesvg[scale=0.4]{unary_binary__1si} &
+        A \includesvg[scale=0.4]{unary_binary__1si} &
         \(\Rightarrow\)&
         Vro \includesvg[scale=0.4]{unary_binary__0fid} \\
         \hline
@@ -681,7 +730,7 @@ In case of \(U(n-2)\), the multiplier is \(3(n-1)\), that suggests that we shoul
         VrtUrv \includesvg[scale=0.4]{unary_binary__0fjdOgf} \\
         \hline
 
-        I \includesvg[scale=0.4]{unary_binary__2i} &
+        A \includesvg[scale=0.4]{unary_binary__2i} &
         &
         \(\Rightarrow\)&
         VrtUra \includesvg[scale=0.4]{unary_binary__0fjdOdi} \\
@@ -699,13 +748,13 @@ In case of \(U(n-2)\), the multiplier is \(3(n-1)\), that suggests that we shoul
         VltUrv \includesvg[scale=0.4]{unary_binary__0fjgOdf} \\
         \hline
 
-        I \includesvg[scale=0.4]{unary_binary__2i} &
+        A \includesvg[scale=0.4]{unary_binary__2i} &
         &
         \(\Rightarrow\)&
         VltUra \includesvg[scale=0.4]{unary_binary__0fjgOdi} \\
         \hline
 
-        I \includesvg[scale=0.4]{unary_binary__2i} &
+        A \includesvg[scale=0.4]{unary_binary__2i} &
         &
         \(\Rightarrow\)&
         VltUla \includesvg[scale=0.4]{unary_binary__0fjgOgi} \\
@@ -714,7 +763,10 @@ In case of \(U(n-2)\), the multiplier is \(3(n-1)\), that suggests that we shoul
 \end{center}
 
 
-As you can see, we have satisfied all of the cases of \(U(n)\) with no repetitions, which concludes the construction.
+As you can see, we have satisfied all of the cases of trees from \(U(n-2)\), \(U(n-1)\) and \(U(n)\) with no repetitions, which concludes the construction.
+
+\qed
+\end{interpretation}
 
 \subsection{Schröder trees}%
 \label{sub:schröder_trees}
@@ -722,7 +774,8 @@ As you can see, we have satisfied all of the cases of \(U(n)\) with no repetitio
 The next case we will show is the case of Schröder trees~\cite{schroder}.
 
 \begin{definition}
-    Schröder tree is a tree with no unary nodes.
+    \label{def:schroder_tree}
+    A Schröder tree is a tree with no unary nodes. We do not allow empty children here (e.g.\ binary node with just one child).
 \end{definition}
 
 Simply speaking, nodes can have zero or strictly more than one child.
@@ -734,27 +787,32 @@ Simply speaking, nodes can have zero or strictly more than one child.
     \includesvg[scale=0.4]{schroder__example_3}
     \includesvg[scale=0.4]{schroder__example_4}
     \(\ldots\)
-    \caption{Schröder tree node}
+    \caption{Possible cases of Schröder tree nodes}
     \label{fig:schroder_trees}
 \end{figure}
 
-This definition is quite precise, but is difficult to implement as a structural recursion. Let's transform it into something more manageable, i.e.~of finite arity.
+This definition is precise, but is difficult to implement as a structural recursion. Let's define binary structure that will allow us to encode all Schröder trees.
 
 \begin{definition}
-    Well-weighted binary plane tree is a weighted tree such that:
+    \label{def:well_weighted}
+    A well-weighted full binary tree is a weighted tree such that:
     \begin{itemize}
         \item leaves are unweighted;
         \item internal nodes can have weight either \(1\) or \(2\);
-        \item if the internal node has weight 2, then its right child is not a leaf.
+        \item if an internal node has weight 2, then its right child is not a leaf.
     \end{itemize}
 \end{definition}
 
-We can easily define the bijection \(\Phi\) between these two models using pre-order notation:
+Let's represent node \(v\) with a weight \(n\) as \(v\weighted{n}\).
+
+We can easily define the bijection \(\Phi\) between models from Definition~\ref{def:schroder_tree} and~\ref{def:well_weighted} using pre-order notation:
 \[\Phi(T) = \left\{\begin{array}{lcl}
             \n \no \no &:& T = \n \no \no \\
             \n\weighted{1}\; T_1\; T_2 &:& T = \n\; T_1\; T_2\\
             \n\weighted{2}\; T_1\; \Phi(\n\; T_2 \ldots T_n) &:& T = \n\; T_1\; T_2 \ldots T_n
 \end{array}\right.\]
+\todo{image}
+\todo{continue}
 
 Let's define size as a number of leaves. Note that the size is independent from which construction we use, as the leaf is translated to leaf and the internal node to internal nodes.
 
@@ -816,9 +874,9 @@ This may seem counterintuitive, as by default we want to describe how to generat
 
 Let's translate the recurrence to the bijective language then.
 \begin{itemize}
-    \item \((2 n - 1) T(n)\) describes well-weighted binary plane trees of size \(n\) (i.e.\ with \(n\) leaves) with some node pointed (internal or leaf),
-    \item \((n + 1) T(n + 1)\) describes well-weighted binary plane trees of size \(n - 1\) with some leaf pointed,
-    \item \((n - 2) T(n - 1)\) describes well-weighted binary plane trees of size \(n - 1\) with some internal node pointed.
+    \item \((2 n - 1) T(n)\) describes well-weighted binary trees of size \(n\) (i.e.\ with \(n\) leaves) with some node pointed (internal or leaf),
+    \item \((n + 1) T(n + 1)\) describes well-weighted binary trees of size \(n - 1\) with some leaf pointed,
+    \item \((n - 2) T(n - 1)\) describes well-weighted binary trees of size \(n - 1\) with some internal node pointed.
 \end{itemize}
 
 We will show the bijection between two sides of the recursion. We will transform each tree from \((2 n - 1) T(n)\) in three ways in order to achieve all trees from \((n + 1) T(n + 1)\). We will get some extra ones which are not well-weighted, but we will deal with them in a minute.
