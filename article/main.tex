@@ -390,19 +390,18 @@ Note that the sum can only take a finite number of subsequent elements of the se
 
 \begin{definition}[\cite{complexity}]
     \label{def:holo_2}
-    Equivalently to definition\ \ref{def:holo_1}, \(A = (a_i)_{i=0}^{\infty}\) is holonomic \(\textiff\) there exists a generating function in the following form:
+    Equivalently to Definition~\ref{def:holo_1}, \(A = (a_i)_{i=0}^{\infty}\) is holonomic \(\textiff\) there exists a generating function in the following form:
     \[\sum_{i=0}^{r} p_i(z) \gf{A}^{(i)}(z) = b(z)\]
     for some fixed \(r \in \N\); \(b, p_0, \ldots, p_r \in \poly\) not all identical to zero.
 \end{definition}
 
-\todo{Continue}
-The equivalence of these two definitions assures us that if we find generating function describing the desired objects satisfying definition\ \ref{def:holo_2}, we will be able to find holonomic recurrence mentioned in definition\ \ref{def:holo_1}~\cite{complexity}.
+The equivalence of these two definitions assures us that if we find an generating function equation describing the desired objects satisfying Definition~\ref{def:holo_2}, we will be able to find holonomic recurrence mentioned in Definition~\ref{def:holo_1}~\cite{complexity}.
 
 \begin{example}
     \label{ex:gfun-rec}
-    For generating function full binary trees defined in Example~\ref{ex:bin_gf}, i.e.:
+    For generating function counting full binary trees defined in Example~\ref{ex:bin_gf}, i.e.:
     \[\gf{B}(z) = 1 + z\gf{B}^2(z)\]
-    we can use GFUN~\cite{gfun} to immediately find holonomic recurrence of our interest:
+    we can use GFUN~\cite{gfun} to immediately find a holonomic recurrence of our interest:
 
     \begin{lstlisting}
 > with(gfun):
@@ -423,40 +422,49 @@ The equivalence of these two definitions assures us that if we find generating f
     rec := {(2 + 4 n) B(n) + (-2 - n) B(n + 1), B(0) = 1}
     \end{lstlisting}
 
-    Our holonomic recurrence is then:
+    Our holonomic recurrence is then
     \[\left\{\begin{array}{rcl}
-                B(0) &=& 1\\
-                (2 + 4 n) B(n) + (-2 - n) B(n + 1) &=& 0
-    \end{array}\right.\]
+                b_0 &=& 1\\
+                (2 + 4 n) b_n + (-2 - n) b_{n + 1} &=& 0
+    \end{array}\right. .\]
 
-    For our purposes we will often ignore the initial conditions, as they can be easily described by the exact number of the objects. The most interesting part for us is the relation between the finite number consecutive elements.
-
+    The most interesting part for us is the relation among the finite number of consecutive elements of the sequence.
 \end{example}
 
 \subsection{Combinatorial interpretations}%
 \label{sub:combinatorial_interpretations}
 
-Combinatorial interpretation is just a fancy name for something you probably know and use. For example if you know the binomial coefficient \(\binom{n}{k}\), I bet it was introduced to you as something like: "let's assume you have \(n\) distinguishable balls. If you want to choose \(k\) from them, then you can do it in \(\binom{n}{k}\) ways" and now, whenever you see the term \(\binom{n}{k}\) you interpret it as number of ways to choose \(k\) objects from the set of size \(n\). This is the combinatorial interpretation of the binomial coefficient.
+Combinatorial interpretation is just a fancy name for something you probably know and use. For example if you know the binomial coefficient \(\binom{n}{k}\), I bet it was introduced to you as something like: "let's assume you have \(n\) distinguishable balls. If you want to choose \(k\) from them, then you can do it in \(\binom{n}{k}\) ways" and now, whenever you see the term \(\binom{n}{k}\), you interpret it as the number of ways to choose \(k\) objects from the set of size \(n\). This is the combinatorial interpretation of the binomial coefficient.
 
-Holonomic recurrences are very useful if we want to count objects of given size. Of course, size can be defined in more complex ways, e.g.\ we may want to find the number of trees with \(n\) internal nodes having exactly \(m\) nodes being left child of its parent.
+Holonomic recurrences are very useful if we want to count objects of a given size. Of course, size can be defined in more complex ways, e.g.\ we may want to find the number of binary trees with \(n\) internal nodes having exactly \(m\) nodes being left child of its parent. Unfortunately, there is no commonly known method to find their intuitive interpretation in the world of the objects they describe.
 
-Unfortunately, as for most auto-generated code, they almost never come with intuitive interpretation. They are just some recurrences, but there is no commonly known method to find how they correspond to the structures they describe.
-
-In the thesis we try to gather methods and results that may be helpful for anyone trying to find such interpretation, as we believe that such interpretation may give better insight into the nature of the structure and make it easier to study its behaviour.
+In the thesis we try to gather methods and results that may be helpful for anyone trying to find such an interpretation, as we believe that it may give better insight into the nature of the structure and make it easier to study the structure's properties.
 
 \subsection{Pre-order notation}%
 \label{sub:pre_order_notation}
 
+In the thesis, if not stated otherwise, we will be working on rooted ordered unlabeled \(n\)-ary trees. To understand the terms, let's define them:
+\begin{itemize}
+    \item rooted tree is a tree with single vertex marked as root. This allows us to define hierarchy of nodes using such terms as parent and child;
+    \item ordered trees introduce order on children from the leftmost to the rightmost;
+    \item unlabeled trees have nodes that are not distinguishable by their label. We will introduce soon kinds of nodes, but you shouldn't treat them as labels, but rather way to describe the structure of the node that is already present (e.g.\ we can call node with just left child an \(l\) node, but it is not its label. If the right child was added to the \(l\) node, it would not be an \(l\) node anymore).
+\end{itemize}
+Additionally we allow that \(n\)-ary node has some of its children unset (e.g.\ we can define a binary node with just left child set, but not right one).
 
-
-In order to make notation easier and unambiguous, we also introduce pre-order notation of \(n\)-ary tree.
+In order to make notation easier and unambiguous, we introduce pre-order notation of an \(n\)-ary tree.
 
 \begin{definition}
-    \(\enc{v}\) is an identifier of node \(v\). 
+    For single vertex \(v\), the pre-order notation is defined as \(\enc{v}\).
 \end{definition}
 
+Here, \(\enc{v}\) is defined as follows:
+\begin{itemize}
+    \item if \(v\) is an existing node, \(\enc{v} = \n\);
+    \item if \(v\) is a non-existing node (i.e.\ we describe non-existing child of some node), \(\enc{v} = \no\).
+\end{itemize}
+
 \begin{definition}
-    Pre-order notation of \(n\)-ary tree \(T\), \(\enc{T}\), is defined recursively as:
+    Pre-order notation of \(n\)-ary tree \(T\), namely \(\enc{T}\), is defined recursively as:
     \[\enc{T} = \enc{\troot(T)} \prod_{i=1}^{n} \enc{i\text{-th subtree of } \troot(T)}\]
     i.e.\ catenation of the identifier of the root of the tree with encoded its subtrees from left to right.
 \end{definition}
@@ -464,21 +472,42 @@ In order to make notation easier and unambiguous, we also introduce pre-order no
 \begin{figure}[H]
     \centering
     \includesvg[scale=.7]{intro__oononnn}
-    \caption{\(\n \n \no \n \no \no \no\)}
+    \caption{Tree described in the pre-order notation as: \(\n \n \no \n \no \no \no\).}
     \label{fig:oononnn}
 \end{figure}
 
-We can also define prefixes and suffixes of \(T\).
+We use green edges 
+\begin{minipage}{1.5em}
+\includesvg[width=\textwidth]{intro__green_edge}
+\end{minipage}
+to depict edges to \(\no\) nodes.
+
+You can note that the encoding of a given tree is unique. Unfortunately, not every sequence encodes proper tree.
+
+We can also define prefixes and suffixes of \(T\) in relation to a node \(v\).
 
 \begin{definition}
-    Let \(k\) be the index of its identifier in \enc{T}. Notation of prefix of \(T\) in relation to \(v\), \(\enc{\tPre(T, v)}\), is defined as a prefix of \enc{T} of size \(k - 1\).
+    \(\tSub(v)\) is defined as a whole subtree rooted with node \(v\).
 \end{definition}
 
 \begin{definition}
-    Let \(n\) be the size of \enc{T}. Notation of suffix of \(T\) in relation to \(v\), \(\enc{\tSuf(T, v)}\), is defined as a suffix of \enc{T} of size \(n - \size{\enc{\tPre(T, v)}} - \size{\enc{\tSub(v)}}\).
+    Let \(v\) be a node described using \(k\)-th symbol of \(\enc{T}\). Notation of the prefix of \(T\) in relation to \(v\), namely \(\enc{\tPre(T, v)}\), is defined as a prefix of \enc{T} of size \(k - 1\).
 \end{definition}
 
-Throughout thesis we define some operations using this notation. As pre-order notation is bijective, you can obtain the structure the notation describes by reversing the process of encoding.
+\begin{definition}
+    Let \(n\) be the length of the sequence \(\enc{T}\). Notation of suffix of \(T\) in relation to \(v\), namely \(\enc{\tSuf(T, v)}\), is defined as a suffix of \enc{T} of size \(n - \size{\enc{\tPre(T, v)}} - \size{\enc{\tSub(v)}}\).
+\end{definition}
+
+In other words, prefix of the tree \(T\) in relation to \(v\) describes a part of the tree that appears before subtree rooted in \(v\) in pre-order notation. Suffix describes part of the tree that appears after it.
+
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=.7]{intro__presuf_custom}
+    \caption{Visualization of prefixes and sufixes}
+    \label{fig:presuf}
+\end{figure}
+
+Throughout thesis we define some operations using this notation. Valid pre-order notation of \(n\)-ary tree (note that not all sequences are valid pre-order notations) can be easily translated back into a tree. In order to do so, we just take first symbol of the notation and create the root accordingly. Then for each of the \(n\) children of the root, in sequence, we decode it recursively as if it was whole tree. Each such operation consumes some prefix of the notation. At the end we should be left with no symbols in the sequence.
 
 \section{Known results}%
 \label{sec:known_results}
@@ -514,7 +543,7 @@ Let's translate the recurrence to the bijective language then.
 
 At the moment the left side of the recurrence describes a set of trees of size \(n + 1\), the right, on the other hand, of size \(n\). Therefore, we need to apply some transformation to make the sets equal.
 
-Let's define two local operations: \(R_l(T, v)\) and \(R_r(T, v)\). The term \textit{local} means that the operation can operate on just some finite fragment of tree with predefined size (e.g.\ node and its 2 children, but can not traverse the whole tree).
+Let's define two local operations: \(R_l(T, v)\) and \(R_r(T, v)\). The term \textit{local} means that the operation can operate on just some finite fragment of tree with predefined size (e.g.\ node and its 2 children, but cannot traverse the whole tree).
 
 \begin{definition}
     \(\enc{R_l(T, v)} = \enc{\tPre(T, v)} \n \pointed{\n} \no \no \enc{\tSub(v)} \enc{\tSuf(T, v)}\)
@@ -613,7 +642,7 @@ To present the interpretation in bijective language, we will have to introduce s
             \item VrtUra - Vri which uncle is a right actual node;
             \item VrtUla - Vri which uncle is a left actual node.
         \end{enumerate}
-    \item Vlt - virtual leaf left virtual-twinling. Note that from definition \ref{def:unary_binary_2}, left virtual leave can not have a sibling being an actual node. We can divide also this case into:
+    \item Vlt - virtual leaf left virtual-twinling. Note that from definition \ref{def:unary_binary_2}, left virtual leave cannot have a sibling being an actual node. We can divide also this case into:
         \begin{enumerate}
             \item VltUrv - Vlt which uncle is a right virtual leaf;
             \item VltUra - Vlt which uncle is a right actual node;
@@ -749,7 +778,7 @@ To be able to use Maple to generate the recurrence, we need to transform this sy
             \gf{T}_2(z)(1 - \gf{T}(z)) &=& \gf{T}^3(z)
 \end{array}\right.\]
 
-As we can not use division to get \(\gf{T}_2(z)\), let's multiply the first equation by \(1 - \gf{T}(z)\).
+As we cannot use division to get \(\gf{T}_2(z)\), let's multiply the first equation by \(1 - \gf{T}(z)\).
 
 \[\gf{T}(z)(1 - \gf{T}(z)) = \gf{T}^2(z)(1 - \gf{T}(z)) + \gf{T}^3(z) + z(1 - \gf{T}(z))\]
 
@@ -835,7 +864,7 @@ When \(s\) is a leaf, we will look at the \(s\)'s parent. It can fall into one o
     \end{minipage}%
 \end{center}
 
-where \(t'\) can be any tree and \(t''\) can not be a leaf.
+where \(t'\) can be any tree and \(t''\) cannot be a leaf.
 
 When applying \(L_2\) we achieve following cases respectively:
 
@@ -1008,7 +1037,7 @@ It may seem counterintuitive at first, that this changes anything crucial, but w
 
 There are 2 most common symptoms that we may want to choose different method of counting the size:
 \begin{itemize}
-    \item we get empty classes of the objects, e.g.\ if we analyze problem of full binary trees and define size as number of all existing nodes, we can not generate tree of even size, therefore half of our classes are empty;
+    \item we get empty classes of the objects, e.g.\ if we analyze problem of full binary trees and define size as number of all existing nodes, we cannot generate tree of even size, therefore half of our classes are empty;
     \item we want to join trees using common roots and we get many \(\pm1\) in our notes. Note that if you count internal nodes, such catenation creates a tree of size being the sum of sizes of the components increased by 1. If you had defined the size as the number of leaves or null-nodes, the size would be just a simple sum of the sizes of the smaller trees.
 \end{itemize}
 
@@ -1320,7 +1349,7 @@ Which leads to following interpretation of \(\Phi\):
     \item \(\Phi(M N) = a\; \Phi(M)\; \Phi(N)\)
 \end{itemize}
 
-You can note that not every binary tree represents a valid term.
+You cannote that not every binary tree represents a valid term.
 
 \begin{example}
     \(\n\; \no\; \n\; \n\; \no\; \no\; \no\) does not represent a valid lambda term.
@@ -1458,7 +1487,7 @@ You may notice that some potentially trivial terms are more complex than they se
 \subsection{The Transformator framework}%
 \label{sub:the_framework}
 
-We also created a framework~\cite{transformator}, called transformator, that may help visualize our work. It is based on the idea that every transformation described using bijective language can be translated to a function transforming node and finite number of its surrounding nodes. This function can not discriminate between nodes on the grounds of their kind. The only discrimination criteria that may occur may be connected to the following cases:
+We also created a framework~\cite{transformator}, called transformator, that may help visualize our work. It is based on the idea that every transformation described using bijective language can be translated to a function transforming node and finite number of its surrounding nodes. This function cannot discriminate between nodes on the grounds of their kind. The only discrimination criteria that may occur may be connected to the following cases:
 \begin{itemize}
     \item node has no children, i.e.~is a virtual leaf (which corresponds to the size of the tree, \(n\));
     \item node has has children, i.e.~is not a virtual leaf (which corresponds to \(n - 1\));
@@ -1638,7 +1667,7 @@ It creates following trees:
 \includeinlinesvg{.24}{lambda__trees_100__2_base}\(\Rightarrow\)\includeinlinesvg{.24}{lambda__trees_100__2}%
 \includeinlinesvg{.24}{lambda__trees_100__3_base}\(\Rightarrow\)\includeinlinesvg{.24}{lambda__trees_100__3}%
 
-It addresses all cases from the first line, but also introduces an incorrect lambda tree in which \(s\) is the parent of \(l\), which can not happen. We will fix it with the section \(2,2\) generating positive trees, which introduces one \(l\) node and one \(s\) by extending the tree with \(2\) nodes where \(s\) is parent of \(l\).
+It addresses all cases from the first line, but also introduces an incorrect lambda tree in which \(s\) is the parent of \(l\), which cannot happen. We will fix it with the section \(2,2\) generating positive trees, which introduces one \(l\) node and one \(s\) by extending the tree with \(2\) nodes where \(s\) is parent of \(l\).
 
 Next, we can take care of the later cases of section \(0, 0\). It can be also expressed using sections \(1, 0\) and \(1, 1\):
 

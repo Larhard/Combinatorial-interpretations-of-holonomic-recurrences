@@ -1,0 +1,13 @@
+graph {
+	0 [label="\\(a\\)" shape=plain]
+	1 [label="\\(l\\)" shape=plain]
+	0 -- 1
+	2 [label="\\(s\\)" shape=plain]
+	1 -- 2
+	3 [label="\\(s\\)" shape=plain]
+	2 -- 3
+	4 [label="\\(o\\)" shape=plain]
+	3 -- 4
+	5 [label="\\(o\\)" shape=plain]
+	0 -- 5
+}

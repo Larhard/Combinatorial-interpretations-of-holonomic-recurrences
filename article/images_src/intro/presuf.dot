@@ -1,0 +1,45 @@
+graph {
+	size="4,4"
+	00 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	01 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	02 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	03 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	04 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	05 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	06 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	07 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+
+	10 [label="" height=0.1 shape=circle style=invis]
+	11 [label="" height=0.1 shape=circle style=invis]
+	12 [label="" height=0.1 shape=circle style=invis]
+	13 [label="" height=0.1 shape=circle style=invis]
+	14 [label="" height=0.1 shape=circle style=invis]
+	15 [label="" height=0.1 shape=circle style=invis]
+	16 [label="" height=0.1 shape=circle style=invis]
+	17 [label="" height=0.1 shape=circle style=invis]
+	18 [label="" height=0.1 shape=circle style=invis]
+	19 [label="" height=0.1 shape=circle style=invis]
+
+	v [label="\\(v\\)" shape=plain]
+
+    00 -- 01
+    01 -- 02
+    02 -- 10 [color=lightgreen]
+    02 -- 11 [color=lightgreen]
+
+    01 -- v
+    v -- 03
+    v -- 04
+    03 -- 12 [color=lightgreen]
+    03 -- 13 [color=lightgreen]
+    04 -- 14 [color=lightgreen]
+    04 -- 15 [color=lightgreen]
+
+    00 -- 05
+    05 -- 06
+    05 -- 07
+    06 -- 16 [color=lightgreen]
+    06 -- 17 [color=lightgreen]
+    07 -- 18 [color=lightgreen]
+    07 -- 19 [color=lightgreen]
+}

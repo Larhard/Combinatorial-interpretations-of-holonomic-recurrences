@@ -1,0 +1,5 @@
+graph {
+	0 [label="\\(l\\)" shape=plain]
+	1 [label="\\(o\\)" shape=plain]
+	0 -- 1
+}
