@@ -36,6 +36,7 @@
 \RequirePackage{longtable}
 \RequirePackage{graphicx}
 \RequirePackage{svg}
+\RequirePackage{float}
 
 \svgpath{images/}
 
@@ -280,7 +281,7 @@ Calligraphic \(\gf{X}\) is implicitly assumed to be a generating function of the
 
 We will be analyzing structures that can be expressed using recursive formulas. For example we can define a full binary tree recursively as a node having no children (i.e.\ being a leaf) or having exactly two subtrees being full binary trees. To express the disjoint alternative in the construction rule, we use \(+\). The reason will become obvious soon.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \begin{center}
         \begin{minipage}[t]{.2\textwidth}
             \begin{center}
@@ -329,27 +330,36 @@ The ordinary generating function of sequence \(A = (a_i)_{i=0}^{\infty}\) is def
 
 Note that in order to compute the \(k\)-th element of the sequence, namely \(a_k\), we just need to find a constant corresponding to indeterminate \(z^k\).
 
+If we have sequence counting some objects and corresponding generating function, we say that this function counts the objects.
+
 \begin{example}
     \label{ex:bin_gf}
-    Having our recursive definition of the object, we can easily construct a generating function for it. Let's create a generating function that will count the number of full binary trees consisting of exactly \(k\) internal nodes.\todo{define sequence for the structure}
+    Let's consider recursive definition of binary trees shown in Figure~\ref{fig:binary_recursion}. We can create a functional equation to count trees with exactly n internal nodes. To do so, we make internal nodes contribute to the generating function with \(z^1 = z\) and leaves with \(z^0 = 1\):
 
-\[\gf{B}(z) = 1 + z\gf{B}^2(z)\]
-
-Note that we used \(z\) to mark internal nodes. Leaves are of size \(0\), so they are marked using \(z^0 = 1\).
+\[\gf{B}(z) = 1 + z\gf{B}^2(z).\]
 
 In order to get some intuition on how it works underneath, let's take a look at how we can find the number of full binary trees of size \(2\). We can expand the recurrence a bit:
 
-\[\begin{array}{rcl}
+\[\begin{array}{rclr}
         \gf{B}(z) &=& 1 + z\gf{B}^2(z)\\
                   &=& 1 + z\bigg(1 + z\gf{B}^2(z)\bigg)\bigg(1 + z\gf{B}^2(z)\bigg)\\
-                  &=& 1 + \mhl{z}\bigg(1 + \mhl{z}\Big(\mhl{1} + z\gf{B}^2(z)\Big)\Big(\mhl{1} + z\gf{B}^2(z)\Big)\bigg)\bigg(\mhl{1} + z\gf{B}^2(z)\bigg)
+                  &=& 1 + \mhl{z}\bigg(1 + \mhl{z}\Big(\mhl{1} + z\gf{B}^2(z)\Big)\Big(\mhl{1} + z\gf{B}^2(z)\Big)\bigg)\bigg(\mhl{1} + z\gf{B}^2(z)\bigg) &(*)\\
+                  &=& 1 + z\bigg(1 + z\Big(1 + z\gf{B}^2(z)\Big)\Big(1 + z\gf{B}^2(z)\Big)\bigg)\bigg(1 + z\Big(1 + z\gf{B}^2(z)\Big)\Big(1 + z\gf{B}^2(z)\Big)\bigg)\\
+                  &=& 1 + z + 2 z^2 + \bigg(2 \gf{B}^2(z) + \Big(1 + z \gf{B}^2(z)\Big)^2\bigg) z^3
 \end{array}\]
 
-The highlighted terms describe following tree:
+It is enough, as the term \(\bigg(2 \gf{B}^2(z) + \Big(1 + z \gf{B}^2(z)\Big)^2\bigg) z^3\) will contribute only to \(z^k\) where \(k > 2\). Therefore, we can see that there are \(2\) trees with exactly \(2\) internal nodes, as multiplier next to \(z^2\) is \(2\).
 
-\begin{center}
-    \includesvg[scale=.7]{intro__iilll}
-\end{center}
+To visualize even more, let's take a look at the line marked with \((*)\). The highlighted terms describe following tree:
+
+\begin{figure}[H]
+    \begin{center}
+        \includesvg[scale=.7]{intro__iilll}
+    \end{center}
+    \caption{Tree corresponding to highlighted terms in \((*)\)}
+    \label{fig:tree_corresponding_to_mhl}
+\end{figure}
+
 \end{example}
 
 There exist multiple well-known methods and tools that allow us to work with generating functions without the need of digging into details. The tool we will be using extensively in this work is the Maple package called GFUN~\cite{gfun}. If you want to learn more about algorithms used in the package, we strongly encourage reading the referenced article.
@@ -358,20 +368,20 @@ There exist multiple well-known methods and tools that allow us to work with gen
 \label{sub:holonomic_recurrences}
 \todo{Extend the section}
 
-Most of the time we will be working with holonomic recurrences, let's introduce them.
+Since most of the time we will be working with holonomic recurrences, let's introduce them.
 
 \begin{definition}[\cite{holotoolkit}]
     \label{def:holo_1}
-    An infinite sequence \(A = (a_i)_{i=0}^{\infty}\) is holonomic (aka. P-finite, P-recursive or D-recursive) \(\textiff\) there exists a holonomic recurrence for it, i.e.:
+    An infinite sequence \(A = (a_i)_{i=0}^{\infty}\) is holonomic (aka. P-finite, P-recursive or D-recursive) \(\textiff\) there exists a holonomic recurrence for it, i.e.
 
-\[\exists_{r \in \N} \exists_{p_0, \ldots, p_r \in \poly} \forall_{n \in \N} \sum_{i=0}^r p_i(n)a_{n+i} = 0\]
+\[\exists_{r \in \N} \exists_{p_0, \ldots, p_r \in \poly} \forall_{n \in \N} \sum_{i=0}^r p_i(n)a_{n+i} = 0 .\]
 \end{definition}
 
 Note that the sum can only take a finite number of subsequent elements of the sequence \(A\) into the relation.
 
 \begin{example}
-    The sequence \(a_n = \frac{5n - 3}{3n + 5}\) is holonomic, because it satisifies:
-    \[(3n + 5)(5n + 2) a_n - (5n - 3)(3n + 8) a_{n+1} = 0\]
+    The sequence \(a_n = \frac{5n - 3}{3n + 5}\) is holonomic, because it satisifies
+    \[(3n + 5)(5n + 2) a_n - (5n - 3)(3n + 8) a_{n+1} = 0 .\]
 \end{example}
 
 \begin{example}
@@ -385,11 +395,12 @@ Note that the sum can only take a finite number of subsequent elements of the se
     for some fixed \(r \in \N\); \(b, p_0, \ldots, p_r \in \poly\) not all identical to zero.
 \end{definition}
 
+\todo{Continue}
 The equivalence of these two definitions assures us that if we find generating function describing the desired objects satisfying definition\ \ref{def:holo_2}, we will be able to find holonomic recurrence mentioned in definition\ \ref{def:holo_1}~\cite{complexity}.
 
 \begin{example}
     \label{ex:gfun-rec}
-    For generating function full binary trees defined in example\ \ref{ex:bin_gf}, i.e.:
+    For generating function full binary trees defined in Example~\ref{ex:bin_gf}, i.e.:
     \[\gf{B}(z) = 1 + z\gf{B}^2(z)\]
     we can use GFUN~\cite{gfun} to immediately find holonomic recurrence of our interest:
 
@@ -450,7 +461,7 @@ In order to make notation easier and unambiguous, we also introduce pre-order no
     i.e.\ catenation of the identifier of the root of the tree with encoded its subtrees from left to right.
 \end{definition}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includesvg[scale=.7]{intro__oononnn}
     \caption{\(\n \n \no \n \no \no \no\)}
@@ -513,7 +524,7 @@ Let's define two local operations: \(R_l(T, v)\) and \(R_r(T, v)\). The term \te
     \(\enc{R_r(T, v)} = \enc{\tPre(T, v)} \n \enc{\tSub(v)} \pointed{\n} \no \no \enc{\tSuf(T, v)} \)
 \end{definition}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{binary__remy_base}\end{minipage}%
     \(\Rightarrow\)
@@ -522,7 +533,7 @@ Let's define two local operations: \(R_l(T, v)\) and \(R_r(T, v)\). The term \te
     \label{fig:remy_left}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{binary__remy_base}\end{minipage}%
     \(\Rightarrow\)
@@ -581,7 +592,7 @@ The next step is to make binary trees full. Let's just define virtual leaves.
 
 As we have added \(n + 2\) virtual nodes, we have added as many virtual edges.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includeinlinesvg{.2}{unary_binary__base}%
     \(\Rightarrow\)%
@@ -687,7 +698,7 @@ The next case we will show is the case of Schröder trees~\cite{schroder}.
 
 Simply speaking, nodes can have zero or strictly more than one child.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includesvg[scale=0.4]{schroder__example_1}
     \includesvg[scale=0.4]{schroder__example_2}
