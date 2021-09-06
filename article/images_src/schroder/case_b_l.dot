@@ -3,8 +3,8 @@ graph {
     graph [splines=false]
 	r [label="" shape=none]
 
-    1 [label="\\(1\\)" shape=none]
-    2 [label="\\(2\\)" shape=none]
+    1 [label="\\(\\phantom{\\weighted{1}}\\n\\weighted{1}\\)" shape=none]
+    2 [label="\\(\\phantom{\\weighted{2}}\\n\\weighted{2}\\)" shape=none]
     3 [label="\\(\\pointed{}\\)" shape=none]
 
 

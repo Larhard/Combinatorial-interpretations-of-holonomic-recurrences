@@ -4,13 +4,13 @@ graph {
     graph [splines=false]
 	r [label="" shape=none]
 
-    1 [label="\\(1\\)" shape=none]
+    1 [label="\\(\\phantom{\\weighted{1}}\\n\\weighted{1}\\)" shape=none]
 
     t [label="\\(t'\\)" shape=none]
     tl [label="" shape=none]
     tr [label="" shape=none]
 
-    2 [label="\\(1\\)" shape=none]
+    2 [label="\\(\\phantom{\\weighted{1}}\\n\\weighted{1}\\)" shape=none]
 
     s [label="\\(s\\)" shape=none]
     n [label="\\(\\pointed{}\\)" shape=none]

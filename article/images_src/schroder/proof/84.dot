@@ -1,7 +1,7 @@
 graph {
 	size="4,4"
     graph [splines=false]
-    1 [label="\\(2\\)" shape=none]
+    1 [label="\\(\\phantom{\\weighted{2}}\\n\\weighted{2}\\)" shape=none]
 
     n [label="\\(\\pointed{}\\)" shape=none]
     s [label="\\(s\\)" shape=none]

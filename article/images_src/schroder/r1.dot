@@ -3,7 +3,7 @@ graph {
     graph [splines=false]
 	r [label="" shape=none]
 
-    1 [label="\\(1\\)" shape=none]
+    1 [label="\\(\\phantom{\\weighted{1}}\\n\\weighted{1}\\)" shape=none]
 
     s [label="\\(s\\)" shape=none]
     sl [label="" shape=none]

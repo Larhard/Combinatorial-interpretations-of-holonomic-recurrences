@@ -3,7 +3,7 @@ graph {
     graph [splines=false]
 	r [label="" shape=none]
 
-    1 [label="\\(2\\)" shape=none]
+    1 [label="\\(\\phantom{\\weighted{2}}\\n\\weighted{2}\\)" shape=none]
 
     t [label="\\(t'\\)" shape=none]
     tl [label="" shape=none]
