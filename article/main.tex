@@ -165,21 +165,24 @@ We also try to find a~combinatorial interpretation of the holonomic recurrence f
 \clearpage
 
 \section{Overview}%
-\todo{generating functions}
-\todo{holonomic recurrences}
-\todo{publications about Motzkin, etc.}
-\todo{Lambda terms}
-\todo{zigzag free}
 
-Every recursive structure can be described using a~generating function, which can be then transformed into a~holonomic recurrence. It allows us to quickly count objects of given structure with given size. At first glance, the recurrence seems to be closely related to the structure itself. It just seems like it should describe simple transformations resulting in constructing bigger objects from slightly smaller ones. In case of trees it could be for example adding vertices. However, there is no known method of interpreting it in the language of the combinatorial structures.
+Generating functions is a way of describing infinite sequences using formal power series, where coefficients are encoding the the consecutive elements. It allows us to incorporate many advanced methods of analysis of encoded objects.
 
-The initial inspiration for the thesis came from the publication \textit{A natural counting of lambda terms}~\cite{inspiration}, which shows bijections among seemingly different tree structures, which are lambda trees, black-white trees~\cite{blackwhite} and zigzag free trees\todo{cite}. They share the same holonomic recurrence, but there is no known immediate connection between the holonomic recurrence and the structures itself.
+Every recursive structure can be described using a~generating function equation, which can be then solved and transformed into a~holonomic recurrence, i.e.~recurrence that in order to define \(n\)-th element of the sequence requires just finite number of previous ones and coefficients that are polynomials of \(n\).
+
+It allows us to quickly count objects of given structure with given size. At first glance, the recurrence seems to be closely related to the structure itself. It just seems like it should describe simple transformations resulting in constructing bigger objects from slightly smaller ones. In case of trees it could be for example adding vertices. However, there is no known method of interpreting it in the language of the combinatorial structures.
+
+Up to today only a few interpretations of holonomic recurrences on trees have been found, including interpretation of holonomic recurrences for binary trees~\cite{binary}, unary-binary trees~\cite{motzkin}, and Schröder trees~\cite{schroder}. Unfortunately, the mentioned interpretations do not come with a method of finding them that could be generatlized to more complex cases.
+
+The initial inspiration for the thesis came from the publication \textit{A natural counting of lambda terms}~\cite{inspiration}, which shows bijections among seemingly different tree structures, which are lambda trees, black-white trees~\cite{blackwhite} and zigzag free trees~\cite{inspiration}\todo{Find better cite}. They share the same holonomic recurrence, but there is no known immediate connection between the holonomic recurrence and the structures itself.
+
+Lambda terms are very popular structures used for analyzing functions and programming languages. Their very simple recursive definition makes them very attractive. Better understanding them could allow us improving programming language compilers and in consequence improve every aspect of our lives. The interpretation of holonomic recurrence for lambda trees itself could allow us to discover new ways of generating random lambda terms via extending smaller ones in similar way to Rémy's algorithm for sampling binary trees~\cite{remy,note}.
 
 Throughout the thesis we try to accumulate known results and techniques that may help solving the problem of finding combinatorial interpretations. We also propose an~approach that helped us to find an~intermediate solution for the problem of finding combinatorial interpretation for holonomic recurrence of lambda trees in the unary de Bruijn notation. We use the de Bruijn indices in order to get rid of letter-based variable names. Unary notation allows us to connect size of the tree to the values of the de Bruijn indices.
 
 In Section~\ref{sec:introduction} we establish notation nad introduce concepts that will be used throughout the thesis.
 
-Next, in Section~\ref{sec:known_results}, we present known results, ie. binary trees, unary-binary trees and Schröder trees. They demonstrate combinatorial interpretations that reflect different approaches.
+Next, in Section~\ref{sec:known_results}, we present known results, i.e.~binary trees, unary-binary trees and Schröder trees. They demonstrate combinatorial interpretations that reflect different approaches.
 
 In Section~\ref{sec:approaches} we show approaches to the problem that helped to achieve the aforementioned results. All of them were tried in order to find the answer to the original problem of interpreting holonomic recurrence of trees of lambda terms in the unary de Bruijn notation. Unfortunately, none of them helped us enough to get the final result. Anyway, they are proven to be helpful when we are stuck, as most of them are able to divide problems into smaller parts and detect corner cases.
 
@@ -315,7 +318,7 @@ We will be analyzing structures that can be expressed using recursive formulas. 
             \end{center}
         \end{minipage}%
     \end{center}
-    \caption{Binary tree recursive definition}
+    \caption{Binary tree recursive definition}%
     \label{fig:binary_recursion}
 \end{figure}
 
@@ -327,15 +330,15 @@ We will be analyzing structures that can be expressed using recursive formulas. 
 Throughout the thesis we use ordinary generating functions to describe and count structures.
 
 \begin{definition}
-The ordinary generating function of sequence \(A = (a_i)_{i=0}^{\infty}\) is defined as a~formal power series:
-\[\gf{A}(z) = \sum_{i=0}^{\infty} a_i z^i .\]
+    The ordinary generating function of sequence \(A = {(a_i)}_{i=0}^{\infty}\) is defined as a~formal power series:
+\[\gf{A}(z) = \sum_{i=0}^{\infty} a_i z^i.\]
 \end{definition}
 
 Note that in order to compute the \(k\)-th element of the sequence, namely \(a_k\), we just need to find a~constant corresponding to indeterminate \(z^k\).
 
 If we have a sequence counting some objects and a corresponding generating function, we say that this function counts the objects.
 
-\begin{example}
+\begin{example}%
     \label{ex:bin_gf}
     Let's consider recursive definition of binary trees shown in Figure~\ref{fig:binary_recursion}. We can create a~functional equation to count trees with exactly n internal nodes. To do so, we make internal nodes contribute to the generating function with \(z^1 = z\) and leaves with \(z^0 = 1\):
 
@@ -348,7 +351,7 @@ In order to get some intuition on how it works underneath, let's take a~look at 
                   &=& 1 + z\bigg(1 + z\gf{B}^2(z)\bigg)\bigg(1 + z\gf{B}^2(z)\bigg)\\
                   &=& 1 + \mhl{z}\bigg(1 + \mhl{z}\Big(\mhl{1} + z\gf{B}^2(z)\Big)\Big(\mhl{1} + z\gf{B}^2(z)\Big)\bigg)\bigg(\mhl{1} + z\gf{B}^2(z)\bigg) &(*)\\
                   &=& 1 + z\bigg(1 + z\Big(1 + z\gf{B}^2(z)\Big)\Big(1 + z\gf{B}^2(z)\Big)\bigg)\bigg(1 + z\Big(1 + z\gf{B}^2(z)\Big)\Big(1 + z\gf{B}^2(z)\Big)\bigg)\\
-                  &=& 1 + z + 2 z^2 + \bigg(2 \gf{B}^2(z) + \Big(1 + z \gf{B}^2(z)\Big)^2\bigg) z^3
+                  &=& 1 + z + 2 z^2 + \bigg(2 \gf{B}^2(z) + {\Big(1 + z \gf{B}^2(z)\Big)}^2\bigg) z^3
 \end{array}\]
 
 It is enough, as the term \(\bigg(2 \gf{B}^2(z) + \Big(1 + z \gf{B}^2(z)\Big)^2\bigg) z^3\) will contribute only to \(z^k\) where \(k > 2\). Therefore, we can see that there are \(2\) trees with exactly \(2\) internal nodes, as multiplier next to \(z^2\) is \(2\).
