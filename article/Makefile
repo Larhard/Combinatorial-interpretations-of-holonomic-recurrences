@@ -48,6 +48,9 @@ $(DIFF_TARGET): LATEXMKFLAGS+=-interaction=nonstopmode -f
 
 $(TARGETS): images
 
+check: $(MAIN_SRC)
+	aspell check -tex -len $<
+
 clean:
 	$(RM) *.aux
 	$(RM) *.fdb_latexmk
@@ -67,3 +70,4 @@ clean:
 .PHONY: watch
 .PHONY: images
 .PHONY: images_src
+.PHONY: check

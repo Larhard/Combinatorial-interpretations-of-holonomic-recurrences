@@ -172,7 +172,7 @@ Every recursive structure can be described using a~generating function equation,
 
 It allows us to quickly count objects of given structure with given size. At first glance, the recurrence seems to be closely related to the structure itself. It just seems like it should describe simple transformations resulting in constructing bigger objects from slightly smaller ones. In case of trees it could be for example adding vertices. However, there is no known method of interpreting it in the language of the combinatorial structures.
 
-Up to today only a few interpretations of holonomic recurrences on trees have been found, including interpretation of holonomic recurrences for binary trees~\cite{binary}, unary-binary trees~\cite{motzkin}, and Schröder trees~\cite{schroder}. Unfortunately, the mentioned interpretations do not come with a method of finding them that could be generatlized to more complex cases.
+Up to today only a few interpretations of holonomic recurrences on trees have been found, including interpretation of holonomic recurrences for binary trees~\cite{binary}, unary-binary trees~\cite{motzkin}, and Schröder trees~\cite{schroder}. Unfortunately, the mentioned interpretations do not come with a method of finding them that could be generalized to more complex cases.
 
 The initial inspiration for the thesis came from the publication \textit{A natural counting of lambda terms}~\cite{inspiration}, which shows bijections among seemingly different tree structures, which are lambda trees, black-white trees~\cite{blackwhite} and zigzag free trees~\cite{inspiration}\todo{Find better cite}. They share the same holonomic recurrence, but there is no known immediate connection between the holonomic recurrence and the structures itself.
 
@@ -180,7 +180,7 @@ Lambda terms are very popular structures used for analyzing functions and progra
 
 Throughout the thesis we try to accumulate known results and techniques that may help solving the problem of finding combinatorial interpretations. We also propose an~approach that helped us to find an~intermediate solution for the problem of finding combinatorial interpretation for holonomic recurrence of lambda trees in the unary de Bruijn notation. We use the de Bruijn indices in order to get rid of letter-based variable names. Unary notation allows us to connect size of the tree to the values of the de Bruijn indices.
 
-In Section~\ref{sec:introduction} we establish notation nad introduce concepts that will be used throughout the thesis.
+In Section~\ref{sec:introduction} we establish notation and introduce concepts that will be used throughout the thesis.
 
 Next, in Section~\ref{sec:known_results}, we present known results, i.e.~binary trees, unary-binary trees and Schröder trees. They demonstrate combinatorial interpretations that reflect different approaches.
 
@@ -386,7 +386,7 @@ Since most of the time we will be working with holonomic recurrences, let's intr
 Note that the sum can only take a~finite number of subsequent elements of the sequence \(A\) into the relation.
 
 \begin{example}
-    The sequence \(a_n = \frac{5n - 3}{3n + 5}\) is holonomic, because it satisifies
+    The sequence \(a_n = \frac{5n - 3}{3n + 5}\) is holonomic, because it satisfies
     \[(3n + 5)(5n + 2) a_n - (5n - 3)(3n + 8) a_{n+1} = 0.\]
 \end{example}
 
@@ -700,7 +700,7 @@ To present the interpretation in bijective language, we will have to introduce s
             \item VltUra --- Vlt which uncle is a~right actual node;
             \item VltUla --- Vlt which uncle is a~left actual node;
         \end{enumerate}
-    \item A --- Actual node.
+    \item A --- actual node.
 \end{enumerate}
 
 Note that it covers all possible cases of nodes and all the cases are mutually disjoint. There is no such thing as VrtUlv, VltUlv nor Vlo due to Definition~\ref{def:unary_binary_2}.
@@ -1424,7 +1424,7 @@ This leads to the following interpretation of \(\Phi\):
     \item \(\Phi(M N) = a\; \Phi(M)\; \Phi(N)\)
 \end{itemize}
 
-You cannote that not every binary tree represents a~valid term.
+You can note that not every binary tree represents a~valid term.
 
 \begin{example}
     \(\n\; \no\; \n\; \n\; \no\; \no\; \no\) does represent a~valid tree, but not a~valid lambda term.
@@ -1585,7 +1585,7 @@ We will be operating on transformation classes, sections and parts. Let's define
 \end{definition}
 
 \begin{definition}
-    Section \(T_{i,j}\) is defined as a~subset of \(T_i\) adding a~specific set of nodes. Webassign \(j\) according to the lexicographical order of lexicographically sorted node types.
+    Section \(T_{i,j}\) is defined as a~subset of \(T_i\) adding a~specific set of nodes. We assign \(j\) according to the lexicographical order of lexicographically sorted node types.
 \end{definition}
 
 \begin{definition}
