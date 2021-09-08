@@ -3,7 +3,7 @@ graph {
     graph [splines=false]
 	0 [label="" shape=none]
 	l [label="\\(l\\)" shape=none]
-	L1 [label="\\(L\\)" shape=triangle height=1]
+	L1 [label="\\(T\\)" shape=triangle height=1]
 	1 [label="" shape=none]
 	2 [label="" shape=none]
     0 -- l [style=dashed]

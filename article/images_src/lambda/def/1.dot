@@ -2,7 +2,7 @@ graph {
 	size="4,4"
     graph [splines=false]
 	0 [label="" shape=none]
-	L [label="\\(L\\)" shape=triangle height=1]
+	L [label="\\(T\\)" shape=triangle height=1]
 	1 [label="" shape=none]
     0 -- L [style=dashed headport=n]
     0 -- 1 [style=invis]
