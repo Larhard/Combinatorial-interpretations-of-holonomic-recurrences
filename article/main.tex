@@ -354,7 +354,7 @@ In order to get some intuition on how it works underneath, let's take a~look at 
                   &=& 1 + z + 2 z^2 + \bigg(2 \gf{B}^2(z) + {\Big(1 + z \gf{B}^2(z)\Big)}^2\bigg) z^3
 \end{array}\]
 
-It is enough, as the term \(\bigg(2 \gf{B}^2(z) + \Big(1 + z \gf{B}^2(z)\Big)^2\bigg) z^3\) will contribute only to \(z^k\) where \(k > 2\). Therefore, we can see that there are \(2\) trees with exactly \(2\) internal nodes, as multiplier next to \(z^2\) is \(2\).
+It is enough, as the term \(\bigg(2 \gf{B}^2(z) + {\Big(1 + z \gf{B}^2(z)\Big)}^2\bigg) z^3\) will contribute only to \(z^k\) where \(k > 2\). Therefore, we can see that there are \(2\) trees with exactly \(2\) internal nodes, as multiplier next to \(z^2\) is \(2\).
 
 To visualize even more, let's take a~look at the line marked with \((*)\). The highlighted terms describe following tree:
 
@@ -362,7 +362,7 @@ To visualize even more, let's take a~look at the line marked with \((*)\). The h
     \begin{center}
         \includesvg[scale=.7]{intro__iilll}
     \end{center}
-    \caption{Tree corresponding to highlighted terms in \((*)\)}
+    \caption{Tree corresponding to highlighted terms in \((*)\)}%
     \label{fig:tree_corresponding_to_mhl}
 \end{figure}
 
@@ -376,34 +376,34 @@ There exist multiple well-known methods and tools that allow us to work with gen
 
 Since most of the time we will be working with holonomic recurrences, let's introduce them.
 
-\begin{definition}[\cite{holotoolkit}]
+\begin{definition}[\cite{holotoolkit}]%
     \label{def:holo_1}
-    An infinite sequence \(A = (a_i)_{i=0}^{\infty}\) is holonomic (aka. P-finite, P-recursive or D-recursive) \(\textiff\) there exists a~holonomic recurrence for it, i.e.
+    An infinite sequence \(A = {(a_i)}_{i=0}^{\infty}\) is holonomic (aka. P-finite, P-recursive or D-recursive) \(\textiff\) there exists a~holonomic recurrence for it, i.e.
 
-\[\exists_{r \in \N} \exists_{p_0, \ldots, p_r \in \poly} \forall_{n \in \N} \sum_{i=0}^r p_i(n)a_{n+i} = 0 .\]
+\[\exists_{r \in \N} \exists_{p_0, \ldots, p_r \in \poly} \forall_{n \in \N} \sum_{i=0}^r p_i(n)a_{n+i} = 0.\]
 \end{definition}
 
 Note that the sum can only take a~finite number of subsequent elements of the sequence \(A\) into the relation.
 
 \begin{example}
     The sequence \(a_n = \frac{5n - 3}{3n + 5}\) is holonomic, because it satisifies
-    \[(3n + 5)(5n + 2) a_n - (5n - 3)(3n + 8) a_{n+1} = 0 .\]
+    \[(3n + 5)(5n + 2) a_n - (5n - 3)(3n + 8) a_{n+1} = 0.\]
 \end{example}
 
 \begin{example}
     Sequences \(a_n = \sqrt{n}\), \(b_n = n^n\) are \textbf{not} holonomic, i.e.~none of them satisfies a~linear recurrence equation with polynomial coefficients~\cite{nonholo}.
 \end{example}
 
-\begin{definition}[\cite{complexity}]
+\begin{definition}[\cite{complexity}]%
     \label{def:holo_2}
-    Equivalently to Definition~\ref{def:holo_1}, \(A = (a_i)_{i=0}^{\infty}\) is holonomic \(\textiff\) there exists a~generating function in the following form:
+    Equivalently to Definition~\ref{def:holo_1}, \(A = {(a_i)}_{i=0}^{\infty}\) is holonomic \(\textiff\) there exists a~generating function in the following form:
     \[\sum_{i=0}^{r} p_i(z) \gf{A}^{(i)}(z) = b(z)\]
     for some fixed \(r \in \N\); \(b, p_0, \ldots, p_r \in \poly\) not all identical to zero.
 \end{definition}
 
 The equivalence of these two definitions assures us that if we find an~generating function equation describing the desired objects satisfying Definition~\ref{def:holo_2}, we will be able to find holonomic recurrence mentioned in Definition~\ref{def:holo_1}~\cite{complexity}.
 
-\begin{example}
+\begin{example}%
     \label{ex:gfun-rec}
     For generating function counting full binary trees defined in Example~\ref{ex:bin_gf}, i.e.:
     \[\gf{B}(z) = 1 + z\gf{B}^2(z)\]
@@ -432,7 +432,7 @@ The equivalence of these two definitions assures us that if we find an~generatin
     \[\left\{\begin{array}{rcl}
                 b_0 &=& 1\\
                 (2 + 4 n) b_n + (-2 - n) b_{n + 1} &=& 0
-    \end{array}\right. .\]
+    \end{array}\right..\]
 
     The most interesting part for us is the relation among the finite number of consecutive elements of the sequence.
 \end{example}
@@ -440,7 +440,7 @@ The equivalence of these two definitions assures us that if we find an~generatin
 \subsection{Combinatorial interpretations}%
 \label{sub:combinatorial_interpretations}
 
-Combinatorial interpretation is just a~fancy name for something you probably know and use. For example if you know the binomial coefficient \(\binom{n}{k}\), I bet it was introduced to you as something like: "let's assume you have \(n\) distinguishable balls. If you want to choose \(k\) from them, then you can do it in \(\binom{n}{k}\) ways" and now, whenever you see the term \(\binom{n}{k}\), you interpret it as the number of ways to choose \(k\) objects from the set of size \(n\). This is the combinatorial interpretation of the binomial coefficient.
+Combinatorial interpretation is just a~fancy name for something you probably know and use. For example if you know the binomial coefficient \(\binom{n}{k}\), I bet it was introduced to you as something like: ``let's assume you have \(n\) distinguishable balls. If you want to choose \(k\) from them, then you can do it in \(\binom{n}{k}\) ways'' and now, whenever you see the term \(\binom{n}{k}\), you interpret it as the number of ways to choose \(k\) objects from the set of size \(n\). This is the combinatorial interpretation of the binomial coefficient.
 
 Holonomic recurrences are very useful if we want to count objects of a~given size. Of course, size can be defined in more complex ways, e.g.~we may want to find the number of binary trees with \(n\) internal nodes having exactly \(m\) nodes being left child of its parent. Unfortunately, there is no commonly known method to find their intuitive interpretation in the world of the objects they describe.
 
@@ -478,7 +478,7 @@ Here, \(\enc{v}\) is defined as follows:
 \begin{figure}[H]
     \centering
     \includesvg[scale=.7]{intro__oononnn}
-    \caption{Tree described in the pre-order notation as: \(\n \n \no \n \no \no \no\).}
+    \caption{Tree described in the pre-order notation as: \(\n \n \no \n \no \no \no\).}%
     \label{fig:oononnn}
 \end{figure}
 
@@ -509,7 +509,7 @@ In other words, prefix of the tree \(T\) in relation to \(v\) describes a~part o
 \begin{figure}[H]
     \centering
     \includesvg[scale=.7]{intro__presuf_custom}
-    \caption{Visualization of prefixes, suffixes and subtrees}
+    \caption{Visualization of prefixes, suffixes and subtrees}%
     \label{fig:presuf}
 \end{figure}
 
@@ -568,7 +568,7 @@ Let's define two local operations for tree \(T\) with a~single node \(v\) pointe
     \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{binary__remy_base}\end{minipage}%
     \(\Rightarrow\)
     \begin{minipage}{.4\textwidth}\includesvg[scale=0.5]{binary__remy_left}\end{minipage}%
-    \caption{Visualization of \(\enc{R_l(T, v)}\)}
+    \caption{Visualization of \(\enc{R_l(T, v)}\)}%
     \label{fig:remy_left}
 \end{figure}
 
@@ -581,7 +581,7 @@ Let's define two local operations for tree \(T\) with a~single node \(v\) pointe
     \begin{minipage}{.25\textwidth}\includesvg[scale=0.35]{binary__remy_base}\end{minipage}%
     \(\Rightarrow\)
     \begin{minipage}{.4\textwidth}\includesvg[scale=0.5]{binary__remy_right}\end{minipage}%
-    \caption{Visualization of \(\enc{R_r(T, v)}\)}
+    \caption{Visualization of \(\enc{R_r(T, v)}\)}%
     \label{fig:remy_right}
 \end{figure}
 
@@ -602,7 +602,7 @@ First case can also be split into 2 subcases. Without loss of generality we can 
 
 In the second case it is enough to notice that \(R_l\) generates trees with pointed nodes being a~left child, and \(R_r\) generates trees with pointed nodes being right child. That immediately provides us with the conclusion that we are generating no duplicates.
 
-\qed
+\qed%
 \end{interpretation}
 
 \subsection{Unary-binary trees}%
@@ -610,12 +610,12 @@ In the second case it is enough to notice that \(R_l\) generates trees with poin
 
 Let's think, what would have changed if we introduce unary nodes to the binary case~\cite{motzkin}.
 
-\begin{definition}
+\begin{definition}%
     \label{def:unary_binary_tree}
     An unary-binary tree is an~ordered tree in which any node can have either 0, 1 or 2 children.
 \end{definition}
 
-We do not allow nodes with gaps here, e.g. a~binary node with just one child or unary node with no children.
+We do not allow nodes with gaps here, e.g.~a~binary node with just one child or unary node with no children.
 
 We will define size as number of edges. Note that a~tree having \(n\) edges has exactly \(n + 1\) nodes.
 
@@ -635,7 +635,7 @@ And with a~bit of Maple magic~\cite{gfun}, we immediately get the following recu
 
 Definition~\ref{def:unary_binary_tree} is precise, but introduces a~new kind of node that we would have to take care of. We can avoid it by using a~trick to make unary-binary trees recall binary trees. We do not change the structure, just the notation.
 
-\begin{definition}
+\begin{definition}%
     \label{def:unary_binary_2}
     A left-leaning binary tree is a~binary tree with the following constraint added: if a~node has a~right child, it also has a~left child. Of course a node with just a left child can appear in such tree.
 \end{definition}
@@ -663,7 +663,7 @@ As we have added \(n + 2\) virtual nodes, we have added as many virtual edges.\t
     \includeinlinesvg{.2}{unary_binary__base}%
     \(\Rightarrow\)%
     \includeinlinesvg{.3}{unary_binary__full}
-    \caption{Unary-binary tree to full-binary tree transformation}
+    \caption{Unary-binary tree to full-binary tree transformation}%
     \label{fig:unary_binary_transformation}
 \end{figure}
 
@@ -687,20 +687,20 @@ We will be using \(U(n)\) to describe sets of trees corresponding to \(u_n\) fro
 To present the interpretation in bijective language, we will have to introduce several types of the nodes.
 
 \begin{enumerate}
-    \item Vro - virtual leaf being right virtual-oneling;
-    \item Vrt - virtual leaf being right virtual-twinling. We will divide this case into:
+    \item Vro --- virtual leaf being right virtual-oneling;
+    \item Vrt --- virtual leaf being right virtual-twinling. We will divide this case into:
         \begin{enumerate}
-            \item VrtUrv - Vri which uncle is a~right virtual leaf;
-            \item VrtUra - Vri which uncle is a~right actual node;
-            \item VrtUla - Vri which uncle is a~left actual node.
+            \item VrtUrv --- Vri which uncle is a~right virtual leaf;
+            \item VrtUra --- Vri which uncle is a~right actual node;
+            \item VrtUla --- Vri which uncle is a~left actual node.
         \end{enumerate}
-    \item Vlt - virtual leaf left virtual-twinling. Note that from definition \ref{def:unary_binary_2}, left virtual leave cannot have a~sibling being an~actual node. We can divide also this case into:
+    \item Vlt --- virtual leaf left virtual-twinling. Note that from definition~\ref{def:unary_binary_2}, left virtual leave cannot have a~sibling being an~actual node. We can divide also this case into:
         \begin{enumerate}
-            \item VltUrv - Vlt which uncle is a~right virtual leaf;
-            \item VltUra - Vlt which uncle is a~right actual node;
-            \item VltUla - Vlt which uncle is a~left actual node;
+            \item VltUrv --- Vlt which uncle is a~right virtual leaf;
+            \item VltUra --- Vlt which uncle is a~right actual node;
+            \item VltUla --- Vlt which uncle is a~left actual node;
         \end{enumerate}
-    \item A - Actual node.
+    \item A --- Actual node.
 \end{enumerate}
 
 Note that it covers all possible cases of nodes and all the cases are mutually disjoint. There is no such thing as VrtUlv, VltUlv nor Vlo due to Definition~\ref{def:unary_binary_2}.
@@ -770,7 +770,7 @@ In the table below we show transformations that are applied to trees from \(U(n-
 
 As you can see, we have satisfied all of the cases of trees from \(U(n-2)\), \(U(n-1)\) and \(U(n)\) with no repetitions, which concludes the construction.
 
-\qed
+\qed%
 \end{interpretation}
 
 \subsection{Schröder trees}%
@@ -778,7 +778,7 @@ As you can see, we have satisfied all of the cases of trees from \(U(n-2)\), \(U
 
 The next case we will show is the case of Schröder trees~\cite{schroder}.
 
-\begin{definition}
+\begin{definition}%
     \label{def:schroder_tree}
     A Schröder tree is a~tree with no unary nodes. Empty children are not allowed (e.g.~binary node with just one child).
 \end{definition}
@@ -792,13 +792,13 @@ Simply speaking, nodes can have zero or strictly more than one child.
     \includesvg[scale=0.4]{schroder__example_3}
     \includesvg[scale=0.4]{schroder__example_4}
     \(\ldots\)
-    \caption{Possible cases of Schröder tree nodes}
+    \caption{Possible cases of Schröder tree nodes}%
     \label{fig:schroder_trees}
 \end{figure}
 
 This definition is precise, but is difficult to implement as a~structural recursion. Let's define binary structure that will allow us to encode all Schröder trees.
 
-\begin{definition}
+\begin{definition}%
     \label{def:well_weighted}
     A well-weighted full binary tree is a~weighted tree such that:
     \begin{itemize}
@@ -1356,7 +1356,7 @@ Let a countable set of variables be given.
     \begin{itemize}
         \item if \(x\) is a~variable, then \(x \in \Lambda\)
         \item if \(M, N \in \Lambda\), then \((M N) \in \Lambda\) (it can be interpreted as an application of function \(M\) to an~argument \(N\))
-        \item if \(x\) is a~variable and \(M \in \Lambda\), then \((\lambda x . M) \in \Lambda\) (it can be interpreted as an~abstraction, i.e.~creating a~function with an~argument \(x\) and binding each occurrence of \(x\) in \(M\) to this argument. We say that variable \(x\) is abstracted by this \(lambda\)-abstraction)
+        \item if \(x\) is a~variable and \(M \in \Lambda\), then \((\lambda x. M) \in \Lambda\) (it can be interpreted as an~abstraction, i.e.~creating a~function with an~argument \(x\) and binding each occurrence of \(x\) in \(M\) to this argument. We say that variable \(x\) is abstracted by this \(lambda\)-abstraction)
     \end{itemize}
 \end{definition}
 
@@ -1375,11 +1375,11 @@ The definition above is quite popular, but introduces several problems. One of t
 As you can see, we managed to eliminate name-based variables. We can also easily check if a~given variable is bound by checking its depth.
 
 \begin{example}
-    \(\lambda x . \lambda y . x\) is equivalent to \(\lambda \lambda 1\)
+    \(\lambda x.\lambda y.x\) is equivalent to \(\lambda \lambda 1\)
 \end{example}
 
 \begin{example}
-    \(\lambda x . (\lambda y . x) (\lambda y . y)\) is equivalent to \(\lambda (\lambda 1) (\lambda 0)\)
+    \(\lambda x. (\lambda y.x) (\lambda y.y)\) is equivalent to \(\lambda (\lambda 1) (\lambda 0)\)
 \end{example}
 
 It also allows us to define tree representation of the terms from \(\LambdadB\).
@@ -1538,7 +1538,7 @@ If we treat \(z\) as the only variable and make \(o\), \(l\), \(a\), and \(s\) c
         +& ((-4 n + 8) a o + (n - 2) l^2 + (4 n - 6) l s + (n - 1) s^2) t_{n - 2}\\
         +& ((-2 n + 1) l - 2 n s) t_{n - 1}\\
         +& (n + 1) t_{n}
-\end{array} .\]
+\end{array}.\]
 
 Terms \(o\), \(l\), \(a\), and \(s\) appearing in the holonomic recurrence can be interpreted as list of kinds of nodes we need to use to extend smaller tree into bigger one.
 
@@ -1554,7 +1554,7 @@ If we forget about kinds of nodes, we get following recurrence:
         +& (2 n - 1) t_{n - 2}\\
         +& (-4 n + 1) t_{n - 1}\\
         +& (1 + n) t_{n}
-\end{array} .\]
+\end{array}.\]
 
 You may notice that some summands have become oversimplified. For example \(((4 n - 10) a o s - (2 n - 6) l^2 s - (2 n - 5) l s^2) t_{n - 3}\) has become \(t_{n-3}\), which could be interpreted as simply set of trees of size \(n - 3\) without any pointing.
 
@@ -2185,6 +2185,6 @@ We believe that one day all of that will be done or proven to be impossible.
 
 \clearpage
 
-\printbibliography
+\printbibliography%
 
 \end{document}
