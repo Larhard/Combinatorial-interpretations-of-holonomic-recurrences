@@ -1,0 +1,15 @@
+graph {
+	size="4,4"
+    graph [splines=false]
+    node [height=1 width=1]
+
+	subgraph cluster_1 {
+        0 [label="\\(\\mhll{\\n}\\)" shape=plain]
+
+        g0 [label="\\(H_1\\)" shape=triangle]
+        g1 [label="\\(H_2\\)" shape=triangle]
+
+        0 -- g0:n [style=dashed]
+        0 -- g1:n [style=dashed]
+	}
+}

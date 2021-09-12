@@ -1,0 +1,22 @@
+digraph {
+	size="4,4"
+
+	0 [label="\\(\\lambda x\\)" shape=plain]
+
+	1 [label="\\(\\text{apply}\\)" shape=plain]
+
+	2 [label="\\(\\lambda y\\)" shape=plain]
+	3 [label="\\(x\\)" shape=plain]
+
+	4 [label="\\(\\lambda y\\)" shape=plain]
+	5 [label="\\(y\\)" shape=plain]
+
+	0 -> 1 [arrowhead=none]
+	1 -> 2 [arrowhead=none]
+	2 -> 3 [arrowhead=none]
+	1 -> 4 [arrowhead=none]
+	4 -> 5 [arrowhead=none]
+
+    3 -> 0 [constraint=false style=dashed]
+    5 -> 4 [constraint=false style=dashed]
+}

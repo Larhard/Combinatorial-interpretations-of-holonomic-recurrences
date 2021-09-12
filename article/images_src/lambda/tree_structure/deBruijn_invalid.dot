@@ -1,0 +1,24 @@
+digraph {
+	size="4,4"
+
+	l0 [label="" shape=none]
+
+	0 [label="\\(s\\)" shape=plain]
+	1 [label="\\(l\\)" shape=plain]
+	2 [label="\\(o\\)" shape=plain]
+
+	r0 [label="" shape=none]
+
+	f0 [label="" shape=none]
+	f1 [label="" shape=none]
+
+	0 -> l0 [arrowhead=none color=lightgreen]
+	0 -> 1 [arrowhead=none]
+
+	1 -> 2 [arrowhead=none]
+	1 -> r0 [arrowhead=none color=lightgreen]
+
+
+	2 -> f0 [arrowhead=none color=lightgreen]
+	2 -> f1 [arrowhead=none color=lightgreen]
+}

@@ -78,6 +78,7 @@
 
 \newcounter{highlightid}
 \newcommand{\mhl}[1]{{\tikzmarkin[set fill color=red!30,set border color=red]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
+\newcommand{\mhll}[1]{{\tikzmarkin[set fill color=red!30,set border color=red]{highlight-\arabic{highlightid}}(0.15,-0.15)(-0.15,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
 
 \newcommand{\mhlr}[1]{{\tikzmarkin[set fill color=red!30,set border color=red]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
 \newcommand{\mhlg}[1]{{\tikzmarkin[set fill color=green!30,set border color=green]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
@@ -318,7 +319,7 @@ We will be analyzing structures that can be expressed using recursive formulas. 
             \end{center}
         \end{minipage}%
     \end{center}
-    \caption{Binary tree recursive definition}%
+    \caption{Binary tree recursive definition.}%
     \label{fig:binary_recursion}
 \end{figure}
 
@@ -362,7 +363,7 @@ To visualize even more, let's take a~look at the line marked with \((*)\). The h
     \begin{center}
         \includesvg[scale=.7]{intro__iilll}
     \end{center}
-    \caption{Tree corresponding to highlighted terms in \((*)\)}%
+    \caption{Tree corresponding to highlighted terms in \((*)\).}%
     \label{fig:tree_corresponding_to_mhl}
 \end{figure}
 
@@ -519,7 +520,12 @@ As \(T\) and \(\enc{T}\) describe the same structures, notation of trees \(T\) a
 
 \section{Known results}%
 \label{sec:known_results}
-\todo{Add introduction}
+
+In this section we show combinatorial interpretations of holonomic recurrences for binary trees, unary-binary trees and Schröder trees. As to our knowledge these are only tree classes that have commonly known interpretations. Also the thought process leading to these interpretations is not obvious.
+
+Each of these interpretations has its unique character, like different selection of the size definition or different approach to arranging the terms of the holonomic recurrence.
+
+These interpretations have been source of ideas that that we were incorporating in order to make our partial interpretation for the case of lambda trees in unary de Bruijn notation.
 
 \subsection{Binary trees}%
 \label{sub:binary_trees}
@@ -1348,7 +1354,8 @@ As our inspiration and main field of interest is an analysis of trees of lambda 
 \subsection{Lambda terms}%
 \label{sub:lambda_terms}
 
-\todo{add story}
+Lambda calculus is a formal system that allows expressing computable functions introduced by Alonzo Church. It is widely used in computer science and mathematics to study functions and their properties.
+
 Let a countable set of variables be given.
 
 \begin{definition}
@@ -1356,17 +1363,32 @@ Let a countable set of variables be given.
     \begin{itemize}
         \item if \(x\) is a~variable, then \(x \in \Lambda\)
         \item if \(M, N \in \Lambda\), then \((M N) \in \Lambda\) (it can be interpreted as an application of function \(M\) to an~argument \(N\))
-        \item if \(x\) is a~variable and \(M \in \Lambda\), then \((\lambda x. M) \in \Lambda\) (it can be interpreted as an~abstraction, i.e.~creating a~function with an~argument \(x\) and binding each occurrence of \(x\) in \(M\) to this argument. We say that variable \(x\) is abstracted by this \(lambda\)-abstraction)
+        \item if \(x\) is a~variable and \(M \in \Lambda\), then \((\lambda x. M) \in \Lambda\) (it can be interpreted as an~abstraction, i.e.~creating a~function with an~argument \(x\) and binding each occurrence of \(x\) in \(M\) to this argument. We say that variable \(x\) is abstracted by this lambda-abstraction)
     \end{itemize}
 \end{definition}
 
-\todo{introduce trees}
-The definition above is quite popular, but introduces several problems. One of them is a~problem of a potential collision of lambda-abstracted variables and difficulty of finding to which lambda abstraction the variable is bound (or is it even a~free variable, i.e.~not bound). To address that, we can use de Bruijn indices.
+This definition resembles tree-based structure of lambda terms, where:
+\begin{itemize}
+    \item lambda abstraction is represented as an unary node holding name of lambda-abstracted variable;
+    \item application is represented as a binary node;
+    \item variable is represented as a leaf holding name of the variable.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=.7]{lambda__tree_structure__example_custom}
+    \caption{Tree representation of the term \(\lambda x. (\lambda y.x) (\lambda y.y)\).}%
+    \label{fig:lambda_tree_example}
+\end{figure}
+
+We have used dashed arrows to point lambda-abstraction binding particular variables. It is also possible that a variable is unbound, i.e.~there is no lambda-abstraction that abstracts the variable. We are perfectly fine with that.
+
+The definition using named variables is quite popular, but introduces several problems. One of them is a~problem of a potential collision of lambda-abstracted variable names and difficulty of finding to which lambda abstraction the variable is bound (or is it even a~free variable, i.e.~not bound). To address that, we can use de Bruijn indices.
 
 \begin{definition}
     Set of lambda terms \(\LambdadB\) is defined recursively:
     \begin{itemize}
-        \item if \(n \in \N\), then \(n \in \LambdadB\) (\(n\) is a~variable bound to lambda abstraction \(n\) levels above)
+        \item if \(n \in \N\), then \(n \in \LambdadB\) (\(n\) is a~variable bound to lambda abstraction \(n\) levels above, i.e.~if you traverse the tree of the lambda term upwards, we have to ignore \(n\) lambda-abstraction nodes and the \((n+1)\)-st one is the one binding the variable. If we would have to go beyond the root of the tree, we say that the variable is free, i.e.~not bound)
         \item if \(M, N \in \LambdadB\), then \((M N) \in \LambdadB\) (application)
         \item if \(M \in \LambdadB\), then \((\lambda M) \in \LambdadB\) (abstraction)
     \end{itemize}
@@ -1382,21 +1404,27 @@ As you can see, we managed to eliminate name-based variables. We can also easily
     \(\lambda x. (\lambda y.x) (\lambda y.y)\) is equivalent to \(\lambda (\lambda 1) (\lambda 0)\)
 \end{example}
 
-It also allows us to define tree representation of the terms from \(\LambdadB\).
-\todo{introduce unary notation; correlation between n and the size}
+We can define tree representation of the terms from \(\LambdadB\). In order to encode natural numbers, we use unary notation. This allows us to connect the size of the tree to de Bruijn index values.
 
 \begin{definition}
     Translation from lambda terms in de Bruijn notation to binary trees \(\Phi\) is defined as follows:
     \begin{itemize}
         \item \(\Phi(0) = \n\; \no\; \no\)
-        \item \(\Phi(n) = \n\; \no\; \Phi(n - 1)\)
+        \item \(\Phi(n) = \n\; \no\; \Phi(n - 1)\) (this node acts as a successor in unary notation, i.e.~function incrementing natural number by \(1\))
         \item \(\Phi(\lambda M) = \n\; \Phi(M)\; \no\)
         \item \(\Phi(M N) = \n\; \Phi(M)\; \Phi(N)\)
     \end{itemize}
 \end{definition}
 
-\todo{add note about injectiveness}
-\todo{add image}
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=.7]{lambda__tree_structure__deBruijn_001_custom}
+    \caption{Tree representation of the term \(\lambda (\lambda 1) (\lambda 0)\).}%
+    \label{fig:lambda_tree_example_2}
+\end{figure}
+
+We use green edges to express the non-existing child of the node. Note that in order to get the exact value of the variable we had to take a look at a leaf with all successor nodes above it.
+
 To simplify the interpretation, we can introduce several kinds of the nodes: \(o\), \(s\), \(l\) and \(a\). They do not change the structure, but make the reading a~bit easier:
 
 \begin{definition}
@@ -1424,17 +1452,28 @@ This leads to the following interpretation of \(\Phi\):
     \item \(\Phi(M N) = a\; \Phi(M)\; \Phi(N)\)
 \end{itemize}
 
-You can note that not every binary tree represents a~valid term.
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=.7]{lambda__tree_structure__deBruijn_002_custom}
+    \caption{Tree representation of the term \(\lambda (\lambda 1) (\lambda 0)\) with node kinds.}%
+    \label{fig:lambda_tree_example_3}
+\end{figure}
+
+You can note that every tree has its own binary tree representation, but not every binary tree represents a~valid term.
 
 \begin{example}
     \(\n\; \no\; \n\; \n\; \no\; \no\; \no\) does represent a~valid tree, but not a~valid lambda term.
 
 To see that, we can take a~look at this tree with our node kinds used:
 
-\todo{add image}
-\[s\; \no\; l\; o\; \no\; \no\; \no\]
+\begin{figure}[H]
+    \centering
+    \includesvg[scale=.7]{lambda__tree_structure__deBruijn_invalid}
+    \caption{Visualization of the tree \(\n\; \no\; \n\; \n\; \no\; \no\; \no\) with node kinds.}%
+    \label{fig:lambda_tree_invalid}
+\end{figure}
 
-Here \(s\) represents the successor which can be applied only to \(n \in \N\), but is applied to the lambda-abstracted term.
+As \(s\) represents the successor, it can be applied only to \(n \in \N\), but is applied to the lambda-abstracted term.
 \end{example}
 
 \subsection{Enhanced holonomic recurrence}%
@@ -1442,11 +1481,11 @@ Here \(s\) represents the successor which can be applied only to \(n \in \N\), b
 
 As we have our structure defined, let's create a generating function that will keep track of more than just the number of nodes, but also counts the number of each kind of node in the tree. The generating function \(\gf{T}(z, o, l, a, s)\) will be parameterized then using the following arguments:
 \begin{itemize}
-    \item \(z\) marking total number of virtual leaves
-    \item \(o\) marking number of variable nodes
-    \item \(l\) marking number of lambda abstraction nodes
-    \item \(a\) marking number of application nodes
-    \item \(s\) marking number of successors of variable nodes
+    \item \(z\) marking all actual nodes
+    \item \(o\) marking variable nodes
+    \item \(l\) marking lambda abstraction nodes
+    \item \(a\) marking application nodes
+    \item \(s\) marking successors of variable nodes
 \end{itemize}
 
 In order to make the image cleaner, we will drop the arguments of generating functions, i.e.~\(\gf{T} := \gf{T}(z, o, l, a, s)\).
@@ -1561,23 +1600,43 @@ You may notice that some summands have become oversimplified. For example \(((4 
 \subsection{Transformator framework}%
 \label{sub:the_framework}
 
-We also created a~framework~\cite{transformator}, called Transformator, that may help visualize our work on binary trees. It is based on the idea that every transformation expressed in bijective language can be seen as a~function transforming some node and a finite number of its surrounding nodes. \todo{Fix it}This function cannot discriminate between nodes on the grounds of their kind. The only discrimination criteria that may occur may be connected to the following cases:
+We also created a~framework~\cite{transformator}, called Transformator, that may help visualize our work. It operates on binary trees and is based on the idea that every transformation expressed in bijective language is local, i.e.~transforms some node and a finite number of its surrounding nodes.
+
+To show the idea of such transformations, let's define transformation context with holes. The context specifies shape of the fragment of the tree. It can have holes that specify whole subtree. We can also specify whether the root of the context has parent and is it the left or right child of its parent.
+
+\begin{example}
+    We want to modify a node being right a child of its parent. We do not care what is below that node (i.e.~if that is a leaf or if it has children). We want to add a new node of which the original one is left child. We do not want the new node to have a right child. Additionally we want to swap potential children of the original node. We can define following transformation:
+    \begin{center}
+        \includeinlinescaledsvg{.4}{.7}{lambda__contexts__def_001}%
+        \(\Rightarrow\)
+        \includeinlinescaledsvg{.4}{.7}{lambda__contexts__def_002}%
+    \end{center}
+\end{example}
+
+We marked the node being transformed to clarify the picture.
+
+We support following starting contexts of the transformations:
+
 \begin{itemize}
-    \item node has no children, i.e.~is a~virtual leaf (which corresponds to the size of the tree, \(n\));
-    \item node has has children, i.e.~is not a~virtual leaf (which corresponds to \(n - 1\));
-    \item node is a~root (which corresponds to \(1\));
-    \item node has its parent on the left, i.e.~is right child of its parent;
-    \item node has its parent on the right, i.e.~is the left child of its parent.
+    \item node is a~virtual leaf (each tree with \(n\) actual nodes has exactly \((n + 1)\) places where such contex apply):\\
+        \includeinlinescaledsvg{1}{.7}{lambda__contexts__type_001}%
+    \item node is an~actual node (tree with \(n\) actual nodes has excatly \(n\) places where such context apply):\\
+        \includeinlinescaledsvg{1}{.7}{lambda__contexts__type_002}%
+    \item node is a~root (each tree has exactly \(1\) place where such context apply):\\
+        \includeinlinescaledsvg{1}{.7}{lambda__contexts__type_003}%
+    \item node has its parent on the left, i.e.~is right child of its parent:\\
+        \includeinlinescaledsvg{1}{.7}{lambda__contexts__type_004}%
+    \item node has its parent on the right, i.e.~is the left child of its parent:\\
+        \includeinlinescaledsvg{1}{.7}{lambda__contexts__type_005}%
 \end{itemize}
-\todo{Fix it}
 
-The latest two are introduced in order to make the analysis simpler, but do not have immediate interpretation in the world of holonomic recurrences. If we use them both, it sums up to all nodes except root (as root is neither left nor right child).
+The latest two are introduced in order to make the analysis simpler, but do not have immediate interpretation in the world of holonomic recurrences. However, if we use them both, it sums up to all nodes except root (as root is neither left nor right child), so in total there are \((n - 1)\) places where such a pair of contexts apply.
 
+The target of the transformation can be any context preserving all holes. This allows us to specify number of nodes added by the transformation.
 
 \subsection{Transformation classes}%
 \label{sub:transformation_classes}
 
-\todo{Introduce contexts with holes}
 We will be operating on transformation classes, sections and parts. Let's define them:
 
 \begin{definition}
