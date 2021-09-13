@@ -558,10 +558,10 @@ We are going to create a~bijection between the left and right side of the recurr
 \begin{interpretation}
 Let's translate the recurrence to the bijective language.
 \begin{itemize}
-    \item \(b_n\) is simply the set of all full binary trees of size \(n\),
-    \item \((n + 2) b_{n + 1}\) is the set of all full binary trees of size \(n + 1\) with one of the leaves pointed,
-    \item \((2n + 1) b_{n}\) is the set of all full binary trees of size \(n\) with one of the nodes (either internal or a~leaf) pointed (i.e.~distinguished),
-    \item \(2\) at the beginning of \(2 (2n + 1) b_{n}\) indicates that we will be using \(2\) copies of the set defined in the previous bullet.
+    \item \(B(n)\) is simply the set of all full binary trees of size \(n\),
+    \item \((n + 2) B(n + 1)\) is the set of all full binary trees of size \(n + 1\) with one of the leaves pointed,
+    \item \((2n + 1) B(n)\) is the set of all full binary trees of size \(n\) with one of the nodes (either internal or a~leaf) pointed (i.e.~distinguished),
+    \item \(2\) at the beginning of \(2 (2n + 1) B(n)\) indicates that we will be using \(2\) copies of the set defined in the previous bullet.
 \end{itemize}
 
 At the moment the left side of the recurrence is related to trees of size \(n + 1\), the right, on the other hand, of size \(n\). Therefore, we need to apply some transformations on trees.
@@ -594,10 +594,10 @@ Let's define two local operations for tree \(T\) with a~single node \(v\) pointe
     \label{fig:remy_right}
 \end{figure}
 
-We can now take the bijective interpretation of \((2n + 1) B(n)\), i.e.~trees of size \(n\) with a~single node pointed. For each of such trees, \(T\) we create new one by applying \(R_l\) and \(R_r\) to the pair \(T', v\), where \(T'\) is \(T\) with removed pointers and \(v\) is a~node that is pointed in \(T\). Therefore we generate \(2(2n + 1) B(n)\) trees of size \(n + 1\).
+We can now take the bijective interpretation of \((2n + 1) B(n)\), i.e.~trees of size \(n\) with a~single node pointed. For each of such trees, namely \(T\), we create new one by applying \(R_l\) and \(R_r\) to the pair \(T', v\), where \(T'\) is \(T\) with removed pointers and \(v\) is a~node that is pointed in \(T\). Therefore we generate all trees from \(2(2n + 1) B(n)\).
 \todo{rewrite}
 
-The only thing that's left for us to verify is if we generate all trees of size \(n + 1\) with pointed leaves. As from the recursion, we know that \(2 (2n + 1) B(n)\) is total number of trees with single leaf pointed, it is enough to check if we do not generate any duplicate using \(R_l\) and \(R_r\). It can happen in 2 ways:
+The only thing that's left for us to verify is if we generate all trees of size \(n + 1\) with pointed leaves. As from the recursion, we know that \(2 (2n + 1) B(n)\) describe trees with single leaf pointed, it is enough to check if we do not generate any duplicate using \(R_l\) and \(R_r\). It can happen in 2 ways:
 \begin{enumerate}
     \item operation itself generates duplicates or
     \item 2 different operations generate the same tree.
