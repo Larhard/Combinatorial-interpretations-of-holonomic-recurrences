@@ -1,0 +1,27 @@
+graph {
+	size="4,4"
+    graph [splines=false]
+    node [height=1 width=1]
+
+	r [label="" shape=none]
+	rl [label="" shape=none]
+
+	r2 [label="" shape=none]
+	r2r [label="" shape=none]
+
+    r -- rl [style=invis]
+    r -- 0 [style=invis]
+
+    r2-- r2r [style=invis]
+    r2-- 0 [style=dashed]
+
+	subgraph cluster_1 {
+        0 [label="\\(\\mhll{\\n}\\)" shape=plain]
+
+        g0 [label="\\(H_1\\)" shape=triangle]
+        g1 [label="\\(H_2\\)" shape=triangle]
+
+        0 -- g0:n [style=dashed]
+        0 -- g1:n [style=dashed]
+	}
+}

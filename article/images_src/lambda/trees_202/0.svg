@@ -16,7 +16,7 @@
 <!-- 1 -->
 <g id="node2" class="node">
 <title>1</title>
-<text text-anchor="middle" x="99" y="-75.8" font-family="Times,serif" font-size="14.00">\(o\)</text>
+<text text-anchor="middle" x="99" y="-75.8" font-family="Times,serif" font-size="14.00">\(\mhll{o}\)</text>
 </g>
 <!-- 0&#45;&#45;1 -->
 <g id="edge1" class="edge">

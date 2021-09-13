@@ -1,7 +1,7 @@
 graph {
 	size="4,4"
 	0 [label="\\(l\\)" shape=plain]
-	1 [label="\\(s\\)" shape=plain]
+	1 [label="\\(\\mhll{s}\\)" shape=plain]
 	0 -- 1
 	2 [label="" shape=none]
 	1 -- 2 [color=lightgreen]

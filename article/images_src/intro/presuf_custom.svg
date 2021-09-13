@@ -7,9 +7,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="235.95073pt"
-   height="226.79918pt"
-   viewBox="0 0 235.95072 226.79917"
+   width="237.4026pt"
+   height="270.11041pt"
+   viewBox="0 0 237.40259 270.1104"
    version="1.1"
    id="svg140"
    sodipodi:docname="presuf_custom.svg"
@@ -46,430 +46,555 @@
      fit-margin-right="10"
      fit-margin-bottom="10"
      lock-margins="true"
-     inkscape:zoom="1"
-     inkscape:cx="117.75454"
-     inkscape:cy="213.64324"
+     inkscape:zoom="2.7151891"
+     inkscape:cx="192.08381"
+     inkscape:cy="126.14359"
      inkscape:window-x="0"
      inkscape:window-y="18"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="graph0" />
+     inkscape:window-maximized="1"
+     inkscape:current-layer="graph0"
+     inkscape:document-rotation="0" />
   <g
      id="graph0"
      class="graph"
-     transform="translate(39.950721,207.376)">
-    <polygon
-       fill="#ffffff"
-       stroke="transparent"
-       points="-4,4 -4,-191 186,-191 186,4 "
-       id="polygon2" />
+     transform="translate(40.656111,229.34207)">
     <!-- 00 -->
-    <g
-       id="node1"
-       class="node">
-      <title
-         id="title4">00</title>
-      <circle
-         fill="#000000"
-         stroke="#000000"
-         cx="90.5"
-         cy="-183.5"
-         id="ellipse6"
-         r="3.5" />
-    </g>
     <!-- 01 -->
-    <g
-       id="node2"
-       class="node">
-      <title
-         id="title9">01</title>
-      <circle
-         fill="#000000"
-         stroke="#000000"
-         cx="72.5"
-         cy="-140.5"
-         id="ellipse11"
-         r="3.5" />
-    </g>
     <!-- 00&#45;&#45;01 -->
-    <g
-       id="edge1"
-       class="edge">
-      <title
-         id="title14">00--01</title>
-      <path
-         fill="none"
-         stroke="#000000"
-         d="m 89.32,-179.81 c -3.25,7.41 -12.32,28.07 -15.61,35.56"
-         id="path16" />
-    </g>
     <!-- 05 -->
-    <g
-       id="node6"
-       class="node">
-      <title
-         id="title19">05</title>
-      <circle
-         fill="#000000"
-         stroke="#000000"
-         cx="109.5"
-         cy="-140.5"
-         id="ellipse21"
-         r="3.5" />
-    </g>
     <!-- 00&#45;&#45;05 -->
-    <g
-       id="edge12"
-       class="edge">
-      <title
-         id="title24">00--05</title>
-      <path
-         fill="none"
-         stroke="#000000"
-         d="m 91.75,-179.81 c 3.5,7.55 13.38,28.87 16.67,35.97"
-         id="path26" />
-    </g>
     <!-- 02 -->
-    <g
-       id="node3"
-       class="node">
-      <title
-         id="title29">02</title>
-      <circle
-         fill="#000000"
-         stroke="#000000"
-         cx="28.5"
-         cy="-93.5"
-         id="ellipse31"
-         r="3.5" />
-    </g>
     <!-- 01&#45;&#45;02 -->
-    <g
-       id="edge2"
-       class="edge">
-      <title
-         id="title34">01--02</title>
-      <path
-         fill="none"
-         stroke="#000000"
-         d="m 70.38,-137.33 c -7.42,7.58 -32.13,32.86 -39.68,40.58"
-         id="path36" />
-    </g>
     <!-- v -->
-    <g
-       id="node19"
-       class="node">
-      <title
-         id="title39">v</title>
-      <text
-         text-anchor="middle"
-         x="72.5"
-         y="-89.800003"
-         font-family="Times, serif"
-         font-size="14px"
-         id="text41">\(v\)</text>
-    </g>
     <!-- 01&#45;&#45;v -->
-    <g
-       id="edge5"
-       class="edge">
-      <title
-         id="title44">01--v</title>
-      <path
-         fill="none"
-         stroke="#000000"
-         d="m 72.5,-136.82 c 0,6.96 0,25.78 0,35.81"
-         id="path46" />
-    </g>
     <!-- 10 -->
     <!-- 02&#45;&#45;10 -->
-    <g
-       id="edge3"
-       class="edge">
-      <title
-         id="title49">02--10</title>
-      <path
-         fill="none"
-         stroke="#90ee90"
-         d="m 27.16,-90.08 c -4.3,7.74 -17.71,31.86 -22.18,39.92"
-         id="path51" />
-    </g>
     <!-- 11 -->
     <!-- 02&#45;&#45;11 -->
-    <g
-       id="edge4"
-       class="edge">
-      <title
-         id="title54">02--11</title>
-      <path
-         fill="none"
-         stroke="#90ee90"
-         d="m 28.5,-89.82 c 0,8.02 0,31.78 0,39.71"
-         id="path56" />
-    </g>
     <!-- 03 -->
-    <g
-       id="node4"
-       class="node">
-      <title
-         id="title59">03</title>
-      <circle
-         fill="#000000"
-         stroke="#000000"
-         cx="53.5"
-         cy="-46.5"
-         id="ellipse61"
-         r="3.5" />
-    </g>
     <!-- 12 -->
     <!-- 03&#45;&#45;12 -->
-    <g
-       id="edge8"
-       class="edge">
-      <title
-         id="title64">03--12</title>
-      <path
-         fill="none"
-         stroke="#90ee90"
-         d="m 51.86,-42.81 c -4.61,7.55 -17.6,28.87 -21.94,35.97"
-         id="path66" />
-    </g>
     <!-- 13 -->
     <!-- 03&#45;&#45;13 -->
-    <g
-       id="edge9"
-       class="edge">
-      <title
-         id="title69">03--13</title>
-      <path
-         fill="none"
-         stroke="#90ee90"
-         d="m 53.5,-42.81 c 0,7.41 0,28.07 0,35.56"
-         id="path71" />
-    </g>
     <!-- 04 -->
-    <g
-       id="node5"
-       class="node">
-      <title
-         id="title74">04</title>
-      <circle
-         fill="#000000"
-         stroke="#000000"
-         cx="78.5"
-         cy="-46.5"
-         id="ellipse76"
-         r="3.5" />
-    </g>
     <!-- 14 -->
     <!-- 04&#45;&#45;14 -->
-    <g
-       id="edge10"
-       class="edge">
-      <title
-         id="title79">04--14</title>
-      <path
-         fill="none"
-         stroke="#90ee90"
-         d="m 78.5,-42.81 c 0,7.41 0,28.07 0,35.56"
-         id="path81" />
-    </g>
     <!-- 15 -->
     <!-- 04&#45;&#45;15 -->
-    <g
-       id="edge11"
-       class="edge">
-      <title
-         id="title84">04--15</title>
-      <path
-         fill="none"
-         stroke="#90ee90"
-         d="m 80.14,-42.81 c 4.61,7.55 17.6,28.87 21.94,35.97"
-         id="path86" />
-    </g>
     <!-- 06 -->
-    <g
-       id="node7"
-       class="node">
-      <title
-         id="title89">06</title>
-      <circle
-         fill="#000000"
-         stroke="#000000"
-         cx="109.5"
-         cy="-93.5"
-         id="ellipse91"
-         r="3.5" />
-    </g>
     <!-- 05&#45;&#45;06 -->
-    <g
-       id="edge13"
-       class="edge">
-      <title
-         id="title94">05--06</title>
-      <path
-         fill="none"
-         stroke="#000000"
-         d="m 109.5,-136.82 c 0,8.02 0,31.78 0,39.71"
-         id="path96" />
-    </g>
     <!-- 07 -->
-    <g
-       id="node8"
-       class="node">
-      <title
-         id="title99">07</title>
-      <circle
-         fill="#000000"
-         stroke="#000000"
-         cx="153.5"
-         cy="-93.5"
-         id="ellipse101"
-         r="3.5" />
-    </g>
     <!-- 05&#45;&#45;07 -->
-    <g
-       id="edge14"
-       class="edge">
-      <title
-         id="title104">05--07</title>
-      <path
-         fill="none"
-         stroke="#000000"
-         d="m 111.62,-137.33 c 7.42,7.58 32.13,32.86 39.68,40.58"
-         id="path106" />
-    </g>
     <!-- 16 -->
     <!-- 06&#45;&#45;16 -->
-    <g
-       id="edge15"
-       class="edge">
-      <title
-         id="title109">06--16</title>
-      <path
-         fill="none"
-         stroke="#90ee90"
-         d="m 109.14,-89.82 c -1.07,8.02 -4.23,31.78 -5.29,39.71"
-         id="path111" />
-    </g>
     <!-- 17 -->
     <!-- 06&#45;&#45;17 -->
-    <g
-       id="edge16"
-       class="edge">
-      <title
-         id="title114">06--17</title>
-      <path
-         fill="none"
-         stroke="#90ee90"
-         d="m 110.52,-90.08 c 3.27,7.74 13.45,31.86 16.86,39.92"
-         id="path116" />
-    </g>
     <!-- 18 -->
     <!-- 07&#45;&#45;18 -->
-    <g
-       id="edge17"
-       class="edge">
-      <title
-         id="title119">07--18</title>
-      <path
-         fill="none"
-         stroke="#90ee90"
-         d="m 153.5,-89.82 c 0,8.02 0,31.78 0,39.71"
-         id="path121" />
-    </g>
     <!-- 19 -->
     <!-- 07&#45;&#45;19 -->
-    <g
-       id="edge18"
-       class="edge">
-      <title
-         id="title124">07--19</title>
-      <path
-         fill="none"
-         stroke="#90ee90"
-         d="m 154.84,-90.08 c 4.3,7.74 17.71,31.86 22.18,39.92"
-         id="path126" />
-    </g>
     <!-- v&#45;&#45;03 -->
-    <g
-       id="edge6"
-       class="edge">
-      <title
-         id="title129">v--03</title>
-      <path
-         fill="none"
-         stroke="#000000"
-         d="m 69.7,-85.86 c -4.3,10.17 -12.31,29.14 -15.16,35.89"
-         id="path131" />
-    </g>
     <!-- v&#45;&#45;04 -->
     <g
-       id="edge7"
-       class="edge">
-      <title
-         id="title134">v--04</title>
+       id="graph0-3"
+       class="graph"
+       transform="translate(0.74648941,19.017202)">
+      <polygon
+         fill="#ffffff"
+         stroke="transparent"
+         points="186,4 -4,4 -4,-234 186,-234 "
+         id="polygon1271" />
+      <!-- 00 -->
+      <g
+         id="node1-6"
+         class="node">
+        <title
+           id="title1273">00</title>
+        <circle
+           fill="#000000"
+           stroke="#000000"
+           cx="109.5"
+           cy="-183.5"
+           id="ellipse1275"
+           r="3.5" />
+      </g>
+      <!-- 01 -->
+      <g
+         id="node2-7"
+         class="node">
+        <title
+           id="title1278">01</title>
+        <circle
+           fill="#000000"
+           stroke="#000000"
+           cx="72.5"
+           cy="-140.5"
+           id="ellipse1280"
+           r="3.5" />
+      </g>
+      <!-- 00&#45;&#45;01 -->
+      <g
+         id="edge5-5"
+         class="edge">
+        <title
+           id="title1283">00--01</title>
+        <path
+           fill="none"
+           stroke="#000000"
+           d="m 107.51,-180.3 c -6.48,7.19 -26.95,29.87 -33.19,36.78"
+           id="path1285" />
+      </g>
+      <!-- 05 -->
+      <g
+         id="node6-3"
+         class="node">
+        <title
+           id="title1288">05</title>
+        <circle
+           fill="#000000"
+           stroke="#000000"
+           cx="109.5"
+           cy="-140.5"
+           id="ellipse1290"
+           r="3.5" />
+      </g>
+      <!-- 00&#45;&#45;05 -->
+      <g
+         id="edge16-5"
+         class="edge">
+        <title
+           id="title1293">00--05</title>
+        <path
+           fill="none"
+           stroke="#000000"
+           d="m 109.5,-179.81 c 0,7.41 0,28.07 0,35.56"
+           id="path1295" />
+      </g>
+      <!-- 02 -->
+      <g
+         id="node3-6"
+         class="node">
+        <title
+           id="title1298">02</title>
+        <circle
+           fill="#000000"
+           stroke="#000000"
+           cx="28.5"
+           cy="-93.5"
+           id="ellipse1300"
+           r="3.5" />
+      </g>
+      <!-- 01&#45;&#45;02 -->
+      <g
+         id="edge6-2"
+         class="edge">
+        <title
+           id="title1303">01--02</title>
+        <path
+           fill="none"
+           stroke="#000000"
+           d="m 70.38,-137.33 c -7.42,7.58 -32.13,32.86 -39.68,40.58"
+           id="path1305" />
+      </g>
+      <!-- v -->
+      <g
+         id="node23"
+         class="node">
+        <title
+           id="title1308">v</title>
+        <text
+           text-anchor="middle"
+           x="72.5"
+           y="-89.800003"
+           font-family="Times, serif"
+           font-size="14px"
+           id="text1310">\(v\)</text>
+      </g>
+      <!-- 01&#45;&#45;v -->
+      <g
+         id="edge9-9"
+         class="edge">
+        <title
+           id="title1313">01--v</title>
+        <path
+           fill="none"
+           stroke="#000000"
+           d="m 72.5,-136.82 c 0,6.96 0,25.78 0,35.81"
+           id="path1315" />
+      </g>
+      <!-- 10 -->
+      <!-- 02&#45;&#45;10 -->
+      <g
+         id="edge7-1"
+         class="edge">
+        <title
+           id="title1318">02--10</title>
+        <path
+           fill="none"
+           stroke="#90ee90"
+           d="m 27.16,-90.08 c -4.3,7.74 -17.71,31.86 -22.18,39.92"
+           id="path1320" />
+      </g>
+      <!-- 11 -->
+      <!-- 02&#45;&#45;11 -->
+      <g
+         id="edge8-2"
+         class="edge">
+        <title
+           id="title1323">02--11</title>
+        <path
+           fill="none"
+           stroke="#90ee90"
+           d="m 28.5,-89.82 c 0,8.02 0,31.78 0,39.71"
+           id="path1325" />
+      </g>
+      <!-- 03 -->
+      <g
+         id="node4-7"
+         class="node">
+        <title
+           id="title1328">03</title>
+        <circle
+           fill="#000000"
+           stroke="#000000"
+           cx="53.5"
+           cy="-46.5"
+           id="ellipse1330"
+           r="3.5" />
+      </g>
+      <!-- 12 -->
+      <!-- 03&#45;&#45;12 -->
+      <g
+         id="edge12-0"
+         class="edge">
+        <title
+           id="title1333">03--12</title>
+        <path
+           fill="none"
+           stroke="#90ee90"
+           d="m 51.86,-42.81 c -4.61,7.55 -17.6,28.87 -21.94,35.97"
+           id="path1335" />
+      </g>
+      <!-- 13 -->
+      <!-- 03&#45;&#45;13 -->
+      <g
+         id="edge13-9"
+         class="edge">
+        <title
+           id="title1338">03--13</title>
+        <path
+           fill="none"
+           stroke="#90ee90"
+           d="m 53.5,-42.81 c 0,7.41 0,28.07 0,35.56"
+           id="path1340" />
+      </g>
+      <!-- 04 -->
+      <g
+         id="node5-3"
+         class="node">
+        <title
+           id="title1343">04</title>
+        <circle
+           fill="#000000"
+           stroke="#000000"
+           cx="78.5"
+           cy="-46.5"
+           id="ellipse1345"
+           r="3.5" />
+      </g>
+      <!-- 14 -->
+      <!-- 04&#45;&#45;14 -->
+      <g
+         id="edge14-6"
+         class="edge">
+        <title
+           id="title1348">04--14</title>
+        <path
+           fill="none"
+           stroke="#90ee90"
+           d="m 78.5,-42.81 c 0,7.41 0,28.07 0,35.56"
+           id="path1350" />
+      </g>
+      <!-- 15 -->
+      <!-- 04&#45;&#45;15 -->
+      <g
+         id="edge15-0"
+         class="edge">
+        <title
+           id="title1353">04--15</title>
+        <path
+           fill="none"
+           stroke="#90ee90"
+           d="m 80.14,-42.81 c 4.61,7.55 17.6,28.87 21.94,35.97"
+           id="path1355" />
+      </g>
+      <!-- 06 -->
+      <g
+         id="node7-6"
+         class="node">
+        <title
+           id="title1358">06</title>
+        <circle
+           fill="#000000"
+           stroke="#000000"
+           cx="109.5"
+           cy="-93.5"
+           id="ellipse1360"
+           r="3.5" />
+      </g>
+      <!-- 05&#45;&#45;06 -->
+      <g
+         id="edge17-2"
+         class="edge">
+        <title
+           id="title1363">05--06</title>
+        <path
+           fill="none"
+           stroke="#000000"
+           d="m 109.5,-136.82 c 0,8.02 0,31.78 0,39.71"
+           id="path1365" />
+      </g>
+      <!-- 07 -->
+      <g
+         id="node8-6"
+         class="node">
+        <title
+           id="title1368">07</title>
+        <circle
+           fill="#000000"
+           stroke="#000000"
+           cx="153.5"
+           cy="-93.5"
+           id="ellipse1370"
+           r="3.5" />
+      </g>
+      <!-- 05&#45;&#45;07 -->
+      <g
+         id="edge18-1"
+         class="edge">
+        <title
+           id="title1373">05--07</title>
+        <path
+           fill="none"
+           stroke="#000000"
+           d="m 111.62,-137.33 c 7.42,7.58 32.13,32.86 39.68,40.58"
+           id="path1375" />
+      </g>
+      <!-- 16 -->
+      <!-- 06&#45;&#45;16 -->
+      <g
+         id="edge19"
+         class="edge">
+        <title
+           id="title1378">06--16</title>
+        <path
+           fill="none"
+           stroke="#90ee90"
+           d="m 109.14,-89.82 c -1.07,8.02 -4.23,31.78 -5.29,39.71"
+           id="path1380" />
+      </g>
+      <!-- 17 -->
+      <!-- 06&#45;&#45;17 -->
+      <g
+         id="edge20"
+         class="edge">
+        <title
+           id="title1383">06--17</title>
+        <path
+           fill="none"
+           stroke="#90ee90"
+           d="m 110.52,-90.08 c 3.27,7.74 13.45,31.86 16.86,39.92"
+           id="path1385" />
+      </g>
+      <!-- 18 -->
+      <!-- 07&#45;&#45;18 -->
+      <g
+         id="edge21"
+         class="edge">
+        <title
+           id="title1388">07--18</title>
+        <path
+           fill="none"
+           stroke="#90ee90"
+           d="m 153.5,-89.82 c 0,8.02 0,31.78 0,39.71"
+           id="path1390" />
+      </g>
+      <!-- 19 -->
+      <!-- 07&#45;&#45;19 -->
+      <g
+         id="edge22"
+         class="edge">
+        <title
+           id="title1393">07--19</title>
+        <path
+           fill="none"
+           stroke="#90ee90"
+           d="m 154.84,-90.08 c 4.3,7.74 17.71,31.86 22.18,39.92"
+           id="path1395" />
+      </g>
+      <!-- 08 -->
+      <g
+         id="node9"
+         class="node">
+        <title
+           id="title1398">08</title>
+        <circle
+           fill="#000000"
+           stroke="#000000"
+           cx="121.5"
+           cy="-226.5"
+           id="ellipse1400"
+           r="3.5" />
+      </g>
+      <!-- 08&#45;&#45;00 -->
+      <g
+         id="edge1-8"
+         class="edge">
+        <title
+           id="title1403">08--00</title>
+        <path
+           fill="none"
+           stroke="#000000"
+           d="m 120.71,-222.81 c -2.17,7.41 -8.21,28.07 -10.4,35.56"
+           id="path1405" />
+      </g>
+      <!-- 09 -->
+      <g
+         id="node10"
+         class="node">
+        <title
+           id="title1408">09</title>
+        <circle
+           fill="#000000"
+           stroke="#000000"
+           cx="134.5"
+           cy="-183.5"
+           id="ellipse1410"
+           r="3.5" />
+      </g>
+      <!-- 08&#45;&#45;09 -->
+      <g
+         id="edge2-7"
+         class="edge">
+        <title
+           id="title1413">08--09</title>
+        <path
+           fill="none"
+           stroke="#000000"
+           d="m 122.35,-222.81 c 2.35,7.41 8.9,28.07 11.28,35.56"
+           id="path1415" />
+      </g>
+      <!-- 20 -->
+      <!-- 09&#45;&#45;20 -->
+      <g
+         id="edge3-9"
+         class="edge">
+        <title
+           id="title1418">09--20</title>
+        <path
+           fill="none"
+           stroke="#90ee90"
+           d="m 134.5,-179.81 c 0,7.41 0,28.07 0,35.56"
+           id="path1420" />
+      </g>
+      <!-- 21 -->
+      <!-- 09&#45;&#45;21 -->
+      <g
+         id="edge4-2"
+         class="edge">
+        <title
+           id="title1423">09--21</title>
+        <path
+           fill="none"
+           stroke="#90ee90"
+           d="m 136.14,-179.81 c 4.61,7.55 17.6,28.87 21.94,35.97"
+           id="path1425" />
+      </g>
+      <!-- v&#45;&#45;03 -->
+      <g
+         id="edge10-0"
+         class="edge">
+        <title
+           id="title1428">v--03</title>
+        <path
+           fill="none"
+           stroke="#000000"
+           d="m 69.7,-85.86 c -4.3,10.17 -12.31,29.14 -15.16,35.89"
+           id="path1430" />
+      </g>
+      <!-- v&#45;&#45;04 -->
+      <g
+         id="edge11-2"
+         class="edge">
+        <title
+           id="title1433">v--04</title>
+        <path
+           fill="none"
+           stroke="#000000"
+           d="m 73.39,-85.86 c 1.33,9.97 3.78,28.41 4.73,35.49"
+           id="path1435" />
+      </g>
+    </g>
+    <g
+       id="g2440"
+       transform="translate(-0.70539059,21.345174)">
+      <g
+         id="node19-3"
+         class="node"
+         transform="translate(-3.2005703,96.242699)">
+        <title
+           id="title39-6">v</title>
+        <text
+           text-anchor="middle"
+           x="72.5"
+           y="-89.800003"
+           font-family="Times, serif"
+           font-size="14px"
+           id="text41-7">\(\tSub(v)\)</text>
+      </g>
+      <g
+         id="node19-6"
+         class="node"
+         transform="translate(-65.259803,55.920362)">
+        <title
+           id="title39-2">v</title>
+        <text
+           text-anchor="middle"
+           x="72.5"
+           y="-89.800003"
+           font-family="Times, serif"
+           font-size="14px"
+           id="text41-9">\(\tPre(T, v)\)</text>
+      </g>
+      <g
+         id="node19-1"
+         class="node"
+         transform="translate(72.774551,55.252341)">
+        <title
+           id="title39-27">v</title>
+        <text
+           text-anchor="middle"
+           x="72.5"
+           y="-89.800003"
+           font-family="Times, serif"
+           font-size="14px"
+           id="text41-0">\(\tSuf(T, v)\)</text>
+      </g>
       <path
-         fill="none"
-         stroke="#000000"
-         d="m 73.39,-85.86 c 1.33,9.97 3.78,28.41 4.73,35.49"
-         id="path136" />
+         id="path1050"
+         style="fill:none;stroke:#000000;stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 35.749518,-128.90477 c -11.857355,19.27533 -35.71912327,62.026421 -46.685962,81.82197 15.9427071,0.03565 31.885416,0.07043 47.828124,0.105469 7.313607,-36.679607 20.26282,-66.590589 47.338958,-91.559479 53.935802,-49.73816 59.135992,-111.85143 38.379742,-100.39461 -12.79021,7.05981 -55.193144,58.54757 -86.860862,110.02665 z"
+         sodipodi:nodetypes="sccsss" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 26.87188,-4.6679725 h 80.41865 c 0,0 -12.057824,-105.4782075 -34.375066,-105.9969275 C 54.666692,-111.08906 26.87188,-4.6679725 26.87188,-4.6679725 Z"
+         id="path1061"
+         sodipodi:nodetypes="ccsc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 102.77151,-45.324931 h 81.49716 c 0,0 -13.39739,-124.269539 -37.93814,-155.998999 -11.48847,-14.85379 -26.88291,34.03577 -42.14899,48.03243 -15.751903,14.44208 -1.53827,83.019307 -1.41003,107.966569 z"
+         id="path1063"
+         sodipodi:nodetypes="ccssc" />
     </g>
-    <g
-       id="node19-3"
-       class="node"
-       transform="translate(-3.2005703,96.242699)">
-      <title
-         id="title39-6">v</title>
-      <text
-         text-anchor="middle"
-         x="72.5"
-         y="-89.800003"
-         font-family="Times, serif"
-         font-size="14px"
-         id="text41-7">\(\tSub(v)\)</text>
-    </g>
-    <g
-       id="node19-6"
-       class="node"
-       transform="translate(-65.259803,55.920362)">
-      <title
-         id="title39-2">v</title>
-      <text
-         text-anchor="middle"
-         x="72.5"
-         y="-89.800003"
-         font-family="Times, serif"
-         font-size="14px"
-         id="text41-9">\(\tPre(T, v)\)</text>
-    </g>
-    <g
-       id="node19-1"
-       class="node"
-       transform="translate(72.774551,55.252341)">
-      <title
-         id="title39-27">v</title>
-      <text
-         text-anchor="middle"
-         x="72.5"
-         y="-89.800003"
-         font-family="Times, serif"
-         font-size="14px"
-         id="text41-0">\(\tSuf(T, v)\)</text>
-    </g>
-    <path
-       id="path1050"
-       style="fill:none;stroke:#000000;stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 98.659539,-196.0656 c -4.789974,-2.69471 -13.630677,0.73312 -17.079461,6.75701 -7.677589,13.41022 -8.929127,30.10491 -17.632812,42.87304 -12.118534,17.77764 -31.303945,29.88147 -43.867188,47.347659 -13.2144525,18.371539 -20.04968327,32.209542 -31.016522,52.005091 15.9427071,0.03565 31.885416,0.07043 47.828124,0.105469 7.313607,-36.679607 25.428178,-58.844209 46.04984,-89.361579 9.114316,-13.488 16.981203,-29.09241 18.17762,-45.32711 0.39849,-5.40724 2.33037,-11.70486 -2.459601,-14.39958 z"
-       sodipodi:nodetypes="zsssccssz" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 26.87188,-4.6679725 h 80.41865 c 0,0 -12.057824,-105.4782075 -34.375066,-105.9969275 C 54.666692,-111.08906 26.87188,-4.6679725 26.87188,-4.6679725 Z"
-       id="path1061"
-       sodipodi:nodetypes="ccsc" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 102.77151,-45.324931 h 81.49716 c 0,0 -38.11241,-118.632649 -80.08713,-107.966569 -20.712213,5.26312 -1.53827,83.019307 -1.41003,107.966569 z"
-       id="path1063"
-       sodipodi:nodetypes="ccsc" />
   </g>
 </svg>

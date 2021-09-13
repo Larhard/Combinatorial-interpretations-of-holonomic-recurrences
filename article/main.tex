@@ -62,7 +62,7 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{.7em}
 
-\title{Combinatorial interpretations of holonomic recurrences}
+\title{Combinatorial interpretations of~holonomic recurrences}
 \author{Bartłomiej Puget}
 
 \date{\today}
@@ -105,6 +105,9 @@
 \DeclareMathOperator{\tSub}{\text{Sub}}
 \DeclareMathOperator{\tPre}{\text{Pre}}
 \DeclareMathOperator{\tSuf}{\text{Suf}}
+\DeclareMathOperator{\tClass}{\text{Class}}
+\DeclareMathOperator{\tSection}{\text{Section}}
+\DeclareMathOperator{\tPart}{\text{Part}}
 \DeclareMathOperator{\n}{\bullet}
 \DeclareMathOperator{\no}{\o}
 
@@ -167,17 +170,17 @@ We also try to find a~combinatorial interpretation of the holonomic recurrence f
 
 \section{Overview}%
 
-Generating functions is a way of describing infinite sequences using formal power series, where coefficients are encoding the the consecutive elements. It allows us to incorporate many advanced methods of analysis of encoded objects.
+Generating functions is a way of describing infinite sequences using formal power series, where coefficients encode the consecutive elements. It allows us to incorporate many advanced methods of analysis of encoded objects.
 
-Every recursive structure can be described using a~generating function equation, which can be then solved and transformed into a~holonomic recurrence, i.e.~recurrence that in order to define \(n\)-th element of the sequence requires just finite number of previous ones and coefficients that are polynomials of \(n\).
+Most recursive structure can be described using a~generating function equation, which can be then solved and transformed into a~holonomic recurrence, i.e.~recurrence that in order to define \(n\)-th element of the sequence requires just finite number of previous ones and coefficients that are polynomials in \(n\).
 
-It allows us to quickly count objects of given structure with given size. At first glance, the recurrence seems to be closely related to the structure itself. It just seems like it should describe simple transformations resulting in constructing bigger objects from slightly smaller ones. In case of trees it could be for example adding vertices. However, there is no known method of interpreting it in the language of the combinatorial structures.
+It allows us to quickly count objects of given structure with given size. At first glance, the recurrence seems to be closely related to the structure itself. It just seems like it should describe simple transformations resulting in constructing bigger objects from slightly smaller ones. In case of trees it could be for example adding nodes. However, there is no known method of interpreting it in the language of the combinatorial structures.
 
 Up to today only a few interpretations of holonomic recurrences on trees have been found, including interpretation of holonomic recurrences for binary trees~\cite{binary}, unary-binary trees~\cite{motzkin}, and Schröder trees~\cite{schroder}. Unfortunately, the mentioned interpretations do not come with a method of finding them that could be generalized to more complex cases.
 
-The initial inspiration for the thesis came from the publication \textit{A natural counting of lambda terms}~\cite{inspiration}, which shows bijections among seemingly different tree structures, which are lambda trees, black-white trees~\cite{blackwhite} and zigzag free trees~\cite{inspiration}\todo{Find better cite}. They share the same holonomic recurrence, but there is no known immediate connection between the holonomic recurrence and the structures itself.
+The initial inspiration for the thesis came from the publication \textit{A natural counting of lambda terms}~\cite{inspiration}, which shows bijections among seemingly different tree structures, which are lambda trees, black-white trees~\cite{blackwhite} and zigzag free trees~\cite{inspiration}\todo{Find better cite}. They share the same holonomic recurrence, but there is no known immediate connection between the holonomic recurrence and the structures themselves.
 
-Lambda terms are very popular structures used for analyzing functions and programming languages. Their very simple recursive definition makes them very attractive. Better understanding them could allow us improving programming language compilers and in consequence improve every aspect of our lives. The interpretation of holonomic recurrence for lambda trees itself could allow us to discover new ways of generating random lambda terms via extending smaller ones in similar way to Rémy's algorithm for sampling binary trees~\cite{remy,note}.
+Lambda terms are very popular structures used for analyzing functions and programming languages. Their very simple recursive definition makes them very attractive. A better understanding of them could allow us improving programming language compilers and in consequence improve every aspect of our lives. The interpretation of holonomic recurrence for lambda trees itself could allow us to discover new ways of generating random lambda terms via extending smaller ones in similar way to Rémy's algorithm for sampling binary trees~\cite{remy,note}.
 
 Throughout the thesis we try to accumulate known results and techniques that may help solving the problem of finding combinatorial interpretations. We also propose an~approach that helped us to find an~intermediate solution for the problem of finding combinatorial interpretation for holonomic recurrence of lambda trees in the unary de Bruijn notation. We use the de Bruijn indices in order to get rid of letter-based variable names. Unary notation allows us to connect size of the tree to the values of the de Bruijn indices.
 
@@ -187,7 +190,7 @@ Next, in Section~\ref{sec:known_results}, we present known results, i.e.~interpr
 
 In Section~\ref{sec:approaches} we show approaches to the problem that helped to achieve the aforementioned results. All of them were tried in order to find the answer to the original problem of interpreting holonomic recurrence of trees of lambda terms in the unary de Bruijn notation. Unfortunately, none of them helped us enough to get the final result. Anyway, they are proven to be helpful when we are stuck, as most of them are able to divide problems into smaller parts and detect corner cases.
 
-Section~\ref{sec:brutal_iterative_approach} presents our final approach to the original problem, i.e.~computer-aided iterative approach that allowed us to find the intermediate solution. We believe that it is possible to extend this idea in order to obtain the full solution, but we were not able to achieve that due to the limited time that was available to us.
+Section~\ref{sec:brutal_iterative_approach} presents our final approach to the original problem, i.e.~computer-aided iterative approach that allowed us to find the intermediate solution. We believe that it is possible to extend this idea in order to obtain the full solution, but we were not able to achieve this due to the limited time that was available to us.
 
 Finally, in Section~\ref{sec:further_work}, we present our view on what can be done with the problem in the future. We believe that one day the problem will be fully solved and a~more generic approach to interpreting holonomic recurrences will emerge.
 
@@ -223,25 +226,25 @@ i.e.~stands for Latin id est, which means \textit{that is}.
 
 \(e\) is implicitly assumed to be an~edge.
 
-\(\troot(T)\) is implicitly defined as a~root of tree \(T\).
+\(\troot(T)\) is implicitly defined as the~root of the~tree \(T\).
 
-\(\tleft(v)\) is implicitly defined as a~left child of node \(v\).
+\(\tleft(v)\) is implicitly defined as the~left child of the~node \(v\).
 
-\(\tright(v)\) is implicitly defined as a~right child of node \(v\).
+\(\tright(v)\) is implicitly defined as the~right child of the~node \(v\).
 
-\(\tSub(v)\) is implicitly defined as a~whole subtree rooted with node \(v\).
+\(\tSub(v)\) is implicitly defined as the~whole subtree rooted with the~node \(v\).
 
-\(\tLeft(v)\) is implicitly defined as a~left subtree of node \(v\).
+\(\tLeft(v)\) is implicitly defined as the~left subtree of the~node \(v\).
 
-\(\tRight(v)\) is implicitly defined as a~right subtree of node \(v\).
+\(\tRight(v)\) is implicitly defined as the~right subtree of the~node \(v\).
 
-Sibling of node \(v\) is defined as node \(u\) having the same parent as \(v\).
+Sibling of the node \(v\) is defined as the node \(u\) having the same parent as \(v\).
 
-Uncle of node \(v\) is defined as a~sibling of the parent of \(v\).
+Uncle of the node \(v\) is defined as the~sibling of the parent of \(v\).
 
 We say that node \(v\) is an~oneling \(\textiff\) \(v\) has no siblings. Note that the root is oneling even if it has no parent.
 
-We say that node \(v\) is twinling \(\textiff\) \(v\) has at least one sibling.
+We say that node \(v\) is a~twinling \(\textiff\) \(v\) has at least one sibling.
 
 Leaf is a~node which has no children.
 
@@ -277,7 +280,7 @@ For a~binary tree, we say that node \(v\) has a~right (left) parent \(u\) \(\tex
 
 \(v\weighted{n}\) is implicitly defined as a~weighted node \(v\) with weight \(n\).
 
-\(x_i\) is implicitly assumed to be an~\(i\)-th element of the sequence \(X\), where \(x\) can be any lower-case letter and \(X\) is upper-case \(x\).
+\(x_i\) is implicitly assumed to be the~\(i\)-th element of a sequence \(X\), where \(x\) can be any lower-case letter and \(X\) is upper-case \(x\).
 
 Calligraphic \(\gf{X}\) is implicitly assumed to be a~generating function of the sequence \(X\) where \(X\) is any upper-case letter.
 
@@ -331,17 +334,17 @@ We will be analyzing structures that can be expressed using recursive formulas. 
 Throughout the thesis we use ordinary generating functions to describe and count structures.
 
 \begin{definition}
-    The ordinary generating function of sequence \(A = {(a_i)}_{i=0}^{\infty}\) is defined as a~formal power series:
+    The ordinary generating function of a sequence \(A = {(a_i)}_{i=0}^{\infty}\) is defined as the following formal power series:
 \[\gf{A}(z) = \sum_{i=0}^{\infty} a_i z^i.\]
 \end{definition}
 
-Note that in order to compute the \(k\)-th element of the sequence, namely \(a_k\), we just need to find a~constant corresponding to indeterminate \(z^k\).
+Note that in order to compute the \(k\)-th element of the sequence, namely \(a_k\), we just need to find the~constant corresponding to indeterminate \(z^k\).
 
 If we have a sequence counting some objects and a corresponding generating function, we say that this function counts the objects.
 
 \begin{example}%
     \label{ex:bin_gf}
-    Let's consider recursive definition of binary trees shown in Figure~\ref{fig:binary_recursion}. We can create a~functional equation to count trees with exactly n internal nodes. To do so, we make internal nodes contribute to the generating function with \(z^1 = z\) and leaves with \(z^0 = 1\):
+    Let's consider the recursive definition of binary trees shown in Figure~\ref{fig:binary_recursion}. We can create a~functional equation to count trees with exactly \(n\) internal nodes. To do so, we make internal nodes contribute to the generating function with \(z^1 = z\) and leaves with \(z^0 = 1\):
 
 \[\gf{B}(z) = 1 + z\gf{B}^2(z).\]
 
@@ -452,7 +455,7 @@ In the thesis we try to gather methods and results that may be helpful for anyon
 
 In the thesis, if not stated otherwise, we will be working on rooted ordered unlabeled \(n\)-ary trees. To understand the terms, let's define them:
 \begin{itemize}
-    \item rooted tree is a~tree with single vertex marked as root. This allows us to define hierarchy of nodes using such terms as parent and child;
+    \item rooted tree is a~tree with single node marked as root. This allows us to define hierarchy of nodes using such terms as parent and child;
     \item ordered trees introduce order on children from the leftmost to the rightmost;
     \item unlabeled trees have nodes that are not distinguishable by their label. We will introduce soon kinds of nodes, but you shouldn't treat them as labels, but rather way to describe the structure of the node that is already present (e.g.~we can call node with just left child an~\(l\) node, but it is not its label. If the right child was added to the \(l\) node, it would not be an~\(l\) node anymore).
 \end{itemize}
@@ -461,7 +464,7 @@ Additionally we allow that \(n\)-ary node has some of its children unset (e.g.~w
 In order to make notation easier and unambiguous, we introduce pre-order notation of an~\(n\)-ary tree.
 
 \begin{definition}
-    For single vertex \(v\), the pre-order notation is defined as \(\enc{v}\).
+    For single node \(v\), the pre-order notation is defined as \(\enc{v}\).
 \end{definition}
 
 Here, \(\enc{v}\) is defined as follows:
@@ -502,7 +505,7 @@ We can also define prefixes and suffixes of \(T\) in relation to a~node \(v\).
 \end{definition}
 
 \begin{definition}
-    Let \(n\) be the length of the sequence \(\enc{T}\). Notation of suffix of \(T\) in relation to \(v\), namely \(\enc{\tSuf(T, v)}\), is defined as a~suffix of \enc{T} of size \(n - \size{\enc{\tPre(T, v)}} - \size{\enc{\tSub(v)}}\).
+    Let \(n\) be the length of the sequence \(\enc{T}\). Notation of suffix of \(T\) in relation to \(v\), namely \(\enc{\tSuf(T, v)}\), is defined as a~suffix of \enc{T} of size \(n - \size{\enc{\tPre(T, v)}} - \size{\enc{\tSub(v)}}\). Note that the suffix may be an ordered forest.\todo{add to the example}
 \end{definition}
 
 In other words, prefix of the tree \(T\) in relation to \(v\) describes a~part of the tree that appears before subtree rooted in \(v\) in pre-order notation. Suffix describes part of the tree that appears after it.
@@ -525,7 +528,7 @@ In this section we show combinatorial interpretations of holonomic recurrences f
 
 Each of these interpretations has its unique character, like different selection of the size definition or different approach to arranging the terms of the holonomic recurrence.
 
-These interpretations have been source of ideas that that we were incorporating in order to make our partial interpretation for the case of lambda trees in unary de Bruijn notation.
+These interpretations have been source of ideas that we were incorporating in order to make our partial interpretation for the case of lambda trees in unary de Bruijn notation.
 
 \subsection{Binary trees}%
 \label{sub:binary_trees}
@@ -1124,7 +1127,7 @@ As the most common trees are binary ones, it may be worth an~effort to find some
 \subsection{Custom weights assignment}%
 \label{sub:weights_variablization}
 
-Most of the time we are operating on trees with some nodes of weight \(0\) and some of weight \(1\). We may as well try to make them variable or assign some other values (e.g.~small prime numbers).
+Most of the time we are operating on trees, we define the size as a count of some objects (nodes or edges). We can assign weights to these objects and make the size a weighted sum. The weights can be variable or we can assign some other constant values (e.g.~small prime numbers).
 
 \todo{rewrite to unary-binary}
 In Section~\ref{sub:lambda_terms} we will define trees of lambda terms. If we would assign following weights to nodes:
@@ -1602,9 +1605,14 @@ You may notice that some summands have become oversimplified. For example \(((4 
 
 We also created a~framework~\cite{transformator}, called Transformator, that may help visualize our work. It operates on binary trees and is based on the idea that every transformation expressed in bijective language is local, i.e.~transforms some node and a finite number of its surrounding nodes.
 
-To show the idea of such transformations, let's define transformation context with holes. The context specifies shape of the fragment of the tree. It can have holes that specify whole subtree. We can also specify whether the root of the context has parent and is it the left or right child of its parent.
+To show the idea of such transformations, let's define transformation context with holes.
 
-\begin{example}
+\begin{definition}
+    The transformation context is a rooted tree. Some of nodes can be left as holes, that may be later filled with trees. It also specifies type of the edge above the root of the context (i.e.~if that is actual edge, optional actual edge, virtual edge, or if there is no edge at all).
+\end{definition}
+
+\begin{example}%
+    \label{ex:transformation}%
     We want to modify a node being right a child of its parent. We do not care what is below that node (i.e.~if that is a leaf or if it has children). We want to add a new node of which the original one is left child. We do not want the new node to have a right child. Additionally we want to swap potential children of the original node. We can define following transformation:
     \begin{center}
         \includeinlinescaledsvg{.4}{.7}{lambda__contexts__def_001}%
@@ -1613,7 +1621,7 @@ To show the idea of such transformations, let's define transformation context wi
     \end{center}
 \end{example}
 
-We marked the node being transformed to clarify the picture.
+\(H_1\), \(H_2\), and \(H_3\) are holes. Edge crossing the box around the context defines type of edge the context is connect to the rest of the tree (i.e.~optional actual edge). We marked the node being described to clarify the picture.
 
 We support following starting contexts of the transformations:
 
@@ -1624,10 +1632,12 @@ We support following starting contexts of the transformations:
         \includeinlinescaledsvg{1}{.7}{lambda__contexts__type_002}%
     \item node is a~root (each tree has exactly \(1\) place where such context apply):\\
         \includeinlinescaledsvg{1}{.7}{lambda__contexts__type_003}%
-    \item node has its parent on the left, i.e.~is right child of its parent:\\
-        \includeinlinescaledsvg{1}{.7}{lambda__contexts__type_004}%
-    \item node has its parent on the right, i.e.~is the left child of its parent:\\
-        \includeinlinescaledsvg{1}{.7}{lambda__contexts__type_005}%
+    \item node has its parent on the left, i.e.~is right child of its parent (the node can be specified to be actual or virtual):\\
+        \includeinlinescaledsvg{.5}{.7}{lambda__contexts__type_004}%
+        \includeinlinescaledsvg{.5}{.7}{lambda__contexts__type_004b}%
+    \item node has its parent on the right, i.e.~is the left child of its parent (the node can be specified to be actual or virtual):\\
+        \includeinlinescaledsvg{.5}{.7}{lambda__contexts__type_005}%
+        \includeinlinescaledsvg{.5}{.7}{lambda__contexts__type_005b}%
 \end{itemize}
 
 The latest two are introduced in order to make the analysis simpler, but do not have immediate interpretation in the world of holonomic recurrences. However, if we use them both, it sums up to all nodes except root (as root is neither left nor right child), so in total there are \((n - 1)\) places where such a pair of contexts apply.
@@ -1637,84 +1647,90 @@ The target of the transformation can be any context preserving all holes. This a
 \subsection{Transformation classes}%
 \label{sub:transformation_classes}
 
-We will be operating on transformation classes, sections and parts. Let's define them:
+Note that for each transformation we can specify number and kinds of the nodes added to the tree. Let's take a look at the transformation from Example~\ref{ex:transformation}:
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__contexts__def_001}%
+    \(\Rightarrow\)
+    \includeinlinescaledsvg{.4}{.7}{lambda__contexts__def_002_with_l}%
+\end{center}
+It adds single \(l\) node.
 
-\begin{definition}
-    Class \(T_i\) is defined as a~set of transformations of trees of size \((n - i)\) into trees of size \(n\).
-\end{definition}
+We will be operating on transformation classes, sections. They will start being empty and we will be adding tranformations to them.
 
-\begin{definition}
-    Section \(T_{i,j}\) is defined as a~subset of \(T_i\) adding a~specific set of nodes. We assign \(j\) according to the lexicographical order of lexicographically sorted node types.
-\end{definition}
+\(\tSection_\tau\), where \(\tau\) is list constructed from \(\{a, l, o, s\}\) (you can treat is as a~set, but with potential repetitions), stores transformation extending the tree with nodes \(\tau\).
 
-\begin{definition}
-    Part \(T_{i,j,k}\) is defined as a~single transformation in section \(T_{i,j}\). \(k\) is assigned according to the order of discovering the transformation.
-\end{definition}
+\(\tClass_i\), where \(i \in \N\) is defined as \(\bigcup_{\tau : |\tau| = i} \tSection_\tau\) (i.e.~set of all transformations adding exactly \(i\)~nodes to the tree).
 
-In order to make interpretation more human readable, we will be using local notation:
+We will be also talking about trees generated by the transformation. Let's consider constant \(n \in \N\). List of trees generated by the transformation from \(\tSection_\tau\) is defined as all trees generated by applying the transformation to all trees of size \((n - |\tau|)\).
 
-\begin{definition}
-    In the context of \(T_i\), \(k\) is defined as \((n - i)\).
-\end{definition}
+Analogically, we can specify list of trees generated by the \(\tSection_\tau\) and \(\tClass_i\) as list of trees generated by all transformations from them.
 
-\begin{definition}
-    In the context of \(T_i\), \(C_k\) is defined as \(T(n - i)\), i.e.~number of tree transformations from \(T_i\) are working on.
-\end{definition}
+Each section is associated with an expression coming from the holonomic recurrence. It defines expected number of trees that will be generated by each of them. Let \(k = n - |\tau|\) for each \(\tSection_\tau\). In the case of trees of lambda terms, we get following expressions associated to each section:
 
-\begin{definition}
-    Section equation \(E_{i, j}\) is an~equation defined in the context of \(T_i\) that evaluates to a~total number of trees that should be generated by transformations from \(T_{i, j}\).
-\end{definition}
-
-\begin{definition}
-    Section expression \(S_{i, j}\) is a~pair of section equations and a~set of kinds of nodes the transformation introduces.
-\end{definition}
-
-For the problem of interpreting trees of lambda terms we define following section expressions:
-
-\[\begin{array}{rccrlc}
-        S_{0,0} &=& (& (k + 1) C_k,& \emptyset &)\\
-        S_{1,0} &=& (& - (2 k + 1) C_k,& \{l\} &)\\
-        S_{1,1} &=& (& - 2 (k + 1) C_k,& \{s\} &)\\
-        S_{2,0} &=& (& - (4 k) C_k,& \{ao\} &)\\
-        S_{2,1} &=& (& (k) C_k,& \{ll\} &)\\
-        S_{2,2} &=& (& (4 k + 2) C_k,& \{ls\} &)\\
-        S_{2,3} &=& (& (k + 1) C_k,& \{ss\} &)\\
-        S_{3,0} &=& (& 2 (2 k + 1) C_k,& \{aos\} &)\\
-        S_{3,1} &=& (& - (2 k) C_k,& \{lls\} &)\\
-        S_{3,2} &=& (& - (2 k + 1) C_k,& \{lss\} &)\\
-        S_{4,0} &=& (& k C_k,& \{llss\} &)\\
+\[\begin{array}{lcr}
+        \tSection_{\emptyset} &:& (k + 1) t_k\\
+        \tSection_{\{l\}} &:& - (2 k + 1) t_k\\
+        \tSection_{\{s\}} &:& - 2 (k + 1) t_k\\
+        \tSection_{\{ao\}} &:& - (4 k) t_k\\
+        \tSection_{\{ll\}} &:& (k) t_k\\
+        \tSection_{\{ls\}} &:& (4 k + 2) t_k\\
+        \tSection_{\{ss\}} &:& (k + 1) t_k\\
+        \tSection_{\{aos\}} &:& 2 (2 k + 1) t_k\\
+        \tSection_{\{lls\}} &:& - (2 k) t_k\\
+        \tSection_{\{lss\}} &:& - (2 k + 1) t_k\\
+        \tSection_{\{llss\}} &:& (k) t_k\\
 \end{array}\]
 
-Using context-based variables makes the equation simpler to interpret, as we can immediately see the relation between \(k\) and multiplier.
+Using \(k\) instead of \(n\) makes it easier to interpret, as we immediately see number of trees that should be generated by each section. For example \(\tSection_{\{ll\}}\) should generate \(k t_k\) trees from trees of size \(k\), which can be interpreted as taking each actual node and adding two \(l\) nodes above it.
+
+Note that some of these expressions will evaluate to negative numbers. It is because of the fact that sum of all sections is equal to zero. We will be generating two kinds of trees then: positive (contributing to the total number of trees being generated as \(1\)) and negative ones (contributing as \(-1\)).
 
 \subsection{Iteration}%
 \label{sub:iteration}
 
-As we want to make our work kind of organized, we are going to divide the process of finding interpretation into iterations. Each iteration should be a~small step into the direction of solving the original problem.
+As we want to make our work kind of organized, we are going to divide the process of finding interpretation into iterations. Each iteration should be a~small step towards solving the original problem.
 
-We are going to generate two kinds of trees: positive and negative ones. When computing the total number of trees of a given size, we count positive trees as \(1\) and negative as \(-1\). Our goal is to generate \(E_{i, j}\) trees for each section \(T_{i, j}\).
+Our brains like small examples, so we will consider small constant \(n = 3\). It will be describing size of the trees we want to generate. Because we start with such small \(n\), some of expressions associated with some sections will be empty, but it is ok. That's less trees to look at and soon we will increase \(n\).
 
-Our brains like small examples, so we will consider small \(n = 3\). This will cause some classes to be empty at the beginning, but it's ok. That's less trees to look at.
+We will be still using \(k = n - |\tau|\) when considering sections to make the view simpler.
 
+Let's take a look at the number of trees we should generate:
 
 \begin{lstlisting}
 === Classes stats ===
-[ ]  0,0:       0 of      16 | (k + 1) * Ck              []
-[ ]  1,0:       0 of     -10 | - (2 * k + 1) * Ck        [l]
-[ ]  1,1:       0 of     -12 | - 2 * (k + 1) * Ck        [s]
-[ ]  2,0:       0 of      -4 | - (4 * k) * Ck            [ao]
-[ ]  2,1:       0 of       1 | (k) * Ck                  [ll]
-[ ]  2,2:       0 of       6 | (4 * k + 2) * Ck          [ls]
-[ ]  2,3:       0 of       2 | (k + 1) * Ck              [ss]
-[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Ck      [aos]
-[x]  3,1:       0 of       0 | - (2 * k) * Ck            [lls]
-[ ]  3,2:       0 of      -1 | - (2 * k + 1) * Ck        [lss]
-[x]  4,0:       0 of       0 | k * Ck                    [llss]
+[ ]  0,0:       0 of      16 | (k + 1) * Tk              []
+[ ]  1,0:       0 of     -10 | - (2 * k + 1) * Tk        [l]
+[ ]  1,1:       0 of     -12 | - 2 * (k + 1) * Tk        [s]
+[ ]  2,0:       0 of      -4 | - (4 * k) * Tk            [ao]
+[ ]  2,1:       0 of       1 | (k) * Tk                  [ll]
+[ ]  2,2:       0 of       6 | (4 * k + 2) * Tk          [ls]
+[ ]  2,3:       0 of       2 | (k + 1) * Tk              [ss]
+[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Tk      [aos]
+[x]  3,1:       0 of       0 | - (2 * k) * Tk            [lls]
+[ ]  3,2:       0 of      -1 | - (2 * k + 1) * Tk        [lss]
+[x]  4,0:       0 of       0 | k * Tk                    [llss]
 \end{lstlisting}
 
-This statistic tells us for each section, how many trees have been generated of the expected total number of trees in that section. \verb|[x]| means that we generated enough trees for such a~section.
+The listing above is statistics view from Transformator framework. Let's analyze the first line:
+\begin{itemize}
+    \item \verb|[ ]| at the beginning means that we still need to generate some more trees. If we have generated all of them, it would be \verb|[x]|;
+    \item \verb|0,0| is class and section identifier, i.e. \(|\tau|\) and arbitrarily assigned section identifier;
+    \item \verb|0 of 16| means that we have generated \(0\) trees from \(16\) expected;
+    \item \verb|(k + 1) * Tk| is just the expression associated with the section;
+    \item \verb|[]| at the end is \(\tau\), which in this case is equal to \(\emptyset\).
+\end{itemize}
 
-We start with interpreting \(E_{0,0} = (k + 1) C_k\). From statistics above, we see that we should generate \(16\) trees. \((k + 1)\) suggests pointing to a~virtual leaf. Let's do so.
+We start with interpreting \(\tSection_\emptyset\). From statistics above, we see that we should generate \(16\) trees. \((k + 1)\) suggests pointing to a~virtual leaf. Let's do so. We do that by defining following transformation:
+
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__001a}%
+    \(\xRightarrow{+1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__001b}%
+\end{center}
+
+Here \(\xRightarrow{+1}\) means that we are generating positive trees.
+
+In the language of Transformator framework it would be:
 
 \begin{lstlisting}
 c.define_class(0)
@@ -1729,34 +1745,42 @@ c.append_r_class_subtree_visitor(1,       # we define positive trees
 )
 \end{lstlisting}
 
+After such operation we get following statistics:
+
 \begin{lstlisting}
-# define 0,0: (k + 1) * Ck []
+# define 0,0: (k + 1) * Tk []
 === Classes stats ===
-[x]  0,0:      16 of      16 | (k + 1) * Ck              []
-[ ]  1,0:       0 of     -10 | - (2 * k + 1) * Ck        [l]
-[ ]  1,1:       0 of     -12 | - 2 * (k + 1) * Ck        [s]
-[ ]  2,0:       0 of      -4 | - (4 * k) * Ck            [ao]
-[ ]  2,1:       0 of       1 | (k) * Ck                  [ll]
-[ ]  2,2:       0 of       6 | (4 * k + 2) * Ck          [ls]
-[ ]  2,3:       0 of       2 | (k + 1) * Ck              [ss]
-[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Ck      [aos]
-[x]  3,1:       0 of       0 | - (2 * k) * Ck            [lls]
-[ ]  3,2:       0 of      -1 | - (2 * k + 1) * Ck        [lss]
-[x]  4,0:       0 of       0 | k * Ck                    [llss]
+[x]  0,0:      16 of      16 | (k + 1) * Tk              []
+[ ]  1,0:       0 of     -10 | - (2 * k + 1) * Tk        [l]
+[ ]  1,1:       0 of     -12 | - 2 * (k + 1) * Tk        [s]
+[ ]  2,0:       0 of      -4 | - (4 * k) * Tk            [ao]
+[ ]  2,1:       0 of       1 | (k) * Tk                  [ll]
+[ ]  2,2:       0 of       6 | (4 * k + 2) * Tk          [ls]
+[ ]  2,3:       0 of       2 | (k + 1) * Tk              [ss]
+[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Tk      [aos]
+[x]  3,1:       0 of       0 | - (2 * k) * Tk            [lls]
+[ ]  3,2:       0 of      -1 | - (2 * k + 1) * Tk        [lss]
+[x]  4,0:       0 of       0 | k * Tk                    [llss]
 === Diff stats ===
 0,0:     0    16
 \end{lstlisting}
 
-The framework informs us that we have generated all trees for section \(0,0\) for \(n = 3\). It also can provide us with the visualization of the trees we have generated. For example:
+Note that we have generated all expected trees associated with \(\tSection_\emptyset\) (it is indicated by \verb|[x]|).
+
+We also get the \verb|Diff stats|. It shows us information about how we have unbalanced the positive and negative side of our equation. At the end we want to generate the same list of trees at the negative and positive site.
+
+The framework also can provide us with the visualization of the trees we have generated. For example, from the tree on the left side of \(\xRightarrow{+1}\) we have generated four trees:
 
 \includeinlinesvg{.19}{lambda__trees_00__4_base}%
-\(\Rightarrow\)
+\(\xRightarrow{+1}\)%
 \includeinlinesvg{.19}{lambda__trees_00__4}%
 \includeinlinesvg{.19}{lambda__trees_00__5}%
 \includeinlinesvg{.19}{lambda__trees_00__6}%
 \includeinlinesvg{.19}{lambda__trees_00__7}%
 
-If we take a~look at more examples from class \(0\), we can start seeing some patterns:
+You can see that there are four virtual leaves matching left side of the transformation we have defined.
+
+We can also query Transformator framework to visualize the trees that are unbalanced. For \(\tClass_0\) those are:
 
 (1)%
 \begin{minipage}{.98\textwidth}\begin{center}%
@@ -1790,13 +1814,19 @@ If we take a~look at more examples from class \(0\), we can start seeing some pa
 \includeinlinescaledsvg{.25}{.4}{lambda__trees_00__11}%
 \end{center}\end{minipage}
 
-The order may be a~bit suggestive. Section \(1,0\) adds a~single \(l\) node, whereas section \(1,1\) adds a~single \(s\) node. It actually suggests how we can try to generate the first and second line of the trees above. The first one is simple. Let's add \(l\) node with pointed right virtual leaf above each actual node:
+We have ordered the trees and enumerated the lines to make the analysis clearer.
+
+We need to generate all of these trees on the negative side of the equation. Let's take a look at the line (1). All of these trees share the same property, that the virtual leaf being pointed is child of \(l\)~node. Analogically at the line (2) pointed virtual leaves are children of \(s\) nodes. To generate such trees on the negative side we will use \(\tSection_{\{l\}}\) and \(\tSection_{\{s\}}\).
+
+The transformation to resolve case of the line (1) is simple:
+
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__002a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__002b}%
+\end{center}
 
 \begin{lstlisting}
-c.define_class(1)
-
-c.define_section(0)
-
 c.append_r_class_subtree_visitor(-1,                # negative node
     lambda kind, left, right:
         None if kind[0] is None else                # we ignore all virtual nodes
@@ -1805,64 +1835,101 @@ c.append_r_class_subtree_visitor(-1,                # negative node
                                                     # node pointed as a parent
 )
 \end{lstlisting}
-\todo{Repeat in natural language}
+
+We just add an \(l\) node above each actual one and point its right child being virtual leaf.
 
 It creates following trees:
-\todo{Mark transformed nodes}
 
-\includeinlinesvg{.24}{lambda__trees_100__0_base}\(\Rightarrow\)\includeinlinesvg{.24}{lambda__trees_100__0}%
-\includeinlinesvg{.24}{lambda__trees_100__1_base}\(\Rightarrow\)\includeinlinesvg{.24}{lambda__trees_100__1}%
+\includeinlinesvg{.24}{lambda__trees_100__0_base}\(\xRightarrow{-1}\)\includeinlinesvg{.24}{lambda__trees_100__0}%
+\includeinlinesvg{.24}{lambda__trees_100__1_base}\(\xRightarrow{-1}\)\includeinlinesvg{.24}{lambda__trees_100__1}%
 
-\includeinlinesvg{.24}{lambda__trees_100__2_base}\(\Rightarrow\)\includeinlinesvg{.24}{lambda__trees_100__2}%
-\includeinlinesvg{.24}{lambda__trees_100__3_base}\(\Rightarrow\)\includeinlinesvg{.24}{lambda__trees_100__3}%
+\includeinlinesvg{.24}{lambda__trees_100__2_base}\(\xRightarrow{-1}\)\includeinlinesvg{.24}{lambda__trees_100__2}%
+\includeinlinesvg{.24}{lambda__trees_100__3_base}\(\xRightarrow{-1}\)\includeinlinesvg{.24}{lambda__trees_100__3}%
 
-It addresses all cases from the first line, but also introduces an~incorrect lambda tree in which \(s\) is the parent of \(l\), which cannot happen. We will fix it with the section \(2,2\) generating positive trees, which introduces one \(l\) node and one \(s\) by extending the tree with \(2\) nodes where \(s\) is parent of \(l\).
+It addresses all cases from the line (1), but also introduces an~incorrect lambda tree in which \(s\) node is the parent of \(l\) node, which cannot happen (i.e.~such tree does not correspond to valid lambda term). To mitigate this problem we will later use \(\tSection_{\{ls\}}\) and generate positive trees where \(s\) node is parent of \(l\) node.
 
-Next, we can take care of next cases of section \(0, 0\). It can be also expressed using sections \(1, 0\) and \(1, 1\):
+To generate negative trees corresponding to the line (2), create following transformation for \(\tSection_{\{s\}}\).
+
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__003a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__003b}%
+\end{center}
 
 \begin{lstlisting}
-c.define_class(1)
-
-c.define_section(0)
-
-# old visitor
-c.append_r_class_subtree_visitor(-1,
-    lambda kind, left, right:
-        None if kind[0] is None else
-        ["l", kind] + left + right + [(None, "*")]
-)
-
-# new visitor
-c.append_r_class_right_parent_subtree_visitor(-1,
-    lambda kind, parent_kind, left, right:
-        None if kind[0] is not None else
-        ["l", parent_kind] + [left[0] + ("*",)] + left[1:] + right + [None]
-)
-
-# new visitor
-c.append_r_class_left_parent_subtree_visitor(-1,
-    lambda kind, parent_kind, left, right:
-        None if kind[0] is not None else
-        ["l", parent_kind] + left + [right[0] + ("*",)] + right[1:] + [None]
-)
-
-c.define_section(1)
-
-# old visitor
 c.append_r_class_right_parent_subtree_visitor(-1,
     lambda kind, parent_kind, left, right:
         None if kind[0] is not None else
         ["s", (None, "*"), parent_kind] + left + right
 )
+\end{lstlisting}
 
-# new visitor
+It generates exactly the trees we need:
+
+\begin{center}
+    \includeinlinescaledsvg{.24}{.4}{lambda__trees_110__0_base}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.24}{.4}{lambda__trees_110__0}%
+
+    \includeinlinescaledsvg{.24}{.4}{lambda__trees_110__1_base}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.24}{.4}{lambda__trees_110__1}%
+    \includeinlinescaledsvg{.24}{.4}{lambda__trees_110__2_base}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.24}{.4}{lambda__trees_110__2}%
+\end{center}
+
+Next, we can take care of cases from line (3). To do so, we will use both \(\tSection_{\{l\}}\) and \(\tSection_{\{s\}}\).
+
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__004a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__004b}%
+\end{center}
+
+\begin{lstlisting}
+c.append_r_class_right_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["l", parent_kind] + [left[0] + ("*",)] + left[1:] + right + [None]
+)
+\end{lstlisting}
+
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__005a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__005b}%
+\end{center}
+
+\begin{lstlisting}
+c.append_r_class_left_parent_subtree_visitor(-1,
+    lambda kind, parent_kind, left, right:
+        None if kind[0] is not None else
+        ["l", parent_kind] + left + [right[0] + ("*",)] + right[1:] + [None]
+)
+\end{lstlisting}
+
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__006a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__006b}%
+\end{center}
+
+\begin{lstlisting}
 c.append_r_class_left_parent_subtree_visitor(-1,
     lambda kind, parent_kind, left, right:
         None if kind[0] is not None else
         ["s", None, parent_kind] + left + [right[0] + ("*",)] + right[1:]
 )
+\end{lstlisting}
 
-# new visitor
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__007a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__007b}%
+\end{center}
+
+\begin{lstlisting}
 c.append_r_class_right_parent_subtree_visitor(-1,
     lambda kind, parent_kind, left, right:
         None if kind[0] is not None else
@@ -1873,35 +1940,61 @@ c.append_r_class_right_parent_subtree_visitor(-1,
 Basically, for each virtual leaf not being root (i.e.~having left or right parent), we point it and add \(l\) or \(s\) respectively above the parent.
 
 \includeinlinesvg{.32}{lambda__trees_111__1_base}%
-\(\Rightarrow\)
+\(\xRightarrow{-1}\)%
 \includeinlinesvg{.32}{lambda__trees_101__0}%
 \includeinlinesvg{.32}{lambda__trees_112__0}%
 
-The last row can be generated using section \(2, 0\):
+The last row can be generated using \(\tSection_{\{ao\}}\):
+
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__008a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__008b}%
+\end{center}
 
 \begin{lstlisting}
-c.define_class(2)
-
-c.define_section(0)
-
 c.append_r_class_subtree_visitor(-1,
     lambda kind, left, right:
         None if kind[0] is None else
         ["a", "o", (None, "*"), None, kind] + left + right
 )
+\end{lstlisting}
 
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__009a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__009b}%
+\end{center}
+
+\begin{lstlisting}
 c.append_r_class_subtree_visitor(-1,
     lambda kind, left, right:
         None if kind[0] is None else
         ["a", "o", None, (None, "*"), kind] + left + right
 )
+\end{lstlisting}
 
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__010a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__010b}%
+\end{center}
+
+\begin{lstlisting}
 c.append_r_class_subtree_visitor(-1,
     lambda kind, left, right:
         None if kind[0] is None else
         ["a", kind] + left + right + ["o", (None, "*"), None]
 )
+\end{lstlisting}
 
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__011a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__011b}%
+\end{center}
+
+\begin{lstlisting}
 c.append_r_class_subtree_visitor(-1,
     lambda kind, left, right:
         None if kind[0] is None else
@@ -1909,10 +2002,10 @@ c.append_r_class_subtree_visitor(-1,
 )
 \end{lstlisting}
 
-For each actual vertex, we add \(a\) node as its left or right parent and add as a~second child \(o\) node as its sibling. We then point to the left or right virtual child of the newly created \(o\) node.
+In other words, for each actual node, we add an \(a\) node as its left or right parent and add as a~second child \(o\) node as its sibling. We then point to the left or right virtual child of the newly created \(o\)~node:
 
 \includeinlinesvg{.20}{lambda__trees_200__0_base}%
-\(\Rightarrow\)
+\(\xRightarrow{-1}\)%
 \includeinlinesvg{.20}{lambda__trees_200__0}%
 \includeinlinesvg{.20}{lambda__trees_201__0}%
 \includeinlinesvg{.20}{lambda__trees_202__0}%
@@ -1922,44 +2015,46 @@ After such transformations, we get following statistics:
 
 \begin{lstlisting}
 === Classes stats ===
-[x]  0,0:      16 of      16 | (k + 1) * Ck              []
-[x]  1,0:     -10 of     -10 | - (2 * k + 1) * Ck        [l]
-[ ]  1,1:      -9 of     -12 | - 2 * (k + 1) * Ck        [s]
-[x]  2,0:      -4 of      -4 | - (4 * k) * Ck            [ao]
-[ ]  2,1:       0 of       1 | (k) * Ck                  [ll]
-[ ]  2,2:       0 of       6 | (4 * k + 2) * Ck          [ls]
-[ ]  2,3:       0 of       2 | (k + 1) * Ck              [ss]
-[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Ck      [aos]
-[x]  3,1:       0 of       0 | - (2 * k) * Ck            [lls]
-[ ]  3,2:       0 of      -1 | - (2 * k + 1) * Ck        [lss]
-[x]  4,0:       0 of       0 | k * Ck                    [llss]
+[x]  0,0:      16 of      16 | (k + 1) * Tk              []
+[x]  1,0:     -10 of     -10 | - (2 * k + 1) * Tk        [l]
+[ ]  1,1:      -9 of     -12 | - 2 * (k + 1) * Tk        [s]
+[x]  2,0:      -4 of      -4 | - (4 * k) * Tk            [ao]
+[ ]  2,1:       0 of       1 | (k) * Tk                  [ll]
+[ ]  2,2:       0 of       6 | (4 * k + 2) * Tk          [ls]
+[ ]  2,3:       0 of       2 | (k + 1) * Tk              [ss]
+[ ]  3,0:       0 of       2 | 2 * (2 * k + 1) * Tk      [aos]
+[x]  3,1:       0 of       0 | - (2 * k) * Tk            [lls]
+[ ]  3,2:       0 of      -1 | - (2 * k + 1) * Tk        [lss]
+[x]  4,0:       0 of       0 | k * Tk                    [llss]
 === Diff stats ===
 1,0:     4     0
 1,1:     3     0
 \end{lstlisting}
 
-This construction works also for bigger \(N\):
+Note that we have gotten rid of the \(\tSection_\emptyset\) in \verb|Diff stats|. It means that we have generated all negative counterpart of the trees generated by that.
+
+If we increase \(n\) (i.e.~target size of the trees), this construction still works:
 
 \begin{lstlisting}
 === Classes stats ===
-[x]  0,0:   39050 of   39050 | (k + 1) * Ck              []
-[x]  1,0:  -23237 of  -23237 | - (2 * k + 1) * Ck        [l]
-[ ]  1,1:  -17799 of  -24460 | - 2 * (k + 1) * Ck        [s]
-[x]  2,0:  -13728 of  -13728 | - (4 * k) * Ck            [ao]
-[ ]  2,1:       0 of    3432 | (k) * Ck                  [ll]
-[ ]  2,2:       0 of   14586 | (4 * k + 2) * Ck          [ls]
-[ ]  2,3:       0 of    3861 | (k + 1) * Ck              [ss]
-[ ]  3,0:       0 of    4620 | 2 * (2 * k + 1) * Ck      [aos]
-[ ]  3,1:       0 of   -2156 | - (2 * k) * Ck            [lls]
-[ ]  3,2:       0 of   -2310 | - (2 * k + 1) * Ck        [lss]
-[ ]  4,0:       0 of     342 | k * Ck                    [llss]
+[x]  0,0:   39050 of   39050 | (k + 1) * Tk              []
+[x]  1,0:  -23237 of  -23237 | - (2 * k + 1) * Tk        [l]
+[ ]  1,1:  -17799 of  -24460 | - 2 * (k + 1) * Tk        [s]
+[x]  2,0:  -13728 of  -13728 | - (4 * k) * Tk            [ao]
+[ ]  2,1:       0 of    3432 | (k) * Tk                  [ll]
+[ ]  2,2:       0 of   14586 | (4 * k + 2) * Tk          [ls]
+[ ]  2,3:       0 of    3861 | (k + 1) * Tk              [ss]
+[ ]  3,0:       0 of    4620 | 2 * (2 * k + 1) * Tk      [aos]
+[ ]  3,1:       0 of   -2156 | - (2 * k) * Tk            [lls]
+[ ]  3,2:       0 of   -2310 | - (2 * k + 1) * Tk        [lss]
+[ ]  4,0:       0 of     342 | k * Tk                    [llss]
 === Diff stats ===
 1,0:  7602     0
 1,1:  5832     0
 2,0:  2280     0
 \end{lstlisting}
 
-The process can then be repeated for each section. We have chosen lexicographical order (i.e.~\(0,0\); \(1,0\); \(1,1\); \(2,0\); \(\ldots\)).
+The process can then be repeated for each section. We have chosen lexicographical order (i.e.~\(\tSection_\emptyset\); \(\tSection_{\{l\}}\); \(\tSection_{\{s\}}\); \(\tSection_{\{ao\}}\); \(\tSection_{\{ll\}}\); \(\ldots\)).
 
 \subsection{Final result}%
 \label{sub:final_result}
@@ -2171,55 +2266,84 @@ It resulted in final statistics:
 
 \begin{lstlisting}
 === Classes stats ===
-[x]  0,0:   39050 of   39050 | (k + 1) * Ck              []
-[x]  1,0:  -23237 of  -23237 | - (2 * k + 1) * Ck        [l]
-[ ]  1,1:  -17799 of  -24460 | - 2 * (k + 1) * Ck        [s]
-[x]  2,0:  -13728 of  -13728 | - (4 * k) * Ck            [ao]
-[x]  2,1:    3432 of    3432 | (k) * Ck                  [ll]
-[ ]  2,2:   10833 of   14586 | (4 * k + 2) * Ck          [ls]
-[ ]  2,3:    1770 of    3861 | (k + 1) * Ck              [ss]
-[ ]  3,0:    2280 of    4620 | 2 * (2 * k + 1) * Ck      [aos]
-[ ]  3,1:   -1648 of   -2156 | - (2 * k) * Ck            [lls]
-[ ]  3,2:   -1140 of   -2310 | - (2 * k + 1) * Ck        [lss]
-[ ]  4,0:     187 of     342 | k * Ck                    [llss]
+[x]  0,0:   39050 of   39050 | (k + 1) * Tk              []
+[x]  1,0:  -23237 of  -23237 | - (2 * k + 1) * Tk        [l]
+[ ]  1,1:  -17799 of  -24460 | - 2 * (k + 1) * Tk        [s]
+[x]  2,0:  -13728 of  -13728 | - (4 * k) * Tk            [ao]
+[x]  2,1:    3432 of    3432 | (k) * Tk                  [ll]
+[ ]  2,2:   10833 of   14586 | (4 * k + 2) * Tk          [ls]
+[ ]  2,3:    1770 of    3861 | (k + 1) * Tk              [ss]
+[ ]  3,0:    2280 of    4620 | 2 * (2 * k + 1) * Tk      [aos]
+[ ]  3,1:   -1648 of   -2156 | - (2 * k) * Tk            [lls]
+[ ]  3,2:   -1140 of   -2310 | - (2 * k + 1) * Tk        [lss]
+[ ]  4,0:     187 of     342 | k * Tk                    [llss]
 === Diff stats ===
 \end{lstlisting}
 
-As you can see, diff stats are empty, so we managed to generate expected trees on both sides of the equation.
+As you can see, \verb|Diff stats| are empty, so we managed to generate expected trees on both sides of the equation.
 
 You may also note that we did not generate all trees suggested by the recurrence. This is due to one cheat we used.
 
 \subsection{The cheat}%
 \label{sub:the_cheat}
 
-You may remember our assumptions in Section~\ref{sub:the_framework} about the discrimination cases. We allowed ourselves to apply visitors only to one of the left and right children, which is not handled by our holonomic recurrence as the number of such vertices does not depend only on \(n\).
+You may remember our assumptions in Section~\ref{sub:the_framework} about the discrimination cases. We allowed ourselves to apply visitors only to one of the left and right children, which is not handled by our holonomic recurrence as the number of such nodes does not depend only on \(n\).
 
-To fix this, one can for example add construction for section \(1, 0\) to generate all expected trees from it and then repeat the iteration in order to generate matching trees on the other side of the equation. We can see that we used \(2\) constructions visiting nodes with right parent and only one visiting node having left parent, so our missing construction should also visit nodes with left parent.
+To fix this, one can for example add construction for \(\tSection_{\{s\}}\) to generate all expected trees from it and then repeat the iteration in order to generate matching trees on the other side of the equation. We can see that we used \(2\) constructions visiting nodes with right parent and only one visiting node having left parent, so our missing construction should also visit nodes with left parent.
+
+We already have defined following transformations:
+
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__003a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__003b}%
+\end{center}
 
 \begin{lstlisting}
-c.define_class(1)
-
-c.define_section(0)
-
 c.append_r_class_right_parent_subtree_visitor(-1,
     lambda kind, parent_kind, left, right:
         None if kind[0] is not None else
         ["s", (None, "*"), parent_kind] + left + right
 )
+\end{lstlisting}
 
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__012a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__012b}%
+\end{center}
+
+\begin{lstlisting}
 c.append_r_class_left_parent_subtree_visitor(-1,
     lambda kind, parent_kind, left, right:
         None if kind[0] is not None else
         ["s", None, parent_kind] + left + [right[0] + ("*",)] + right[1:]
 )
+\end{lstlisting}
 
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__013a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__013b}%
+\end{center}
+
+\begin{lstlisting}
 c.append_r_class_right_parent_subtree_visitor(-1,
     lambda kind, parent_kind, left, right:
         None if kind[0] is not None else
         ["s", None, parent_kind] + [left[0] + ("*",)] + left[1:] + right
 )
+\end{lstlisting}
 
-# example missing construction
+An example of transformation we would like to add can be:
+
+\begin{center}
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__014a}%
+    \(\xRightarrow{-1}\)%
+    \includeinlinescaledsvg{.4}{.7}{lambda__transformations__014b}%
+\end{center}
+
+\begin{lstlisting}
 c.append_r_class_left_parent_subtree_visitor(-1,
     lambda kind, parent_kind, left, right:
         None if kind[0] is not None else

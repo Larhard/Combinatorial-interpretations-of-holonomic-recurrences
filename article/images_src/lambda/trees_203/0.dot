@@ -1,7 +1,7 @@
 graph {
 	size="4,4"
 	0 [label="\\(a\\)" shape=plain]
-	1 [label="\\(o\\)" shape=plain]
+	1 [label="\\(\\mhll{o}\\)" shape=plain]
 	0 -- 1
 	2 [label="" shape=none]
 	1 -- 2 [color=lightgreen]

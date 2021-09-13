@@ -1,6 +1,6 @@
 graph {
 	size="4,4"
-	0 [label="\\(s\\)" shape=plain]
+	0 [label="\\(\\mhll{s}\\)" shape=plain]
 	1 [label="" shape=none]
 	0 -- 1 [color=lightgreen]
 	2 [label="\\(o\\)" shape=plain]

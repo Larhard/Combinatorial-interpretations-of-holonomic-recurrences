@@ -5,7 +5,7 @@ graph {
 	0 -- 1 [color=lightgreen]
 	2 [label="\\(l\\)" shape=plain]
 	0 -- 2
-	3 [label="\\(o\\)" shape=plain]
+	3 [label="\\(\\mhll{o}\\)" shape=plain]
 	2 -- 3
 	4 [label="" shape=none]
 	3 -- 4 [color=lightgreen]

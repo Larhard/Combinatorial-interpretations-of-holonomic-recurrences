@@ -1,6 +1,6 @@
 graph {
 	size="4,4"
-	0 [label="\\(l\\)" shape=plain]
+	0 [label="\\(\\mhll{l}\\)" shape=plain]
 	1 [label="\\(o\\)" shape=plain]
 	0 -- 1
 	2 [label="" shape=none]

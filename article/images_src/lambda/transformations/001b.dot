@@ -1,0 +1,21 @@
+graph {
+	size="4,4"
+    graph [splines=false]
+    node [height=1 width=1]
+
+	r [label="" shape=none]
+	rl [label="" shape=none]
+
+	r2 [label="" shape=none]
+	r2r [label="" shape=none]
+
+    r -- rl [style=invis]
+    r -- 0 [style=invis]
+
+    r2-- r2r [style=invis]
+    r2-- 0 [color=lightgreen]
+
+	subgraph cluster_1 {
+        0 [label="\\(\\mhll{\\pointed{}}\\)" shape=plain]
+	}
+}

@@ -11,17 +11,17 @@
 <!-- 0 -->
 <g id="node1" class="node">
 <title>0</title>
-<text text-anchor="middle" x="135" y="-126.8" font-family="Times,serif" font-size="14.00">\(a\)</text>
+<text text-anchor="middle" x="134" y="-126.8" font-family="Times,serif" font-size="14.00">\(a\)</text>
 </g>
 <!-- 1 -->
 <g id="node2" class="node">
 <title>1</title>
-<text text-anchor="middle" x="99" y="-75.8" font-family="Times,serif" font-size="14.00">\(o\)</text>
+<text text-anchor="middle" x="98" y="-75.8" font-family="Times,serif" font-size="14.00">\(\mhll{o}\)</text>
 </g>
 <!-- 0&#45;&#45;1 -->
 <g id="edge1" class="edge">
 <title>0&#45;&#45;1</title>
-<path fill="none" stroke="black" d="M129.99,-122.69C123.12,-113.33 110.82,-96.59 103.96,-87.26"/>
+<path fill="none" stroke="black" d="M128.99,-122.69C122.12,-113.33 109.82,-96.59 102.96,-87.26"/>
 </g>
 <!-- 4 -->
 <g id="node5" class="node">
@@ -31,7 +31,7 @@
 <!-- 0&#45;&#45;4 -->
 <g id="edge4" class="edge">
 <title>0&#45;&#45;4</title>
-<path fill="none" stroke="black" d="M140.01,-122.69C146.88,-113.33 159.18,-96.59 166.04,-87.26"/>
+<path fill="none" stroke="black" d="M139.14,-122.69C146.21,-113.33 158.85,-96.59 165.9,-87.26"/>
 </g>
 <!-- 2 -->
 <g id="node3" class="node">
@@ -40,7 +40,7 @@
 <!-- 1&#45;&#45;2 -->
 <g id="edge2" class="edge">
 <title>1&#45;&#45;2</title>
-<path fill="none" stroke="lightgreen" d="M91.02,-71.91C80.62,-63.31 62.06,-47.97 47.59,-36.02"/>
+<path fill="none" stroke="lightgreen" d="M90.13,-71.91C79.88,-63.31 61.57,-47.97 47.31,-36.02"/>
 </g>
 <!-- 3 -->
 <g id="node4" class="node">
@@ -49,7 +49,7 @@
 <!-- 1&#45;&#45;3 -->
 <g id="edge3" class="edge">
 <title>1&#45;&#45;3</title>
-<path fill="none" stroke="lightgreen" d="M99,-71.67C99,-63.07 99,-47.96 99,-36.13"/>
+<path fill="none" stroke="lightgreen" d="M98.11,-71.67C98.26,-63.07 98.51,-47.96 98.71,-36.13"/>
 </g>
 <!-- 5 -->
 <g id="node6" class="node">

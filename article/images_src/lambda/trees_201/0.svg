@@ -26,7 +26,7 @@
 <!-- 4 -->
 <g id="node5" class="node">
 <title>4</title>
-<text text-anchor="middle" x="231" y="-75.8" font-family="Times,serif" font-size="14.00">\(o\)</text>
+<text text-anchor="middle" x="231" y="-75.8" font-family="Times,serif" font-size="14.00">\(\mhll{o}\)</text>
 </g>
 <!-- 0&#45;&#45;4 -->
 <g id="edge4" class="edge">

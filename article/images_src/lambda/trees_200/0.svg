@@ -11,27 +11,27 @@
 <!-- 0 -->
 <g id="node1" class="node">
 <title>0</title>
-<text text-anchor="middle" x="194.5" y="-126.8" font-family="Times,serif" font-size="14.00">\(a\)</text>
+<text text-anchor="middle" x="193.5" y="-126.8" font-family="Times,serif" font-size="14.00">\(a\)</text>
 </g>
 <!-- 1 -->
 <g id="node2" class="node">
 <title>1</title>
-<text text-anchor="middle" x="158.5" y="-75.8" font-family="Times,serif" font-size="14.00">\(o\)</text>
+<text text-anchor="middle" x="157.5" y="-75.8" font-family="Times,serif" font-size="14.00">\(o\)</text>
 </g>
 <!-- 0&#45;&#45;1 -->
 <g id="edge1" class="edge">
 <title>0&#45;&#45;1</title>
-<path fill="none" stroke="black" d="M189.49,-122.69C182.62,-113.33 170.32,-96.59 163.46,-87.26"/>
+<path fill="none" stroke="black" d="M188.49,-122.69C181.62,-113.33 169.32,-96.59 162.46,-87.26"/>
 </g>
 <!-- 4 -->
 <g id="node5" class="node">
 <title>4</title>
-<text text-anchor="middle" x="230.5" y="-75.8" font-family="Times,serif" font-size="14.00">\(o\)</text>
+<text text-anchor="middle" x="230.5" y="-75.8" font-family="Times,serif" font-size="14.00">\(\mhll{o}\)</text>
 </g>
 <!-- 0&#45;&#45;4 -->
 <g id="edge4" class="edge">
 <title>0&#45;&#45;4</title>
-<path fill="none" stroke="black" d="M199.51,-122.69C206.38,-113.33 218.68,-96.59 225.54,-87.26"/>
+<path fill="none" stroke="black" d="M198.64,-122.69C205.71,-113.33 218.35,-96.59 225.4,-87.26"/>
 </g>
 <!-- 2 -->
 <g id="node3" class="node">
@@ -41,7 +41,7 @@
 <!-- 1&#45;&#45;2 -->
 <g id="edge2" class="edge">
 <title>1&#45;&#45;2</title>
-<path fill="none" stroke="lightgreen" d="M147.19,-71.91C132.46,-63.31 106.17,-47.97 85.67,-36.02"/>
+<path fill="none" stroke="lightgreen" d="M146.31,-71.91C131.72,-63.31 105.68,-47.97 85.39,-36.02"/>
 </g>
 <!-- 3 -->
 <g id="node4" class="node">
@@ -50,7 +50,7 @@
 <!-- 1&#45;&#45;3 -->
 <g id="edge3" class="edge">
 <title>1&#45;&#45;3</title>
-<path fill="none" stroke="lightgreen" d="M158.5,-71.67C158.5,-63.07 158.5,-47.96 158.5,-36.13"/>
+<path fill="none" stroke="lightgreen" d="M157.61,-71.67C157.76,-63.07 158.01,-47.96 158.21,-36.13"/>
 </g>
 <!-- 5 -->
 <g id="node6" class="node">

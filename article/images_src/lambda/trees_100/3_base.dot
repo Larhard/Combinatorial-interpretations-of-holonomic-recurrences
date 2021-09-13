@@ -3,7 +3,7 @@ graph {
 	0 [label="\\(s\\)" shape=plain]
 	1 [label="" shape=none]
 	0 -- 1 [color=lightgreen]
-	2 [label="\\(o\\)" shape=plain]
+	2 [label="\\(\\mhll{o}\\)" shape=plain]
 	0 -- 2
 	3 [label="" shape=none]
 	2 -- 3 [color=lightgreen]

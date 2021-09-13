@@ -9,6 +9,9 @@ graph {
 	06 [label="" height=0.1 shape=circle style=filled fillcolor=black]
 	07 [label="" height=0.1 shape=circle style=filled fillcolor=black]
 
+	08 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+	09 [label="" height=0.1 shape=circle style=filled fillcolor=black]
+
 	10 [label="" height=0.1 shape=circle style=invis]
 	11 [label="" height=0.1 shape=circle style=invis]
 	12 [label="" height=0.1 shape=circle style=invis]
@@ -20,7 +23,15 @@ graph {
 	18 [label="" height=0.1 shape=circle style=invis]
 	19 [label="" height=0.1 shape=circle style=invis]
 
+	20 [label="" height=0.1 shape=circle style=invis]
+	21 [label="" height=0.1 shape=circle style=invis]
+
 	v [label="\\(v\\)" shape=plain]
+
+    08 -- 00
+    08 -- 09
+    09 -- 20 [color=lightgreen]
+    09 -- 21 [color=lightgreen]
 
     00 -- 01
     01 -- 02
