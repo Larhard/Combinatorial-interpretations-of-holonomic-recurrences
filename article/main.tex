@@ -170,9 +170,9 @@ We also try to find a~combinatorial interpretation of the holonomic recurrence f
 
 \section{Overview}%
 
-Generating functions is a way of describing infinite sequences using formal power series, where coefficients encode the consecutive elements. It allows us to incorporate many advanced methods of analysis of encoded objects.
+Generating functions are a way of describing infinite sequences using formal power series, where coefficients encode the consecutive elements. It allows us to incorporate many advanced methods of analysis of encoded objects.
 
-Most recursive structure can be described using a~generating function equation, which can be then solved and transformed into a~holonomic recurrence, i.e.~recurrence that in order to define \(n\)-th element of the sequence requires just finite number of previous ones and coefficients that are polynomials in \(n\).
+Most recursive structures can be described using a~generating function equation, which can be then solved and transformed into a~holonomic recurrence, i.e.~recurrence that in order to define \(n\)-th element of the sequence requires just finite number of previous ones and coefficients that are polynomials in \(n\).
 
 It allows us to quickly count objects of given structure with given size. At first glance, the recurrence seems to be closely related to the structure itself. It just seems like it should describe simple transformations resulting in constructing bigger objects from slightly smaller ones. In case of trees it could be for example adding nodes. However, there is no known method of interpreting it in the language of the combinatorial structures.
 
@@ -180,13 +180,13 @@ Up to today only a few interpretations of holonomic recurrences on trees have be
 
 The initial inspiration for the thesis came from the publication \textit{A natural counting of lambda terms}~\cite{inspiration}, which shows bijections among seemingly different tree structures, which are lambda trees, black-white trees~\cite{blackwhite} and zigzag free trees~\cite{inspiration}\todo{Find better cite}. They share the same holonomic recurrence, but there is no known immediate connection between the holonomic recurrence and the structures themselves.
 
-Lambda terms are very popular structures used for analyzing functions and programming languages. Their very simple recursive definition makes them very attractive. A better understanding of them could allow us improving programming language compilers and in consequence improve every aspect of our lives. The interpretation of holonomic recurrence for lambda trees itself could allow us to discover new ways of generating random lambda terms via extending smaller ones in similar way to Rémy's algorithm for sampling binary trees~\cite{remy,note}.
+Lambda terms are extremely popular structures used for analyzing functions and programming languages. Their simple recursive definition makes them very attractive. A better understanding of them could allow us to improve programming language compilers and in consequence improve every aspect of our lives. The interpretation of holonomic recurrence for trees of lambda terms itself could allow us to discover new ways of generating random lambda terms via extending smaller ones in similar way to Rémy's algorithm for sampling binary trees~\cite{remy,note}.
 
-Throughout the thesis we try to accumulate known results and techniques that may help solving the problem of finding combinatorial interpretations. We also propose an~approach that helped us to find an~intermediate solution for the problem of finding combinatorial interpretation for holonomic recurrence of lambda trees in the unary de Bruijn notation. We use the de Bruijn indices in order to get rid of letter-based variable names. Unary notation allows us to connect size of the tree to the values of the de Bruijn indices.
+Throughout the thesis we try to accumulate known results and techniques that may help solving the problem of finding combinatorial interpretations. We also propose an~approach that helped us finding an~intermediate solution for the problem of finding combinatorial interpretation for holonomic recurrence of trees of lambda terms in the unary de Bruijn notation. We use the de Bruijn indices in order to get rid of letter-based variable names. Unary notation allows us to connect the size of the tree to the values of the de Bruijn indices.
 
 In Section~\ref{sec:introduction} we establish notation and introduce concepts that will be used throughout the thesis.
 
-Next, in Section~\ref{sec:known_results}, we present known results, i.e.~interpretations for binary trees, unary-binary trees and Schröder trees. They demonstrate few different approaches to the problem.
+Next, in Section~\ref{sec:known_results}, we present known results, i.e.~interpretations for binary trees, unary-binary trees and Schröder trees. They demonstrate a few different approaches to the problem.
 
 In Section~\ref{sec:approaches} we show approaches to the problem that helped to achieve the aforementioned results. All of them were tried in order to find the answer to the original problem of interpreting holonomic recurrence of trees of lambda terms in the unary de Bruijn notation. Unfortunately, none of them helped us enough to get the final result. Anyway, they are proven to be helpful when we are stuck, as most of them are able to divide problems into smaller parts and detect corner cases.
 
@@ -218,10 +218,6 @@ i.e.~stands for Latin id est, which means \textit{that is}.
 
 \(f^{(n)}\) is implicitly defined as \(n\)-th derivative of function \(f\).
 
-\(V(T)\) is implicitly defined as a~set of nodes of the tree \(T\).
-
-\(E(T)\) is implicitly defined as a~set of edges of the tree \(T\).
-
 \(u, v\) are implicitly assumed to be nodes.
 
 \(e\) is implicitly assumed to be an~edge.
@@ -242,7 +238,7 @@ Sibling of the node \(v\) is defined as the node \(u\) having the same parent as
 
 Uncle of the node \(v\) is defined as the~sibling of the parent of \(v\).
 
-We say that node \(v\) is an~oneling \(\textiff\) \(v\) has no siblings. Note that the root is oneling even if it has no parent.
+We say that node \(v\) is an~oneling \(\textiff\) \(v\) has no siblings. Note that the root is an oneling even if it has no parent.
 
 We say that node \(v\) is a~twinling \(\textiff\) \(v\) has at least one sibling.
 
@@ -256,7 +252,7 @@ Dashed edges
 \begin{minipage}{1.5em}
 \includesvg[width=\textwidth]{intro__dashed_edge}
 \end{minipage}
-depict edges that may or may not exist (e.g.~when we describe transformations and we do not care if the node is root or if it has children).
+depict edges that may or may not exist (e.g.~when we describe transformations and we do not care if the node is a root or if it has children).
 
 Green edges 
 \begin{minipage}{1.5em}
@@ -360,7 +356,7 @@ In order to get some intuition on how it works underneath, let's take a~look at 
 
 It is enough, as the term \(\bigg(2 \gf{B}^2(z) + {\Big(1 + z \gf{B}^2(z)\Big)}^2\bigg) z^3\) will contribute only to \(z^k\) where \(k > 2\). Therefore, we can see that there are \(2\) trees with exactly \(2\) internal nodes, as multiplier next to \(z^2\) is \(2\).
 
-To visualize even more, let's take a~look at the line marked with \((*)\). The highlighted terms describe following tree:
+To visualize it even more, let's take a~look at the line marked with \((*)\). The highlighted terms describe following tree:
 
 \begin{figure}[H]
     \begin{center}
@@ -405,7 +401,7 @@ Note that the sum can only take a~finite number of subsequent elements of the se
     for some fixed \(r \in \N\); \(b, p_0, \ldots, p_r \in \poly\) not all identical to zero.
 \end{definition}
 
-The equivalence of these two definitions assures us that if we find an~generating function equation describing the desired objects satisfying Definition~\ref{def:holo_2}, we will be able to find holonomic recurrence mentioned in Definition~\ref{def:holo_1}~\cite{complexity}.
+The equivalence of these two definitions assures us that if we find a~generating function equation describing the desired objects satisfying Definition~\ref{def:holo_2}, we will be able to find holonomic recurrence mentioned in Definition~\ref{def:holo_1}~\cite{complexity}.
 
 \begin{example}%
     \label{ex:gfun-rec}
@@ -455,16 +451,16 @@ In the thesis we try to gather methods and results that may be helpful for anyon
 
 In the thesis, if not stated otherwise, we will be working on rooted ordered unlabeled \(n\)-ary trees. To understand the terms, let's define them:
 \begin{itemize}
-    \item rooted tree is a~tree with single node marked as root. This allows us to define hierarchy of nodes using such terms as parent and child;
+    \item rooted tree is a~tree with single node marked as the root. This allows us to define a hierarchy of nodes using such terms as parent and child;
     \item ordered trees introduce order on children from the leftmost to the rightmost;
-    \item unlabeled trees have nodes that are not distinguishable by their label. We will introduce soon kinds of nodes, but you shouldn't treat them as labels, but rather way to describe the structure of the node that is already present (e.g.~we can call node with just left child an~\(l\) node, but it is not its label. If the right child was added to the \(l\) node, it would not be an~\(l\) node anymore).
+    \item unlabeled trees have nodes that are not distinguishable by their label. We will introduce soon kinds of nodes, but you shouldn't treat them as labels, but rather way to describe the structure of the node that is already present (e.g.~we can call node with just left child an~\(l\)~node, but it is not its label. If the right child was added to the \(l\)~node, it would not be an~\(l\)~node anymore).
 \end{itemize}
-Additionally we allow that \(n\)-ary node has some of its children unset (e.g.~we can define a~binary node with just left child set, but not right one).
+Additionally we allow that an \(n\)-ary node has some of its children unset (e.g.~we can define a~binary node with just the left child set, but not the right one).
 
-In order to make notation easier and unambiguous, we introduce pre-order notation of an~\(n\)-ary tree.
+In order to make the notation easier and unambiguous, we introduce a pre-order notation of an~\(n\)-ary tree.
 
 \begin{definition}
-    For single node \(v\), the pre-order notation is defined as \(\enc{v}\).
+    For a single node \(v\), the pre-order notation is defined as \(\enc{v}\).
 \end{definition}
 
 Here, \(\enc{v}\) is defined as follows:
@@ -476,7 +472,7 @@ Here, \(\enc{v}\) is defined as follows:
 \begin{definition}
     Pre-order notation of \(n\)-ary tree \(T\), namely \(\enc{T}\), is defined recursively as:
     \[\enc{T} = \enc{\troot(T)} \prod_{i=1}^{n} \enc{i\text{-th subtree of } \troot(T)}\]
-    i.e.~catenation of the identifier of the root of the tree with encoded its subtrees from left to right.
+    i.e.~catenation of the identifier of the root of the tree with its subtrees encoded from left to right.
 \end{definition}
 
 \begin{figure}[H]
@@ -492,23 +488,23 @@ We use green edges
 \end{minipage}
 to depict edges to \(\no\) nodes.
 
-You can note that the encoding of a~given tree is unique. Unfortunately, not every sequence encodes proper tree.
+You can note that the encoding of a~given tree is unique. Unfortunately, not every sequence encodes a proper tree.
 
 We can also define prefixes and suffixes of \(T\) in relation to a~node \(v\).
 
 \begin{definition}
-    \(\tSub(v)\) is defined as a~whole subtree rooted with node \(v\).
+    \(\tSub(v)\) is defined as a~whole subtree rooted with the node \(v\).
 \end{definition}
 
 \begin{definition}
-    Let \(v\) be a~node described using \(k\)-th symbol of \(\enc{T}\). Notation of the prefix of \(T\) in relation to \(v\), namely \(\enc{\tPre(T, v)}\), is defined as a~prefix of \enc{T} of size \(k - 1\).
+    Let \(v\) be a~node described using the \(k\)-th symbol of\;\(\enc{T}\). The prefix of \(T\) in relation to \(v\), namely \(\tPre(T, v)\), is defined using pre-order notation as a~prefix of \enc{T} of size \((k - 1)\).
 \end{definition}
 
 \begin{definition}
-    Let \(n\) be the length of the sequence \(\enc{T}\). Notation of suffix of \(T\) in relation to \(v\), namely \(\enc{\tSuf(T, v)}\), is defined as a~suffix of \enc{T} of size \(n - \size{\enc{\tPre(T, v)}} - \size{\enc{\tSub(v)}}\). Note that the suffix may be an ordered forest.
+    Let \(n\) be the length of the sequence \(\enc{T}\). The suffix of \(T\) in relation to \(v\), namely \(\enc{\tSuf(T, v)}\), is defined using pre-order notation as a~suffix of \enc{T} of size \(n - \size{\enc{\tPre(T, v)}} - \size{\enc{\tSub(v)}}\). Note that the suffix may be an ordered forest.
 \end{definition}
 
-In other words, prefix of the tree \(T\) in relation to \(v\) describes a~part of the tree that appears before subtree rooted in \(v\) in pre-order notation. Suffix describes part of the tree that appears after it.
+In other words, the prefix of the tree \(T\) in relation to \(v\) describes a~part of the tree that appears before the subtree rooted in \(v\) in pre-order notation. Suffix describes a part of the tree that appears after it.
 
 \begin{figure}[H]
     \centering
@@ -517,18 +513,18 @@ In other words, prefix of the tree \(T\) in relation to \(v\) describes a~part o
     \label{fig:presuf}
 \end{figure}
 
-Throughout thesis we define some operations using this notation. Valid pre-order notation of \(n\)-ary tree (note that not all sequences are valid pre-order notations) can be easily translated back into a~tree. In order to do so, we just take first symbol of the notation and create the root accordingly. Then for each of the \(n\) children of the root, in sequence, we decode it recursively as if it was whole tree. Each such operation consumes some prefix of the notation. At the end we should be left with no symbols in the sequence.
+Throughout the thesis we define some operations using this notation. Valid pre-order notation of an \(n\)-ary tree (note that not all sequences are valid pre-order notations) can be easily translated back into a~tree. In order to do so, we just take the first symbol of the notation and create the root accordingly. Then for each of the \(n\) children of the root, in sequence, we decode it recursively as if it was a whole tree. Each such operation consumes some prefix of the notation. At the end we should be left with no symbols in the sequence.
 
 As \(T\) and \(\enc{T}\) describe the same structures, notation of trees \(T\) and its encoding \(\enc{T}\) will be used interchangeably.
 
 \section{Known results}%
 \label{sec:known_results}
 
-In this section we show combinatorial interpretations of holonomic recurrences for binary trees, unary-binary trees and Schröder trees. As to our knowledge these are only tree classes that have commonly known interpretations. Also the thought process leading to these interpretations is not obvious.
+In this section we show combinatorial interpretations of holonomic recurrences for binary trees, unary-binary trees and Schröder trees. As to our knowledge these are the only tree classes that have commonly known combinatorial interpretations. Also the thought process leading to these interpretations is not obvious.
 
-Each of these interpretations has its unique character, like different selection of the size definition or different approach to arranging the terms of the holonomic recurrence.
+Each of these interpretations has its unique character, like a different selection of the size definition or a different approach to arranging the terms of the holonomic recurrence.
 
-These interpretations have been source of ideas that we were incorporating in order to make our partial interpretation for the case of lambda trees in unary de Bruijn notation.
+These interpretations have been a source of ideas that we were incorporating in order to make our partial interpretation for the case of trees of lambda terms in unary de Bruijn notation.
 
 \subsection{Binary trees}%
 \label{sub:binary_trees}
@@ -552,21 +548,21 @@ Numbers defined as above are also known as Catalan numbers.
 
 It is easy to see that a~tree of size \(n\) (i.e.~with \(n\) internal nodes) has \(n + 1\) leaves and therefore \(2n + 1\) nodes in total. Analogically the tree of size \(n + 1\) has \(n + 2\) leaves and \(2n + 3\) nodes in total. If you see some resemblance to our holonomic recurrence, you are perfectly right.
 
-We are going to create a~bijection between the left and right side of the recurrence. We will be using the term \textit{bijective language} to talk about the recurrence using the objects it describes and their transformations.
+We are going to create a~bijection between the left and the right side of the recurrence. We will be using the term \textit{bijective language} to talk about the recurrence using the objects it describes and their transformations.
 \todo{rewrite}
 
 \begin{interpretation}
 Let's translate the recurrence to the bijective language.
 \begin{itemize}
     \item \(B(n)\) is simply the set of all full binary trees of size \(n\),
-    \item \((n + 2) B(n + 1)\) is the set of all full binary trees of size \(n + 1\) with one of the leaves pointed,
-    \item \((2n + 1) B(n)\) is the set of all full binary trees of size \(n\) with one of the nodes (either internal or a~leaf) pointed (i.e.~distinguished),
+    \item \((n + 2) B(n + 1)\) is the set of all full binary trees of size \(n + 1\) with one of the leaves pointed (i.e.~distinguished),
+    \item \((2n + 1) B(n)\) is the set of all full binary trees of size \(n\) with one of the nodes (either internal or a~leaf) pointed,
     \item \(2\) at the beginning of \(2 (2n + 1) B(n)\) indicates that we will be using \(2\) copies of the set defined in the previous bullet.
 \end{itemize}
 
-At the moment the left side of the recurrence is related to trees of size \(n + 1\), the right, on the other hand, of size \(n\). Therefore, we need to apply some transformations on trees.
+At the moment the left side of the recurrence is related to the trees of size \(n + 1\), the right, on the other hand, of size \(n\). Therefore, we need to apply some transformations on the trees.
 
-Let's define two local operations for tree \(T\) with a~single node \(v\) pointed: \(R_l(T, v)\) and \(R_r(T, v)\). The term \textit{local} means that the operation can operate on just some finite fragment of a~tree with predefined size (e.g.~node and its 2 children, but cannot traverse the whole tree).
+Let's define two local operations for a tree \(T\) with a~single node \(v\) pointed: \(R_l(T, v)\) and \(R_r(T, v)\). The term \textit{local} means that the operation can operate on just some finite fragment of a~tree with predefined size (e.g.~node and its 2 children, but cannot traverse the whole tree).
 
 \begin{definition}
     \(\enc{R_l(T, v)} = \enc{\tPre(T, v)} \n \pointed{\n} \no \no \enc{\tSub(v)} \enc{\tSuf(T, v)}\)
@@ -594,10 +590,10 @@ Let's define two local operations for tree \(T\) with a~single node \(v\) pointe
     \label{fig:remy_right}
 \end{figure}
 
-We can now take the bijective interpretation of \((2n + 1) B(n)\), i.e.~trees of size \(n\) with a~single node pointed. For each of such trees, namely \(T\), we create new one by applying \(R_l\) and \(R_r\) to the pair \(T', v\), where \(T'\) is \(T\) with removed pointers and \(v\) is a~node that is pointed in \(T\). Therefore we generate all trees from \(2(2n + 1) B(n)\).
+We can now take the bijective interpretation of \((2n + 1) B(n)\), i.e.~trees of size \(n\) with a~single node pointed. For each of such trees, namely \(T\), we create a new one by applying \(R_l\) and \(R_r\) to the pair \(T', v\), where \(T'\) is \(T\) with removed pointers and \(v\) is a~node that is pointed in \(T\). Therefore we generate all trees from \(2(2n + 1) B(n)\).
 \todo{rewrite}
 
-The only thing that's left for us to verify is if we generate all trees of size \(n + 1\) with pointed leaves. As from the recursion, we know that \(2 (2n + 1) B(n)\) describe trees with single leaf pointed, it is enough to check if we do not generate any duplicate using \(R_l\) and \(R_r\). It can happen in 2 ways:
+The only thing that's left for us to verify is if we generate all the trees of size \(n + 1\) with pointed leaves. As from the recursion, we know that \(2 (2n + 1) B(n)\) describe trees with a single leaf pointed. It is enough to check if we do not generate any duplicate using \(R_l\) and \(R_r\). It can happen in only 2 ways:
 \begin{enumerate}
     \item operation itself generates duplicates or
     \item 2 different operations generate the same tree.
@@ -609,7 +605,7 @@ First case can also be split into 2 subcases. Without loss of generality we can 
     \item for some trees \(T \neq S\), \(R_l(T, u) = R_l(S, v)\). Let \(i_u, i_v\) be the indices of respectively \(\enc{u}\) in \(\enc{T}\) and \(\enc{v}\) in \(\enc{S}\). Let \(\pointed{i}_u, \pointed{i}_v\) be the indices of pointed node respectively in \(\enc{R_l(T, u)}\) and \(\enc{R_l(S, v)}\). If \(\pointed{i}_u \neq \pointed{i}_v\), this case is trivially false, so we can assume that \(\pointed{i}_u = \pointed{i}_v\). Therefore, again from the definition of \(R_l\), we have that \(i_u = i_v\). That implies that \(\enc{\tPre(T, u)} \enc{\tSub(u)} \enc{\tSuf(T, u)} = \enc{\tPre(S, v)} \enc{\tSub(v)} \enc{\tSuf(S, v)} \), which then sums up to \(\enc{T} = \enc{S}\), which we assumed false.
 \end{itemize}
 
-In the second case it is enough to notice that \(R_l\) generates trees with pointed nodes being a~left child, and \(R_r\) generates trees with pointed nodes being right child. That immediately provides us with the conclusion that we are generating no duplicates.
+In the second case it is enough to notice that \(R_l\) generates trees with pointed nodes being a~left child, and \(R_r\) generates trees with pointed nodes being a right child. That immediately provides us with the conclusion that we are generating no duplicates.
 
 \qed%
 \end{interpretation}
@@ -617,7 +613,7 @@ In the second case it is enough to notice that \(R_l\) generates trees with poin
 \subsection{Unary-binary trees}%
 \label{sub:unary_binary_trees}
 
-Let's think, what would have changed if we introduce unary nodes to the binary case~\cite{motzkin}.
+Let's think, what would have changed if we had introduced unary nodes to the binary case~\cite{motzkin}.
 
 \begin{definition}%
     \label{def:unary_binary_tree}
@@ -626,7 +622,7 @@ Let's think, what would have changed if we introduce unary nodes to the binary c
 
 We do not allow nodes with gaps here, e.g.~a~binary node with just one child or unary node with no children.
 
-We will define size as number of edges. Note that a~tree having \(n\) edges has exactly \(n + 1\) nodes.
+We will define the size as a number of edges. Note that a~tree having \(n\) edges has exactly \(n + 1\) nodes.
 
 We can easily derive the generating function:
 
@@ -642,7 +638,7 @@ And with a~bit of Maple magic~\cite{gfun}, we immediately get the following recu
             (n + 2)u_{n} &=& (2n + 1)u_{n - 1} + 3(n - 1)u_{n - 2}
 \end{array}\right.\]
 
-Definition~\ref{def:unary_binary_tree} is precise, but introduces a~new kind of node that we would have to take care of. We can avoid it by using a~trick to make unary-binary trees recall binary trees. We do not change the structure, just the notation.
+Though Definition~\ref{def:unary_binary_tree} is precise, it introduces a~new kind of node that we would have to take care of. We can avoid it by using a~trick to make unary-binary trees recall binary trees. We do not change the structure, just the notation.
 
 \begin{definition}%
     \label{def:unary_binary_2}
@@ -665,7 +661,7 @@ The next step is to make binary trees full. Let's define virtual leaves.
     A virtual leaf is a~virtual node added to the node in place of a~non-existing child.
 \end{definition}
 
-As we have added \(n + 2\) virtual nodes, we have added as many virtual edges.\todo{notes?}
+As we have added \(n + 2\) virtual leaves, we have added as many virtual edges.
 
 \begin{figure}[H]
     \centering
@@ -676,20 +672,20 @@ As we have added \(n + 2\) virtual nodes, we have added as many virtual edges.\t
     \label{fig:unary_binary_transformation}
 \end{figure}
 
-Please note that \(n + 2\) matches the multiplier of \(u_n\) in holonomic equation.
+Please note that \(n + 2\) matches the multiplier of \(u_n\) in the holonomic equation.
 
-We will be using \(U(n)\) to describe sets of trees corresponding to \(u_n\) from the holonomic recurrence. The set \((n + 2) U(n)\) can be interpreted as trees of size \(n\) with single virtual leaf pointed.
+We will be using \(U(n)\) to describe sets of trees corresponding to \(u_n\) from the holonomic recurrence. The set \((n + 2) U(n)\) can be interpreted as trees of size \(n\) with a single virtual leaf pointed.
 
 \begin{definition}
-    We say that node \(v\) is an~virtual-oneling \(\textiff\) \(v\) has no virtual siblings. Note that the root is an oneling even if it has no parent.
+    We say that a node \(v\) is a~virtual-oneling \(\textiff\) \(v\) has no virtual siblings. Note that the root is a~virtual-oneling even if it has no parent.
 \end{definition}
 
 \begin{definition}
-    We say that node \(v\) is virtual-twinling \(\textiff\) \(v\) has at least one virtual sibling.
+    We say that a node \(v\) is a~virtual-twinling \(\textiff\) \(v\) has at least one virtual sibling.
 \end{definition}
 
 \begin{definition}
-    If \(u\) is parent of \(v\), we say that sibling of \(u\) is an~uncle of \(v\).
+    If \(u\) is a parent of \(v\), we say that a sibling of \(u\) is an~uncle of \(v\).
 \end{definition}
 
 \begin{interpretation}
