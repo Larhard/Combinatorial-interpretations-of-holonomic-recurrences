@@ -1345,7 +1345,7 @@ We can multiply both sides of non-linear recurrence by \(n\) and break up \(n = 
 
 Using our inductive hypothesis, i.e.~holonomic recurrence and moving problematic boundary cases out from the sums (in this case \(b_{1}\) needs to be analyzed separately, as we did not define binary trees with no leaves), we can get the right side to use \(b_{n - 1}\) and prove the holonomic recurrence using non-linear one. The only part that is left is to translate this inductive proof to the bijective language, which in such a~simple case as binary trees is quite simple, especially if one has seen the solution once.
 
-The method itself has proven to be helpful in order to divide the problem into smaller parts and find some corner cases. Unfortunately, it does not give any immediate interpretation for applying the inductive step.
+The method itself has proven to be helpful in order to divide the problem into smaller parts and to find some corner cases. Unfortunately, it does not give any immediate interpretation for applying the inductive step.
 \todo{fill the gaps}
 \todo{add reconstruction images}
 
@@ -1366,13 +1366,13 @@ Let a countable set of variables be given.
 \begin{definition}
     The set of lambda terms \(\Lambda\) is defined recursively:
     \begin{itemize}
-        \item if \(x\) is a~variable, then \(x \in \Lambda\)
-        \item if \(M, N \in \Lambda\), then \((M N) \in \Lambda\) (it can be interpreted as an application of a~function \(M\) to an~argument \(N\))
-        \item if \(x\) is a~variable and \(M \in \Lambda\), then \((\lambda x. M) \in \Lambda\) (it can be interpreted as an~abstraction, i.e.~creating a~function with an~argument \(x\) and binding each occurrence of \(x\) in \(M\) to this argument. We say that a variable \(x\) is abstracted by this lambda-abstraction)
+        \item if \(x\) is a~variable, then \(x \in \Lambda\);
+        \item if \(M, N \in \Lambda\), then \((M N) \in \Lambda\) (it can be interpreted as an application of a~function \(M\) to an~argument \(N\));
+        \item if \(x\) is a~variable and \(M \in \Lambda\), then \((\lambda x. M) \in \Lambda\) (it can be interpreted as an~abstraction, i.e.~creating a~function with an~argument \(x\) and binding each occurrence of \(x\) in \(M\) to this argument. We say that a variable \(x\) is abstracted by this lambda-abstraction).
     \end{itemize}
 \end{definition}
 
-This definition resembles tree-based structure of lambda terms, where:
+This definition resembles a tree-based structure of lambda terms, where:
 \begin{itemize}
     \item lambda abstraction is represented as an unary node holding name of lambda-abstracted variable;
     \item application is represented as a binary node;
@@ -1388,14 +1388,14 @@ This definition resembles tree-based structure of lambda terms, where:
 
 We have used dashed arrows to point lambda-abstraction binding particular variables. It is also possible that a variable is unbound, i.e.~there is no lambda-abstraction that abstracts the variable. We are perfectly fine with that.
 
-The definition using named variables is quite popular, but it introduces several problems. One of them is a~problem of a potential collision of lambda-abstracted variable names and difficulty of finding to which lambda abstraction the variable is bound (or is it even a~free variable, i.e.~not bound). To address that, we can use de Bruijn indices.
+The definition using named variables is quite popular, but it introduces several problems. One of them is a~problem of a potential collision of lambda-abstracted variable names and difficulty of deciding to which lambda abstraction the variable is bound (or is it even a~free variable, i.e.~not bound). To address that, we can use de Bruijn indices.
 
 \begin{definition}
-    Set of lambda terms \(\LambdadB\) is defined recursively:
+    The set \(\LambdadB\) of lambda terms in de Bruijn notation is defined recursively:
     \begin{itemize}
-        \item if \(n \in \N\), then \(n \in \LambdadB\) (\(n\) is a~variable bound to a lambda abstraction \(n\) levels above, i.e.~if you traverse the tree of the lambda term upwards, we have to ignore \(n\) lambda-abstraction nodes and the \((n+1)\)-st one is the one binding the variable. If we would have to go beyond the root of the tree, we say that the variable is free, i.e.~not bound)
-        \item if \(M, N \in \LambdadB\), then \((M N) \in \LambdadB\) (application)
-        \item if \(M \in \LambdadB\), then \((\lambda M) \in \LambdadB\) (abstraction)
+        \item if \(n \in \N\), then \(n \in \LambdadB\) (\(n\) is a~variable bound to a lambda abstraction \(n\) levels above, i.e.~if we traverse the tree of the lambda term upwards, we have to ignore \(n\) lambda-abstraction nodes and the \((n+1)\)-st one is the one binding the variable. If we have to go beyond the root of the tree, we say that the variable is free, i.e.~not bound);
+        \item if \(M, N \in \LambdadB\), then \((M N) \in \LambdadB\) (application);
+        \item if \(M \in \LambdadB\), then \((\lambda M) \in \LambdadB\) (abstraction).
     \end{itemize}
 \end{definition}
 
@@ -1484,13 +1484,13 @@ As \(s\) represents the successor, it can be applied only to \(n \in \N\), but i
 \subsection{Enhanced holonomic recurrence}%
 \label{sub:enhanced_holonomic_reccurence}
 
-As we have our structure defined, let's create a generating function that will keep track of more than just the number of nodes, but also counts the number of each kind of node in the tree. The generating function \(\gf{T}(z, o, l, a, s)\) will be parameterized then using the following arguments:
+As we have our structure defined, let's create a generating function that keeps track of more than just the number of nodes, but also counts the number of each kind of node in the tree. The generating function \(\gf{T}(z, o, l, a, s)\) will be parameterized then using the following arguments:
 \begin{itemize}
-    \item \(z\) marking all actual nodes
-    \item \(o\) marking variable nodes
-    \item \(l\) marking lambda abstraction nodes
-    \item \(a\) marking application nodes
-    \item \(s\) marking successors of variable nodes
+    \item \(z\) marking all actual nodes,
+    \item \(o\) marking variable nodes,
+    \item \(l\) marking lambda abstraction nodes,
+    \item \(a\) marking application nodes,
+    \item \(s\) marking successors of variable nodes.
 \end{itemize}
 
 In order to make the image cleaner, we will drop the arguments of generating functions, i.e.~\(\gf{T} := \gf{T}(z, o, l, a, s)\).
@@ -1532,7 +1532,7 @@ In order to make the image cleaner, we will drop the arguments of generating fun
     \end{minipage}%
     \begin{minipage}[t]{.2\textwidth}
         \begin{center}
-            \(\gf{S}\)\\
+            \(\gf{V}\)\\
             \includesvg[scale=0.5]{lambda__def__4}%
         \end{center}
     \end{minipage}%
@@ -1574,14 +1574,14 @@ where \(V\) represents part of the tree being variable (i.e.~\(o\) node, potenti
 After solving the equation for \(\gf{V}\), we get:
 \[\gf{T} = z a~\gf{T}^2 + z l \gf{T} + \frac{z o}{1 - z s}\]
 
-If we treat \(z\) as the only variable and make \(o\), \(l\), \(a\), and \(s\) constants, we can use a~little bit of Maple magic~\cite{gfun} to achieve the following holonomic recurrence.
+If we treat \(z\) as the only variable and make \(o\), \(l\), \(a\), and \(s\) constants, we can use a~little bit of Maple magic~\cite{gfun} to achieve the following holonomic recurrence:
 
 \[\begin{array}{rl}
         0 =& (n - 4) l^2 s^2 t_{n - 4}\\
         +& ((4 n - 10) a o s - (2 n - 6) l^2 s - (2 n - 5) l s^2) t_{n - 3}\\
         +& ((-4 n + 8) a o + (n - 2) l^2 + (4 n - 6) l s + (n - 1) s^2) t_{n - 2}\\
         +& ((-2 n + 1) l - 2 n s) t_{n - 1}\\
-        +& (n + 1) t_{n}
+        +& (n + 1) t_{n}.
 \end{array}\]
 
 Terms \(o\), \(l\), \(a\), and \(s\) appearing in the holonomic recurrence can be interpreted as a multiset of kinds of nodes we need to use to extend smaller tree into a bigger one.
@@ -1597,8 +1597,8 @@ If we forget about kinds of nodes, we get following recurrence:
         +& t_{n - 3}\\
         +& (2 n - 1) t_{n - 2}\\
         +& (-4 n + 1) t_{n - 1}\\
-        +& (1 + n) t_{n}
-\end{array}.\]
+        +& (1 + n) t_{n}.
+\end{array}\]
 
 You may notice that some summands have become oversimplified. For example \(((4 n - 10) a o s - (2 n - 6) l^2 s - (2 n - 5) l s^2) t_{n - 3}\) has become \(t_{n-3}\), which could be simply interpreted as a set of trees of size \(n - 3\) without any pointing.
 
