@@ -26,7 +26,7 @@
 <!-- 4 -->
 <g id="node5" class="node">
 <title>4</title>
-<ellipse fill="gray" stroke="black" cx="40.5" cy="-46.5" rx="3.5" ry="3.5"/>
+<ellipse fill="lightgray" stroke="black" cx="40.5" cy="-46.5" rx="3.5" ry="3.5"/>
 </g>
 <!-- 0&#45;&#45;4 -->
 <g id="edge4" class="edge">
@@ -36,7 +36,7 @@
 <!-- 2 -->
 <g id="node3" class="node">
 <title>2</title>
-<ellipse fill="gray" stroke="black" cx="3.5" cy="-3.5" rx="3.5" ry="3.5"/>
+<ellipse fill="lightgray" stroke="black" cx="3.5" cy="-3.5" rx="3.5" ry="3.5"/>
 </g>
 <!-- 1&#45;&#45;2 -->
 <g id="edge2" class="edge">
@@ -46,7 +46,7 @@
 <!-- 3 -->
 <g id="node4" class="node">
 <title>3</title>
-<ellipse fill="gray" stroke="black" cx="28.5" cy="-3.5" rx="3.5" ry="3.5"/>
+<ellipse fill="lightgray" stroke="black" cx="28.5" cy="-3.5" rx="3.5" ry="3.5"/>
 </g>
 <!-- 1&#45;&#45;3 -->
 <g id="edge3" class="edge">
