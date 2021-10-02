@@ -1,0 +1,25 @@
+graph {
+	size="4,4"
+
+	20 [label="" shape=none]
+
+	3 [label="\\(l\\)" shape=plain]
+	4 [label="\\(a\\)" shape=plain]
+    3 -- 4
+	5 [label="\\(s\\)" shape=plain]
+    4 -- 5
+	6 [label="\\(o\\)" shape=plain]
+	5 -- 6
+	7 [label="\\(o\\)" shape=plain]
+	4 -- 7
+
+	10 [label="" shape=none]
+	11 [label="" shape=none]
+	12 [label="" shape=none]
+	13 [label="" shape=none]
+	3 -- 10 [color=lightgreen]
+	5 -- 20 [color=lightgreen]
+	6 -- 11 [color=lightgreen]
+	6 -- 12 [color=lightgreen]
+	7 -- 13 [color=lightgreen]
+}

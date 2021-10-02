@@ -1,0 +1,40 @@
+digraph {
+	size="4,4"
+
+	10 [label="" shape=none]
+
+	0 [label="\\(l\\)" shape=plain]
+	1 [label="\\(a\\)" shape=plain]
+	2 [label="\\(l\\)" shape=plain]
+	3 [label="\\(s\\)" shape=plain]
+	4 [label="\\(l\\)" shape=plain]
+	5 [label="\\(o\\)" shape=plain]
+	6 [label="\\(o\\)" shape=plain]
+
+	00 [label="" shape=none]
+	01 [label="" shape=none]
+	02 [label="" shape=none]
+
+	20 [label="" shape=none]
+	21 [label="" shape=none]
+	22 [label="" shape=none]
+	23 [label="" shape=none]
+
+	0 -> 1 [arrowhead=none]
+	0 -> 00 [arrowhead=none color=lightgreen]
+
+	1 -> 2 [arrowhead=none]
+	2 -> 3 [arrowhead=none]
+	2 -> 01 [arrowhead=none color=lightgreen]
+	1 -> 4 [arrowhead=none]
+	4 -> 5 [arrowhead=none]
+	4 -> 02 [arrowhead=none color=lightgreen]
+
+	3 -> 6 [arrowhead=none]
+	3 -> 10 [arrowhead=none color=lightgreen]
+
+	5 -> 20 [arrowhead=none color=lightgreen]
+	5 -> 21 [arrowhead=none color=lightgreen]
+	6 -> 22 [arrowhead=none color=lightgreen]
+	6 -> 23 [arrowhead=none color=lightgreen]
+}

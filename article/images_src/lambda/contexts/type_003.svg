@@ -7,10 +7,9 @@
 <svg width="288pt" height="143pt"
  viewBox="0.00 0.00 288.00 142.69" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(0.88 0.88) rotate(0) translate(4 159)">
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-159 325,-159 325,4 -4,4"/>
 <g id="clust1" class="cluster">
 <title>cluster_1</title>
-<polygon fill="none" stroke="black" points="8,-8 8,-147 313,-147 313,-8 8,-8"/>
+<polygon fill="transparent" stroke="black" points="8,-8 8,-147 313,-147 313,-8 8,-8"/>
 </g>
 <!-- 0 -->
 <g id="node1" class="node">

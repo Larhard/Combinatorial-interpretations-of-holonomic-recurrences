@@ -8,6 +8,6 @@ graph {
     0 -- 1 [style=invis]
     B -- B1 [headport=n]
     B -- B2 [headport=n]
-	B1 [label=B shape=triangle height=1]
-	B2 [label=B shape=triangle height=1]
+	B1 [label="\\(B\\)" shape=triangle height=1]
+	B2 [label="\\(B\\)" shape=triangle height=1]
 }

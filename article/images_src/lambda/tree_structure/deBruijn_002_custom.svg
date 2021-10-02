@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -37,26 +37,22 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1285"
+     inkscape:window-width="958"
      inkscape:window-height="1060"
      id="namedview143"
      showgrid="false"
-     inkscape:zoom="3.1137717"
-     inkscape:cx="157.06599"
-     inkscape:cy="282.91976"
+     inkscape:zoom="0.60502252"
+     inkscape:cx="-42.562037"
+     inkscape:cy="500.14837"
      inkscape:window-x="0"
      inkscape:window-y="18"
      inkscape:window-maximized="0"
-     inkscape:current-layer="graph0" />
+     inkscape:current-layer="graph0"
+     inkscape:document-rotation="0" />
   <g
      id="graph0"
      class="graph"
      transform="scale(0.8 0.8) rotate(0) translate(4 358)">
-    <polygon
-       fill="white"
-       stroke="transparent"
-       points="-4,4 -4,-358 279,-358 279,4 -4,4"
-       id="polygon2" />
     <!-- 10 -->
     <g
        id="node1"

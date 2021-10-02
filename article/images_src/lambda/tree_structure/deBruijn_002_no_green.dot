@@ -1,0 +1,22 @@
+digraph {
+	size="4,4"
+
+	10 [label="" shape=none]
+
+	0 [label="\\(l\\)" shape=plain]
+	1 [label="\\(a\\)" shape=plain]
+	2 [label="\\(l\\)" shape=plain]
+	3 [label="\\(s\\)" shape=plain]
+	4 [label="\\(l\\)" shape=plain]
+	5 [label="\\(o\\)" shape=plain]
+	6 [label="\\(o\\)" shape=plain]
+
+	0 -> 1 [arrowhead=none]
+
+	1 -> 2 [arrowhead=none]
+	2 -> 3 [arrowhead=none]
+	1 -> 4 [arrowhead=none]
+	4 -> 5 [arrowhead=none]
+
+	3 -> 6 [arrowhead=none]
+}
