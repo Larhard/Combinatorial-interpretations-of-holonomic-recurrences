@@ -1,0 +1,505 @@
+\documentclass[final]{beamer}
+\RequirePackage{beamertransparentboxes}
+\RequirePackage{pgfpages}
+
+\usefonttheme[onlymath]{serif}
+
+% \documentclass[handout,final]{article}
+% \RequirePackage{beamerarticle}
+
+\setbeamerfont{note page}{size=\scriptsize}
+\addtobeamertemplate{note page}{\setbeamerfont{itemize/enumerate subbody}{size=\scriptsize}\setlength{\parindent}{0pt}\setlength{\parskip}{.7em}}{\par}
+
+\mode<handout>{%
+    \pgfpagesuselayout{2 on 1}[a4paper] 
+    \setbeameroption{show notes on second screen=bottom}
+}
+
+\usetheme{Warsaw}
+
+\RequirePackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{00A0}{ }
+
+\RequirePackage{color}
+\definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
+\definecolor{blue(pigment)}{rgb}{0.2, 0.2, 0.6}
+\definecolor{egyptianblue}{rgb}{0.06, 0.2, 0.65}
+
+\RequirePackage{listings}
+\lstset{
+    basicstyle=\scriptsize
+}
+
+\RequirePackage{graphicx}
+\RequirePackage{svg}
+\RequirePackage{float}
+
+\svgpath{../article/images/}
+
+\RequirePackage{amsthm}
+\RequirePackage{amsmath}
+\RequirePackage{mathtools}
+\RequirePackage{amsfonts}
+\RequirePackage{soul}
+\RequirePackage{xspace}
+\RequirePackage{bussproofs}
+\RequirePackage[customcolors]{hf-tikz}
+
+\RequirePackage{tikz}
+
+\RequirePackage{multicol}
+\RequirePackage{lipsum}
+\RequirePackage{textpos}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{.7em}
+
+\RequirePackage{polski}
+
+\uselanguage{polski}
+\languagepath{polski}
+\deftranslation[to=polski]{Definition}{Definicja}
+
+\logo{\includegraphics[height=.3\textheight]{logo.png}}
+
+\title{Kombinatoryczne interpretacje rekurencji holonomicznych}
+\author[Bartłomiej Puget (TCS UJ)]{Bartłomiej Puget\\Promotor: dr Katarzyna Grygiel}
+\institute{Theoretical Computer Science\\Jagiellonian University}
+
+\date{Kraków, 19 maja 2021}
+
+\makeatletter
+\def\th@bluetheorem{%
+    \normalfont % body font
+    \setbeamercolor{block title example}{bg=blue(pigment),fg=white}
+    \setbeamercolor{block body example}{bg=blue(pigment)!20,fg=black}
+    \setbeamercolor{item}{fg=blue(pigment)}
+    \def\inserttheoremblockenv{exampleblock}
+}
+\def\th@greentheorem{%
+    \normalfont % body font
+    \setbeamercolor{block title example}{bg=ao(english),fg=white}
+    \setbeamercolor{block body example}{bg=ao(english)!20,fg=black}
+    \setbeamercolor{item}{fg=ao(english)}
+    \def\inserttheoremblockenv{exampleblock}
+}
+\makeatother
+
+\theoremstyle{bluetheorem}
+\newtheorem{mytheorem}{Definicja}[section]
+
+\theoremstyle{bluetheorem}
+\newtheorem{mydefinition}[mytheorem]{Definicja}
+\newtheorem{myproductions}[mytheorem]{Produkcje}
+
+\theoremstyle{greentheorem}
+\newtheorem{myexample}[mytheorem]{Przykład}
+
+\newcounter{highlightid}
+\newcommand{\mhl}[1]{{\tikzmarkin[set fill color=red!30,set border color=red]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
+\newcommand{\mhll}[1]{{\tikzmarkin[set fill color=red!30,set border color=red]{highlight-\arabic{highlightid}}(0.15,-0.15)(-0.15,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
+
+\newcommand{\mhlr}[1]{{\tikzmarkin[set fill color=red!30,set border color=red]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
+\newcommand{\mhlg}[1]{{\tikzmarkin[set fill color=green!30,set border color=green]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
+\newcommand{\mhlb}[1]{{\tikzmarkin[set fill color=blue!30,set border color=blue]{highlight-\arabic{highlightid}}(0.02,-0.15)(-0.02,0.35){#1}\tikzmarkend{highlight-\arabic{highlightid}}\stepcounter{highlightid}}}
+
+\newcommand{\gf}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\enc}[1]{\ensuremath{\ols{#1}}}
+\newcommand{\pointed}[1]{\ensuremath{{#1}^*}}
+\newcommand{\weighted}[1]{\ensuremath{_{(#1)}}}
+\newcommand{\size}[1]{\ensuremath{\left|#1\right|}}
+\newcommand{\LambdadB}{\ensuremath{\Lambda_{\text{dB}}}}
+
+\DeclareMathOperator{\textiff}{\text{iff}}
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\poly}{\mathbb{P}}
+\DeclareMathOperator{\troot}{\text{root}}
+\DeclareMathOperator{\tleft}{\text{left}}
+\DeclareMathOperator{\tright}{\text{right}}
+\DeclareMathOperator{\tLeft}{\text{Left}}
+\DeclareMathOperator{\tRight}{\text{Right}}
+\DeclareMathOperator{\tSub}{\text{Sub}}
+\DeclareMathOperator{\tPre}{\text{Pre}}
+\DeclareMathOperator{\tSuf}{\text{Suf}}
+\DeclareMathOperator{\tClass}{\text{Class}}
+\DeclareMathOperator{\tSection}{\text{Section}}
+\DeclareMathOperator{\tPart}{\text{Part}}
+\DeclareMathOperator{\n}{\bullet}
+\DeclareMathOperator{\no}{\o}
+
+\newcommand{\includeinlinesvg}[2]{\begin{minipage}{#1\textwidth}\includesvg[width=\textwidth]{#2}\end{minipage}}
+\newcommand{\includeinlinescaledsvg}[3]{\begin{minipage}{#1\textwidth}\begin{center}\includesvg[scale=#2]{#3}\end{center}\end{minipage}}
+
+\begin{document}
+\maketitle
+
+\section{Wstęp}
+
+\begin{frame}{Rekurencje holonomiczne}
+    \begin{mydefinition}
+        Ciąg \((a_n)_{n=0}^\infty\) jest P-rekurencyjny (holonomiczny) wtedy i tylko wtedy, gdy istnieje dla niego rekurencja holonomiczna, tj.:
+        \[\exists_{r \in \mathbb{N}} \exists {p_0, \ldots, p_r : \text{ poly }}\forall_{n \in \mathbb{N}}:\]
+        \[p_0(n) a_n + p_1(n) a_{n + 1} + \ldots + p_r(n) a_{n + r} = 0\]
+    \end{mydefinition}
+
+    \begin{myexample}
+        \(a_n = \frac{5 n - 3}{3 n + 5}\) jest holonomiczny, gdyż zachodzi:
+        \[(3n + 5) (5n + 2) a_n - (5n - 3)(3n + 8) a_{n + 1} = 0\]
+    \end{myexample}
+\end{frame}
+
+\begin{frame}{Rekurencje holonomiczne (równoważnie)}
+    \begin{mydefinition}
+        Ciąg \((a_n)_{n=0}^\infty\) jest P-rekurencyjny (holonomiczny) wtedy i tylko wtedy, gdy istnieje dla niego funkcja tworząca:
+        \[p_0(z) C(z) + p_1(z) C'(z) + \ldots + p_r(z) C^{(r - 1)}(z) = b(z)\]
+        dla pewnych:\\
+        \(r \in \mathbb{N}\)\\
+        \(b, p_0, \ldots, p_r : \text{ poly }\)
+    \end{mydefinition}
+\end{frame}
+
+\begin{frame}{Rekurencje holonomiczne}
+    \begin{center}
+        \begin{minipage}[t]{.2\textwidth}
+            \begin{center}
+                \(B(z)\)\\\bigskip
+                \includesvg[scale=0.4]{binary__def_1}%
+            \end{center}
+        \end{minipage}%
+        \begin{minipage}[t]{.05\textwidth}
+            \begin{center}
+                \(=\)
+            \end{center}
+        \end{minipage}%
+        \begin{minipage}[t]{.2\textwidth}
+            \begin{center}
+                \(1\)\\\bigskip
+                \includesvg[scale=0.4]{binary__def_2}%
+            \end{center}
+        \end{minipage}%
+        \begin{minipage}[t]{.05\textwidth}
+            \begin{center}
+                \(+\)\\
+            \end{center}
+        \end{minipage}%
+        \begin{minipage}[t]{.2\textwidth}
+            \begin{center}
+                \(z B^2(z)\)\\\bigskip
+                \includesvg[scale=0.4]{binary__def_3}%
+            \end{center}
+        \end{minipage}%
+    \end{center}
+    \[\left\{\begin{array}{rcl}
+                b_0 &=& 1\\
+                (n + 2)b_{n + 1} &=& 2 (2n + 1)b_n
+    \end{array}\right.\]
+\end{frame}
+
+\begin{frame}{Interpretacje kombinatoryczne}
+    \begin{myexample}
+        \[(n + 2)b_{n + 1} = 2 (2n + 1)b_n\]
+
+        \begin{center}
+            \small
+            \begin{minipage}{.20\textwidth}\includesvg[scale=0.30]{binary__remy_base}\end{minipage}%
+            \(\Rightarrow\)
+            \begin{minipage}{.3\textwidth}\includesvg[scale=0.40]{binary__remy_left}\end{minipage}%
+            \begin{minipage}{.3\textwidth}\includesvg[scale=0.40]{binary__remy_right}\end{minipage}%
+        \end{center}
+    \end{myexample}
+\end{frame}
+
+\section{Problem}
+
+\begin{frame}{Drzewa termów lambda w unarnej notacji de Bruijna}
+    \begin{columns}
+        \column{.6\textwidth}
+        \begin{mydefinition}
+            \begin{itemize}
+                \item \(\forall n \in \N \implies n \in \LambdadB\)
+                \item \(M \in \LambdadB \implies (\lambda M) \in \LambdadB\)
+                \item \(M, N \in \LambdadB \implies (M N) \in \LambdadB\)
+            \end{itemize}
+        \end{mydefinition}
+
+        \column{.4\textwidth}
+        \begin{myexample}
+            \begin{center}
+                \includeinlinescaledsvg{1}{0.6}{lambda__tree_structure__deBruijn_002_no_green_custom}
+            \end{center}
+        \end{myexample}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Drzewa termów lambda w unarnej notacji de Bruijna}
+    \begin{myexample}
+        \begin{columns}
+            \column{.475\textwidth}
+            \begin{center}
+                \includeinlinescaledsvg{1}{0.6}{lambda__tree_structure__deBruijn_002_no_green_custom}
+            \end{center}
+            \column{.05\textwidth}
+            \begin{center}
+                    \raisebox{.25\textwidth}{$\equiv$}
+            \end{center}
+            \column{.475\textwidth}
+            \begin{center}
+                \includeinlinescaledsvg{1}{0.6}{lambda__tree_structure__deBruijn_002_custom}
+            \end{center}
+        \end{columns}
+    \end{myexample}
+\end{frame}
+
+\begin{frame}{Rekurencja holonomiczna}
+    \begin{columns}
+        \column{.6\textwidth}
+        \begin{mydefinition}
+            \[\begin{array}{rl}
+                    0 =& (n - 4) t_{n - 4}\\
+                    +& t_{n - 3}\\
+                    +& (2 n - 1) t_{n - 2}\\
+                    +& (-4 n + 1) t_{n - 1}\\
+                    +& (n + 1) t_{n}.
+            \end{array}\]
+        \end{mydefinition}
+
+        \column{.4\textwidth}
+        \begin{myexample}
+            \begin{center}
+                \includeinlinescaledsvg{1}{0.6}{lambda__tree_structure__deBruijn_002_no_pointers}
+            \end{center}
+        \end{myexample}
+    \end{columns}
+\end{frame}
+
+\section{Podejście do problemu}
+
+\begin{frame}{Rekurencja holonomiczna}
+    \begin{mydefinition}
+        \begin{center}
+            \begin{minipage}[t]{.2\textwidth}
+                \begin{center}
+                    \(\gf{T}\)\\
+                    \includesvg[scale=0.3]{lambda__def__1}%
+                \end{center}
+            \end{minipage}%
+            \begin{minipage}[t]{.05\textwidth}
+                \begin{center}
+                    \(=\)\\
+                \end{center}
+            \end{minipage}%
+            \begin{minipage}[t]{.2\textwidth}
+                \begin{center}
+                    \(z a~\gf{T}^2\)\\
+                    \includesvg[scale=0.3]{lambda__def__2}%
+                \end{center}
+            \end{minipage}%
+            \begin{minipage}[t]{.05\textwidth}
+                \begin{center}
+                    \(+\)\\
+                \end{center}
+            \end{minipage}%
+            \begin{minipage}[t]{.2\textwidth}
+                \begin{center}
+                    \(z l \gf{T}\)\\
+                    \includesvg[scale=0.3]{lambda__def__3}%
+                \end{center}
+            \end{minipage}%
+            \begin{minipage}[t]{.05\textwidth}
+                \begin{center}
+                    \(+\)\\
+                \end{center}
+            \end{minipage}%
+            \begin{minipage}[t]{.2\textwidth}
+                \begin{center}
+                    \(\gf{V}\)\\
+                    \includesvg[scale=0.3]{lambda__def__4}%
+                \end{center}
+            \end{minipage}%
+        \end{center}
+
+        \begin{center}
+            \begin{minipage}[t]{.2\textwidth}
+                \begin{center}
+                    \(\gf{V}\)\\
+                    \includesvg[scale=0.3]{lambda__def__5}%
+                \end{center}
+            \end{minipage}%
+            \begin{minipage}[t]{.05\textwidth}
+                \begin{center}
+                    \(=\)\\
+                \end{center}
+            \end{minipage}%
+            \begin{minipage}[t]{.2\textwidth}
+                \begin{center}
+                    \(z s \gf{V}\)\\
+                    \includesvg[scale=0.3]{lambda__def__7}%
+                \end{center}
+            \end{minipage}%
+            \begin{minipage}[t]{.05\textwidth}
+                \begin{center}
+                    \(+\)\\
+                \end{center}
+            \end{minipage}%
+            \begin{minipage}[t]{.2\textwidth}
+                \begin{center}
+                    \(z o\)\\
+                    \includesvg[scale=0.3]{lambda__def__6}%
+                \end{center}
+            \end{minipage}%
+        \end{center}
+    \end{mydefinition}
+\end{frame}
+
+\begin{frame}{Rekurencja holonomiczna}
+    \begin{mydefinition}
+        \[\begin{array}{rl}
+                0 =& (n - 4) t_{n - 4}\\
+                +& t_{n - 3}\\
+                +& (2 n - 1) t_{n - 2}\\
+                +& (-4 n + 1) t_{n - 1}\\
+                +& (n + 1) t_{n}.
+        \end{array}\]
+    \end{mydefinition}
+
+    \begin{mydefinition}
+        \[\begin{array}{rl}
+            0 =& (n - 4) l^2 s^2 t_{n - 4}\\
+            +& ((4 n - 10) a o s - (2 n - 6) l^2 s - (2 n - 5) l s^2) t_{n - 3}\\
+            +& ((-4 n + 8) a o + (n - 2) l^2 + (4 n - 6) l s + (n - 1) s^2) t_{n - 2}\\
+            +& ((-2 n + 1) l - 2 n s) t_{n - 1}\\
+            +& (n + 1) t_{n}.
+        \end{array}\]
+    \end{mydefinition}
+\end{frame}
+
+\begin{frame}{Sekcje}
+    \begin{block}{}
+        \[\begin{array}{lcr}
+            \tSection_{\emptyset} &:& (k + 1) t_k\\
+            \tSection_{\{l\}} &:& - (2 k + 1) t_k\\
+            \tSection_{\{s\}} &:& - 2 (k + 1) t_k\\
+            \tSection_{\{ao\}} &:& - (4 k) t_k\\
+            \tSection_{\{ll\}} &:& (k) t_k\\
+            \tSection_{\{ls\}} &:& (4 k + 2) t_k\\
+            \tSection_{\{ss\}} &:& (k + 1) t_k\\
+            \tSection_{\{aos\}} &:& 2 (2 k + 1) t_k\\
+            \tSection_{\{lls\}} &:& - (2 k) t_k\\
+            \tSection_{\{lss\}} &:& - (2 k + 1) t_k\\
+            \tSection_{\{llss\}} &:& (k) t_k\\
+        \end{array}\]
+    \end{block}
+\end{frame}
+
+\begin{frame}{Transformacje kontekstów}
+    \begin{block}{}
+        \begin{center}
+            \includeinlinescaledsvg{.4}{.5}{lambda__contexts__def_001}%
+            \(\Rightarrow\)
+            \includeinlinescaledsvg{.4}{.5}{lambda__contexts__def_002}%
+        \end{center}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Konteksty startowe}
+    \begin{block}{}
+        \begin{center}
+            \includeinlinescaledsvg{.33}{.35}{lambda__contexts__type_001}%
+            \includeinlinescaledsvg{.33}{.35}{lambda__contexts__type_002}%
+            \includeinlinescaledsvg{.33}{.35}{lambda__contexts__type_003}\\%
+            \includeinlinescaledsvg{.33}{.35}{lambda__contexts__type_004}%
+            \includeinlinescaledsvg{.33}{.35}{lambda__contexts__type_004b}\\%
+            \includeinlinescaledsvg{.33}{.35}{lambda__contexts__type_005}%
+            \includeinlinescaledsvg{.33}{.35}{lambda__contexts__type_005b}%
+        \end{center}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Iteracyjne drążenie tematu}
+    \begin{block}{}
+\begin{lstlisting}
+=== Classes stats ===
+[ ]  0,0:   0 of    16 | (k + 1) * Tk           []
+[ ]  1,0:   0 of   -10 | - (2 * k + 1) * Tk     [l]
+[ ]  1,1:   0 of   -12 | - 2 * (k + 1) * Tk     [s]
+[ ]  2,0:   0 of    -4 | - (4 * k) * Tk         [ao]
+[ ]  2,1:   0 of     1 | (k) * Tk               [ll]
+[ ]  2,2:   0 of     6 | (4 * k + 2) * Tk       [ls]
+[ ]  2,3:   0 of     2 | (k + 1) * Tk           [ss]
+[ ]  3,0:   0 of     2 | 2 * (2 * k + 1) * Tk   [aos]
+[x]  3,1:   0 of     0 | - (2 * k) * Tk         [lls]
+[ ]  3,2:   0 of    -1 | - (2 * k + 1) * Tk     [lss]
+[x]  4,0:   0 of     0 | k * Tk                 [llss]
+\end{lstlisting}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Iteracyjne drążenie tematu}
+    \begin{block}{}
+        \begin{center}
+            \includeinlinescaledsvg{.4}{.4}{lambda__transformations__001a}%
+            \(\xRightarrow{+1}\)%
+            \includeinlinescaledsvg{.4}{.4}{lambda__transformations__001b}%
+        \end{center}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Iteracyjne drążenie tematu}
+    \begin{block}{}
+\begin{lstlisting}
+# define 0,0: (k + 1) * Tk []
+=== Classes stats ===
+[x]  0,0:   16 of    16 | (k + 1) * Tk           []
+[ ]  1,0:    0 of   -10 | - (2 * k + 1) * Tk     [l]
+[ ]  1,1:    0 of   -12 | - 2 * (k + 1) * Tk     [s]
+[ ]  2,0:    0 of    -4 | - (4 * k) * Tk         [ao]
+[ ]  2,1:    0 of     1 | (k) * Tk               [ll]
+[ ]  2,2:    0 of     6 | (4 * k + 2) * Tk       [ls]
+[ ]  2,3:    0 of     2 | (k + 1) * Tk           [ss]
+[ ]  3,0:    0 of     2 | 2 * (2 * k + 1) * Tk   [aos]
+[x]  3,1:    0 of     0 | - (2 * k) * Tk         [lls]
+[ ]  3,2:    0 of    -1 | - (2 * k + 1) * Tk     [lss]
+[x]  4,0:    0 of     0 | k * Tk                 [llss]
+=== Diff stats ===
+0,0:     0    16
+\end{lstlisting}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Iteracyjne drążenie tematu}
+    \begin{block}{}
+        \begin{center}
+            \includeinlinescaledsvg{.4}{.4}{lambda__transformations__002a}%
+            \(\xRightarrow{-1}\)%
+            \includeinlinescaledsvg{.4}{.4}{lambda__transformations__002b}%
+        \end{center}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Iteracyjne drążenie tematu}
+    \begin{block}{}
+\begin{lstlisting}
+=== Classes stats ===
+[x]  0,0:   39050 of   39050 | (k + 1) * Tk          []
+[x]  1,0:  -23237 of  -23237 | - (2 * k + 1) * Tk    [l]
+[ ]  1,1:  -17799 of  -24460 | - 2 * (k + 1) * Tk    [s]
+[x]  2,0:  -13728 of  -13728 | - (4 * k) * Tk        [ao]
+[x]  2,1:    3432 of    3432 | (k) * Tk              [ll]
+[ ]  2,2:   10833 of   14586 | (4 * k + 2) * Tk      [ls]
+[ ]  2,3:    1770 of    3861 | (k + 1) * Tk          [ss]
+[ ]  3,0:    2280 of    4620 | 2 * (2 * k + 1) * Tk  [aos]
+[ ]  3,1:   -1648 of   -2156 | - (2 * k) * Tk        [lls]
+[ ]  3,2:   -1140 of   -2310 | - (2 * k + 1) * Tk    [lss]
+[ ]  4,0:     187 of     342 | k * Tk                [llss]
+=== Diff stats ===
+\end{lstlisting}
+    \end{block}
+\end{frame}
+
+
+\section*{}
+
+\begin{frame}{Pytania}
+\end{frame}
+
+\end{document}
