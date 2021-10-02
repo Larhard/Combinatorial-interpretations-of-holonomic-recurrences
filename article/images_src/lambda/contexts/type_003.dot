@@ -4,6 +4,10 @@ graph {
     node [height=1 width=1]
 
 	subgraph cluster_1 {
+        style=rounded
+        color=black
+        bgcolor="#ffffff01"
+
         0 [label="\\(\\mhll{\\n}\\)" shape=plain]
 
         g0 [label="\\(H_1\\)" shape=triangle]

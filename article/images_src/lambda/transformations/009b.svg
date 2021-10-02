@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(0.41 0.41) rotate(0) translate(4 359)">
 <g id="clust1" class="cluster">
 <title>cluster_1</title>
-<polygon fill="transparent" stroke="black" points="80,-8 80,-226.5 606,-226.5 606,-8 80,-8"/>
+<path fill="#ffffff" fill-opacity="0.003922" stroke="black" d="M92,-8C92,-8 594,-8 594,-8 600,-8 606,-14 606,-20 606,-20 606,-214.5 606,-214.5 606,-220.5 600,-226.5 594,-226.5 594,-226.5 92,-226.5 92,-226.5 86,-226.5 80,-220.5 80,-214.5 80,-214.5 80,-20 80,-20 80,-14 86,-8 92,-8"/>
 </g>
 <!-- r -->
 <g id="node1" class="node">

@@ -16,6 +16,10 @@ graph {
     r2-- 0 [style=dashed]
 
 	subgraph cluster_1 {
+        style=rounded
+        color=black
+        bgcolor="#ffffff01"
+
         0 [label="\\(a\\)" shape=plain]
         1 [label="\\(o\\)" shape=plain]
         2 [label="\\(\\mhll{\\n}\\)" shape=plain]
