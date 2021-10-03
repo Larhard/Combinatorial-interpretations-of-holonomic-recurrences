@@ -148,15 +148,15 @@
     \end{myexample}
 \end{frame}
 
-\begin{frame}{Rekurencje holonomiczne (równoważnie)}
-    \begin{mydefinition}
-        Ciąg \((a_n)_{n=0}^\infty\) jest P-rekurencyjny (holonomiczny) wtedy i tylko wtedy, gdy istnieje dla niego funkcja tworząca:
-        \[p_0(z) C(z) + p_1(z) C'(z) + \ldots + p_r(z) C^{(r - 1)}(z) = b(z)\]
-        dla pewnych:\\
-        \(r \in \mathbb{N}\)\\
-        \(b, p_0, \ldots, p_r : \text{ poly }\)
-    \end{mydefinition}
-\end{frame}
+% \begin{frame}{Rekurencje holonomiczne (równoważnie)}
+%     \begin{mydefinition}
+%         Ciąg \((a_n)_{n=0}^\infty\) jest P-rekurencyjny (holonomiczny) wtedy i tylko wtedy, gdy istnieje dla niego funkcja tworząca:
+%         \[p_0(z) C(z) + p_1(z) C'(z) + \ldots + p_r(z) C^{(r - 1)}(z) = b(z)\]
+%         dla pewnych:\\
+%         \(r \in \mathbb{N}\)\\
+%         \(b, p_0, \ldots, p_r : \text{ poly }\)
+%     \end{mydefinition}
+% \end{frame}
 
 \begin{frame}{Rekurencje holonomiczne}
     \begin{center}
@@ -225,30 +225,31 @@
         \column{.4\textwidth}
         \begin{myexample}
             \begin{center}
-                \includeinlinescaledsvg{1}{0.6}{lambda__tree_structure__deBruijn_002_no_green_custom}
+                % \includeinlinescaledsvg{1}{0.6}{lambda__tree_structure__deBruijn_002_no_green_custom}
+                \includeinlinescaledsvg{1}{0.6}{lambda__tree_structure__deBruijn_002_custom}
             \end{center}
         \end{myexample}
     \end{columns}
 \end{frame}
 
-\begin{frame}{Drzewa termów lambda w unarnej notacji de Bruijna}
-    \begin{myexample}
-        \begin{columns}
-            \column{.475\textwidth}
-            \begin{center}
-                \includeinlinescaledsvg{1}{0.6}{lambda__tree_structure__deBruijn_002_no_green_custom}
-            \end{center}
-            \column{.05\textwidth}
-            \begin{center}
-                    \raisebox{.25\textwidth}{$\equiv$}
-            \end{center}
-            \column{.475\textwidth}
-            \begin{center}
-                \includeinlinescaledsvg{1}{0.6}{lambda__tree_structure__deBruijn_002_custom}
-            \end{center}
-        \end{columns}
-    \end{myexample}
-\end{frame}
+% \begin{frame}{Drzewa termów lambda w unarnej notacji de Bruijna}
+%     \begin{myexample}
+%         \begin{columns}
+%             \column{.475\textwidth}
+%             \begin{center}
+%                 \includeinlinescaledsvg{1}{0.6}{lambda__tree_structure__deBruijn_002_no_green_custom}
+%             \end{center}
+%             \column{.05\textwidth}
+%             \begin{center}
+%                     \raisebox{.25\textwidth}{$\equiv$}
+%             \end{center}
+%             \column{.475\textwidth}
+%             \begin{center}
+%                 \includeinlinescaledsvg{1}{0.6}{lambda__tree_structure__deBruijn_002_custom}
+%             \end{center}
+%         \end{columns}
+%     \end{myexample}
+% \end{frame}
 
 \begin{frame}{Rekurencja holonomiczna}
     \begin{columns}
@@ -373,21 +374,22 @@
     \end{mydefinition}
 \end{frame}
 
-\begin{frame}{Sekcje}
+\begin{frame}[fragile]{Iteracyjne drążenie tematu}
     \begin{block}{}
-        \[\begin{array}{lcr}
-            \tSection_{\emptyset} &:& (k + 1) t_k\\
-            \tSection_{\{l\}} &:& - (2 k + 1) t_k\\
-            \tSection_{\{s\}} &:& - 2 (k + 1) t_k\\
-            \tSection_{\{ao\}} &:& - (4 k) t_k\\
-            \tSection_{\{ll\}} &:& (k) t_k\\
-            \tSection_{\{ls\}} &:& (4 k + 2) t_k\\
-            \tSection_{\{ss\}} &:& (k + 1) t_k\\
-            \tSection_{\{aos\}} &:& 2 (2 k + 1) t_k\\
-            \tSection_{\{lls\}} &:& - (2 k) t_k\\
-            \tSection_{\{lss\}} &:& - (2 k + 1) t_k\\
-            \tSection_{\{llss\}} &:& (k) t_k\\
-        \end{array}\]
+\begin{lstlisting}
+=== Classes stats ===
+[ ]  0,0:   0 of    16 | (k + 1) * Tk           []
+[ ]  1,0:   0 of   -10 | - (2 * k + 1) * Tk     [l]
+[ ]  1,1:   0 of   -12 | - 2 * (k + 1) * Tk     [s]
+[ ]  2,0:   0 of    -4 | - (4 * k) * Tk         [ao]
+[ ]  2,1:   0 of     1 | (k) * Tk               [ll]
+[ ]  2,2:   0 of     6 | (4 * k + 2) * Tk       [ls]
+[ ]  2,3:   0 of     2 | (k + 1) * Tk           [ss]
+[ ]  3,0:   0 of     2 | 2 * (2 * k + 1) * Tk   [aos]
+[x]  3,1:   0 of     0 | - (2 * k) * Tk         [lls]
+[ ]  3,2:   0 of    -1 | - (2 * k + 1) * Tk     [lss]
+[x]  4,0:   0 of     0 | k * Tk                 [llss]
+\end{lstlisting}
     \end{block}
 \end{frame}
 
@@ -417,30 +419,48 @@
 
 \begin{frame}[fragile]{Iteracyjne drążenie tematu}
     \begin{block}{}
-\begin{lstlisting}
-=== Classes stats ===
-[ ]  0,0:   0 of    16 | (k + 1) * Tk           []
-[ ]  1,0:   0 of   -10 | - (2 * k + 1) * Tk     [l]
-[ ]  1,1:   0 of   -12 | - 2 * (k + 1) * Tk     [s]
-[ ]  2,0:   0 of    -4 | - (4 * k) * Tk         [ao]
-[ ]  2,1:   0 of     1 | (k) * Tk               [ll]
-[ ]  2,2:   0 of     6 | (4 * k + 2) * Tk       [ls]
-[ ]  2,3:   0 of     2 | (k + 1) * Tk           [ss]
-[ ]  3,0:   0 of     2 | 2 * (2 * k + 1) * Tk   [aos]
-[x]  3,1:   0 of     0 | - (2 * k) * Tk         [lls]
-[ ]  3,2:   0 of    -1 | - (2 * k + 1) * Tk     [lss]
-[x]  4,0:   0 of     0 | k * Tk                 [llss]
-\end{lstlisting}
-    \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Iteracyjne drążenie tematu}
-    \begin{block}{}
         \begin{center}
             \includeinlinescaledsvg{.4}{.4}{lambda__transformations__001a}%
             \(\xRightarrow{+1}\)%
             \includeinlinescaledsvg{.4}{.4}{lambda__transformations__001b}%
         \end{center}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Iteracyjne drążenie tematu}
+    \begin{block}{}
+        \scriptsize
+        (1)%
+        \begin{minipage}{.98\textwidth}\begin{center}%
+        \includeinlinescaledsvg{.33}{.25}{lambda__trees_00__2}%
+        \includeinlinescaledsvg{.33}{.25}{lambda__trees_00__3}%
+        \includeinlinescaledsvg{.33}{.25}{lambda__trees_00__7}%
+        \end{center}\end{minipage}
+
+        (2)%
+        \begin{minipage}{.98\textwidth}\begin{center}%
+        \includeinlinescaledsvg{.33}{.25}{lambda__trees_00__4}%
+        \includeinlinescaledsvg{.33}{.25}{lambda__trees_00__12}%
+        \includeinlinescaledsvg{.33}{.25}{lambda__trees_00__13}%
+        \end{center}\end{minipage}
+
+        (3)%
+        \begin{minipage}{.98\textwidth}\begin{center}%
+        \includeinlinescaledsvg{.16}{.25}{lambda__trees_00__0}%
+        \includeinlinescaledsvg{.16}{.25}{lambda__trees_00__1}%
+        \includeinlinescaledsvg{.16}{.25}{lambda__trees_00__5}%
+        \includeinlinescaledsvg{.16}{.25}{lambda__trees_00__6}%
+        \includeinlinescaledsvg{.16}{.25}{lambda__trees_00__14}%
+        \includeinlinescaledsvg{.16}{.25}{lambda__trees_00__15}%
+        \end{center}\end{minipage}
+
+        (4)%
+        \begin{minipage}{.98\textwidth}\begin{center}%
+        \includeinlinescaledsvg{.25}{.25}{lambda__trees_00__8}%
+        \includeinlinescaledsvg{.25}{.25}{lambda__trees_00__9}%
+        \includeinlinescaledsvg{.25}{.25}{lambda__trees_00__10}%
+        \includeinlinescaledsvg{.25}{.25}{lambda__trees_00__11}%
+        \end{center}\end{minipage}
     \end{block}
 \end{frame}
 
@@ -466,12 +486,26 @@
     \end{block}
 \end{frame}
 
-\begin{frame}[fragile]{Iteracyjne drążenie tematu}
+\begin{frame}{Iteracyjne drążenie tematu}
     \begin{block}{}
         \begin{center}
             \includeinlinescaledsvg{.4}{.4}{lambda__transformations__002a}%
             \(\xRightarrow{-1}\)%
             \includeinlinescaledsvg{.4}{.4}{lambda__transformations__002b}%
+        \end{center}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Iteracyjne drążenie tematu}
+    \begin{block}{}
+        \begin{center}
+\includeinlinesvg{.18}{lambda__trees_100__0_base}\(\xRightarrow{-1}\)\includeinlinesvg{.18}{lambda__trees_100__0}%
+\qquad
+\includeinlinesvg{.18}{lambda__trees_100__1_base}\(\xRightarrow{-1}\)\includeinlinesvg{.18}{lambda__trees_100__1}%
+
+\includeinlinesvg{.18}{lambda__trees_100__2_base}\(\xRightarrow{-1}\)\includeinlinesvg{.18}{lambda__trees_100__2}%
+\qquad
+\includeinlinesvg{.18}{lambda__trees_100__3_base}\(\xRightarrow{-1}\)\includeinlinesvg{.18}{lambda__trees_100__3}%
         \end{center}
     \end{block}
 \end{frame}
